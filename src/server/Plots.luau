@@ -92,6 +92,11 @@ function Plots.GetShop(player)
 	return plotOf[player]
 end
 
+-- Returns every shop model (owned or not).
+function Plots.GetAllShops()
+	return table.clone(plots)
+end
+
 function Plots.Start()
 	local folder = Instance.new("Folder")
 	folder.Name = "Plots"

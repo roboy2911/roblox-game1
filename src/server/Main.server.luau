@@ -11,27 +11,9 @@ LightingSetup.Start()
 Plots.Start()
 PlayerData.Start()
 
--- Testing helper, only in Studio: a green pad that gives $50.
+-- Testing helpers (cash pad, item spawner), only when playing in Studio.
 if RunService:IsStudio() then
-	local pad = Instance.new("Part")
-	pad.Name = "DebugCashPad"
-	pad.Size = Vector3.new(4, 1, 4)
-	pad.Position = Vector3.new(0, 0.5, -12)
-	pad.Anchored = true
-	pad.BrickColor = BrickColor.new("Lime green")
-	pad.Material = Enum.Material.Neon
-
-	local prompt = Instance.new("ProximityPrompt")
-	prompt.ActionText = "Get $50"
-	prompt.ObjectText = "Debug"
-	prompt.HoldDuration = 0
-	prompt.Parent = pad
-
-	prompt.Triggered:Connect(function(player)
-		PlayerData.AddCash(player, 50)
-	end)
-
-	pad.Parent = workspace
+	require(script.Parent.DebugTools).Start(PlayerData, Plots)
 end
 
 print(`{Config.GameName} v{Config.Version} – Pawn Shop loaded!`)

@@ -18,7 +18,7 @@
   Test: Output shows "Pawn Shop loaded!"
 - [x] **Step 1 – Cash + saving:** Cash on the leaderboard, saved with DataStores.
   Test: rejoin and your cash is still there.
-- [ ] **Step 2 – Your shop:** Each player is assigned their own shop plot (counter, shelves, door).
+- [x] **Step 2 – Your shop:** Each player is assigned their own shop plot (counter, shelves, door).
   Test: join and get a shop.
 - [ ] **Step 3 – Item list:** Items with rarity + hidden true value.
   Test: debug button spawns random items.

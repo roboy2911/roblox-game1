@@ -2,7 +2,7 @@
 local Config = {}
 
 Config.GameName = "Pawn Shop Simulator"
-Config.Version = "0.2.2"
+Config.Version = "0.3.0"
 
 -- Shop plots
 Config.PlotCount = 6 -- one per player, so set Max Players to this
