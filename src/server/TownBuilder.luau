@@ -41,7 +41,7 @@ local function lamp(parent, cf: CFrame)
 	b.part(m, "Cap", V(1.6, 0.5, 1.6), V(0, 12.0, -3), C.DarkMetal, M.Metal)
 	local bulb = b.part(m, "Bulb", V(1, 0.8, 1), V(0, 11.4, -3), C.WarmLight, M.Neon)
 	b.part(m, "Bottom", V(1.2, 0.2, 1.2), V(0, 10.9, -3), C.DarkMetal, M.Metal)
-	Build.light(bulb, 28, 1.2)
+	Build.light(bulb, 20, 0.6)
 end
 
 -- Park bench; people sitting on it face the direction cf is facing.

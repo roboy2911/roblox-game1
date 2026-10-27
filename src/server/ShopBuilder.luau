@@ -108,7 +108,7 @@ local function buildFacade(b, m, shop, accent)
 		b.part(m, "LanternCap", V(1, 0.2, 1), V(s * 5.5, 10.2, -19.3), C.Gold, M.Metal)
 		local bulb = b.part(m, "Lantern", V(0.7, 1, 0.7), V(s * 5.5, 9.6, -19.3), C.WarmLight, M.Neon)
 		b.part(m, "LanternCap", V(1, 0.2, 1), V(s * 5.5, 9.0, -19.3), C.Gold, M.Metal)
-		Build.light(bulb, 14, 1)
+		Build.light(bulb, 12, 0.5)
 	end
 
 	-- The classic pawnbroker symbol: three gold balls hanging from a bracket
@@ -218,13 +218,13 @@ local function buildInterior(b, m, accent)
 	b.part(m, "ChandelierChain", V(0.2, 2, 0.2), V(0, 15.8, -6), C.Gold, M.Metal)
 	b.column(m, "ChandelierRing", 4, 0.3, V(0, 14.5, -6), C.Gold, M.Metal)
 	local crystal = b.ball(m, "ChandelierCrystal", 1, V(0, 14.2, -6), C.Glass, M.Glass, { transparency = 0.3 })
-	Build.light(crystal, 40, 1.5)
+	Build.light(crystal, 26, 0.6)
 	for k = 0, 5 do
 		local angle = math.rad(k * 60)
-		b.ball(m, "ChandelierBulb", 0.6, V(2 * math.cos(angle), 14.95, -6 + 2 * math.sin(angle)), C.WarmLight, M.Neon)
+		b.ball(m, "ChandelierBulb", 0.6, V(2 * math.cos(angle), 14.95, -6 + 2 * math.sin(angle)), C.WarmLight)
 	end
-	local backLight = b.part(m, "CeilingLight", V(4, 0.2, 4), V(0, 16.7, 10), C.WarmLight, M.Neon)
-	Build.light(backLight, 30, 1)
+	local backLight = b.part(m, "CeilingLight", V(4, 0.2, 4), V(0, 16.7, 10), C.WarmLight)
+	Build.light(backLight, 20, 0.4)
 
 	-- Guitar wall behind the counter
 	b.part(m, "GuitarBoard", V(10, 6, 0.2), V(-10, 8, 15.7), C.LightWood, M.WoodPlanks)

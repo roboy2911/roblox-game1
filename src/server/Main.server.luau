@@ -5,7 +5,9 @@ local RunService = game:GetService("RunService")
 local Config = require(ReplicatedStorage.Shared.Config)
 local PlayerData = require(script.Parent.PlayerData)
 local Plots = require(script.Parent.Plots)
+local LightingSetup = require(script.Parent.LightingSetup)
 
+LightingSetup.Start()
 Plots.Start()
 PlayerData.Start()
 
