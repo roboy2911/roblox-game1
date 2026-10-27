@@ -4,7 +4,9 @@ local RunService = game:GetService("RunService")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local PlayerData = require(script.Parent.PlayerData)
+local Plots = require(script.Parent.Plots)
 
+Plots.Start()
 PlayerData.Start()
 
 -- Testing helper, only in Studio: a green pad that gives $50.

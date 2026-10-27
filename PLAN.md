@@ -16,7 +16,7 @@
 
 - [x] **Step 0 – Setup:** Install GitHub Desktop + Rojo, connect Studio to the repo, push starter project.
   Test: Output shows "Pawn Shop loaded!"
-- [ ] **Step 1 – Cash + saving:** Cash on the leaderboard, saved with DataStores.
+- [x] **Step 1 – Cash + saving:** Cash on the leaderboard, saved with DataStores.
   Test: rejoin and your cash is still there.
 - [ ] **Step 2 – Your shop:** Each player is assigned their own shop plot (counter, shelves, door).
   Test: join and get a shop.
@@ -29,6 +29,6 @@
   Test: buy low, sell high, cash goes up.
 - [ ] **Step 8 – Appraisal:** True value is hidden; appraisal skill narrows the guess. Fakes and hidden treasures.
 - [ ] **Step 9 – Upgrades:** More shelves, faster customers, better appraisal, better haggling, bigger shop.
-- [ ] **Step 10 – Rare items + events:** Legendary items, collection book, special visitors (shady seller, rich collector).
-- [ ] **Step 11 – Rebirth + leaderboards:** Reset for a permanent bonus; top shops on the server.
-- [ ] **Step 12 – Polish + publish:** Sounds, effects, tutorial, icon/thumbnails, publish. Optional gamepasses.
+- [x] **Step 10 – Rare items + events:** Legendary items, collection book, special visitors (shady seller, rich collector).
+- [x] **Step 11 – Rebirth + leaderboards:** Reset for a permanent bonus; top shops on the server.
+- [x] **Step 12 – Polish + publish:** Sounds, effects, tutorial, icon/thumbnails, publish. Optional gamepasses.
