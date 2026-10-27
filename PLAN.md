@@ -14,7 +14,7 @@
 
 ## Steps
 
-- [ ] **Step 0 – Setup:** Install GitHub Desktop + Rojo, connect Studio to the repo, push starter project.
+- [x] **Step 0 – Setup:** Install GitHub Desktop + Rojo, connect Studio to the repo, push starter project.
   Test: Output shows "Pawn Shop loaded!"
 - [ ] **Step 1 – Cash + saving:** Cash on the leaderboard, saved with DataStores.
   Test: rejoin and your cash is still there.

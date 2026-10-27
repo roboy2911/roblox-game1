@@ -1,0 +1,6 @@
+# Roblox Studio files (your map lives in Studio, not here)
+*.rbxl
+*.rbxlx
+*.rbxl.lock
+*.rbxlx.lock
+sourcemap.json
