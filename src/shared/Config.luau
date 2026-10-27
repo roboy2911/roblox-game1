@@ -2,12 +2,12 @@
 local Config = {}
 
 Config.GameName = "Pawn Shop Simulator"
-Config.Version = "0.2.0"
+Config.Version = "0.2.1"
 
 -- Shop plots
 Config.PlotCount = 6 -- one per player, so set Max Players to this
-Config.PlotSpacing = 50 -- distance between shops along the street
-Config.StreetToShop = 40 -- distance from the street's middle to each shop's center
+Config.PlotSpacing = 56 -- distance between shops along the street
+Config.StreetToShop = 43 -- distance from the street's middle to each shop's center
 
 -- Money
 Config.StartingCash = 100

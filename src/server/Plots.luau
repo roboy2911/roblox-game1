@@ -6,37 +6,40 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local ShopBuilder = require(script.Parent.ShopBuilder)
+local TownBuilder = require(script.Parent.TownBuilder)
 
 local Plots = {}
 
 local plots = {} -- list of shop models
 local plotOf = {} -- plotOf[player] = shop model
 
+-- Each shop gets its own accent color (awnings, sign text, rug, counter panels...)
+local ACCENTS = {
+	Color3.fromRGB(140, 80, 220), -- purple
+	Color3.fromRGB(30, 185, 175), -- teal
+	Color3.fromRGB(255, 110, 100), -- coral
+	Color3.fromRGB(60, 110, 230), -- royal blue
+	Color3.fromRGB(40, 175, 100), -- emerald
+	Color3.fromRGB(235, 85, 165), -- pink
+}
+
 -- Plots sit on both sides of a street that runs north-south through the middle.
-local function plotOrigins()
-	local origins = {}
+-- Returns the CFrame of each plot and the z position of each row.
+local function layout()
+	local origins, rowZs = {}, {}
 	local perSide = math.ceil(Config.PlotCount / 2)
 	local startZ = -(perSide - 1) * Config.PlotSpacing / 2
+	for row = 0, perSide - 1 do
+		table.insert(rowZs, startZ + row * Config.PlotSpacing)
+	end
 	for i = 1, Config.PlotCount do
 		local side = if i % 2 == 1 then -1 else 1 -- left, right, left, right...
-		local row = math.ceil(i / 2) - 1
-		local position = Vector3.new(side * Config.StreetToShop, 0, startZ + row * Config.PlotSpacing)
+		local z = rowZs[math.ceil(i / 2)]
+		local position = Vector3.new(side * Config.StreetToShop, 0, z)
 		-- Face the street (the door points toward x = 0)
 		table.insert(origins, CFrame.lookAt(position, position - Vector3.new(side, 0, 0)))
 	end
-	return origins
-end
-
-local function buildStreet(folder)
-	local perSide = math.ceil(Config.PlotCount / 2)
-	local street = Instance.new("Part")
-	street.Name = "Street"
-	street.Anchored = true
-	street.Size = Vector3.new(24, 0.2, perSide * Config.PlotSpacing + 40)
-	street.Position = Vector3.new(0, 0.1, 0)
-	street.Color = Color3.fromRGB(45, 45, 50)
-	street.Material = Enum.Material.Asphalt
-	street.Parent = folder
+	return origins, rowZs
 end
 
 local function setSign(shop, text)
@@ -93,9 +96,11 @@ function Plots.Start()
 	local folder = Instance.new("Folder")
 	folder.Name = "Plots"
 
-	buildStreet(folder)
-	for i, origin in plotOrigins() do
-		local shop = ShopBuilder.Build(origin, `Plot{i}`)
+	local origins, rowZs = layout()
+	TownBuilder.Build(folder, rowZs)
+	for i, origin in origins do
+		local accent = ACCENTS[(i - 1) % #ACCENTS + 1]
+		local shop = ShopBuilder.Build(origin, `Plot{i}`, accent)
 		shop.Parent = folder
 		table.insert(plots, shop)
 	end
