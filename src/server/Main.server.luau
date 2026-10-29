@@ -7,11 +7,13 @@ local PlayerData = require(script.Parent.PlayerData)
 local Plots = require(script.Parent.Plots)
 local LightingSetup = require(script.Parent.LightingSetup)
 local MeshLoader = require(script.Parent.MeshLoader)
+local Customers = require(script.Parent.Customers)
 
 LightingSetup.Start()
 MeshLoader.Preload()
 Plots.Start()
 PlayerData.Start()
+Customers.Start(Plots)
 
 -- Testing helpers (cash pad, item spawner), only when playing in Studio.
 if RunService:IsStudio() then

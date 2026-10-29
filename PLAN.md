@@ -20,9 +20,10 @@
   Test: rejoin and your cash is still there.
 - [x] **Step 2 – Your shop:** Each player is assigned their own shop plot (counter, shelves, door).
   Test: join and get a shop.
-- [ ] **Step 3 – Item list:** Items with rarity + hidden true value.
+- [x] **Step 3 – Item list:** Items with rarity + hidden true value.
   Test: debug button spawns random items.
 - [ ] **Step 4 – Sellers walk in:** NPC customers walk to your counter with an item and ask a price.
+  Test: a seller walks in, puts an item on the counter, asks a price, waits, then leaves (or you send them away).
 - [ ] **Step 5 – Haggling (buying):** ⭐ Offer / Counter / Accept / Walk away. Customers have patience and mood.
 - [ ] **Step 6 – Inventory + shelves:** Bought items go to inventory; place them on display shelves.
 - [ ] **Step 7 – Buyers + selling:** Buyer NPCs browse shelves; haggle to sell high.
