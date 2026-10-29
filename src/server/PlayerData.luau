@@ -2,6 +2,7 @@
 -- Other server scripts change data through this module, e.g. PlayerData.AddCash(player, 50).
 
 local DataStoreService = game:GetService("DataStoreService")
+local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -9,11 +10,15 @@ local Config = require(ReplicatedStorage.Shared.Config)
 
 local PlayerData = {}
 
+-- Fires (player) whenever a player's inventory changes, so their screen can update.
+PlayerData.InventoryChanged = Instance.new("BindableEvent")
+
 -- New players start with this. When we add new fields later, old saves get them automatically.
 local function defaultData()
 	return {
 		Cash = Config.StartingCash,
-		-- Items bought from sellers: { Id, Name, Rarity, Condition, TrueValue, Paid }
+		-- Items bought from sellers: { Uid, Id, Name, Rarity, Condition, TrueValue, Paid, Slot }
+		-- Uid = unique id for this copy; Slot = where it's on display in the shop (nil = in the bag)
 		Inventory = {},
 	}
 end
@@ -85,6 +90,9 @@ local function load(player)
 		return -- left while loading
 	end
 
+	for _, item in data.Inventory do
+		item.Uid = item.Uid or HttpService:GenerateGUID(false)
+	end
 	profiles[player] = { data = data, canSave = canSave }
 	makeLeaderstats(player, data)
 end
@@ -132,8 +140,34 @@ function PlayerData.AddItem(player, item): boolean
 	if not profile then
 		return false
 	end
+	item.Uid = item.Uid or HttpService:GenerateGUID(false)
 	table.insert(profile.data.Inventory, item)
+	PlayerData.InventoryChanged:Fire(player)
 	return true
+end
+
+-- Finds one of the player's items by its Uid.
+function PlayerData.FindItem(player, uid: string)
+	for _, item in PlayerData.GetInventory(player) do
+		if item.Uid == uid then
+			return item
+		end
+	end
+	return nil
+end
+
+-- Puts an item on display at `slot` (a shop spot id), or back in the bag with nil.
+function PlayerData.SetItemSlot(player, uid: string, slot: string?)
+	local item = PlayerData.FindItem(player, uid)
+	if item then
+		item.Slot = slot
+		PlayerData.InventoryChanged:Fire(player)
+	end
+end
+
+-- True once the player's saved data has loaded.
+function PlayerData.IsLoaded(player): boolean
+	return profiles[player] ~= nil
 end
 
 -- The player's inventory list (don't change it directly; use the functions above).
