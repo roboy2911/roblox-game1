@@ -18,7 +18,7 @@ PlayerData.Start()
 Customers.Start(Plots, PlayerData, Inventory)
 Inventory.Start(PlayerData, Plots)
 Upgrades.Start(PlayerData)
-ShopDoors.Start(PlayerData, Plots, Customers)
+ShopDoors.Start(PlayerData, Plots)
 
 -- Admin menu (testing tools) for the IDs in Config.AdminUserIds
 require(script.Parent.Admin).Start(PlayerData, Plots)

@@ -469,7 +469,7 @@ local function walkToItem(state, model: Model)
 	local localStand = floor:PointToObjectSpace(look.Position + look.LookVector * 2.5)
 	local inside = shopPoint(shop, 0, -11) -- inside, past the open glass doors
 	if localStand.Z > 16 then
-		-- In the back room: through the counter gate and the back door (pathfinding finds the way)
+		-- In the back area: around the checkout island, up one of the side aisles (pathfinding finds the way)
 		walkTo(state, inside, true)
 		walkTo(state, shopPoint(shop, localStand.X, localStand.Z), true)
 		if not state.Leaving then

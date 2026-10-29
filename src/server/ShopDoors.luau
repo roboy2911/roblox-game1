@@ -1,17 +1,16 @@
--- Swings the shops' doors:
---   the counter gate opens when the owner or a customer comes near (other players can't open it),
---   the back room door opens for owners who bought the Bigger shop upgrade, and stays locked otherwise.
+-- Shop gates and ropes:
+--   the checkout gate (back side of the counter island) swings open when the owner comes near,
+--   the velvet ropes across the aisles to the back area disappear once the owner has Bigger shop.
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 
 local ShopDoors = {}
 
-local GATE_ANGLE = -95 -- degrees; negative swings toward the back (the owner's side)
-local DOOR_ANGLE = -100
+local GATE_ANGLE = 95 -- degrees; positive swings toward the front (into the checkout)
 local GATE_REACH = 7 -- studs from the gate's middle
 
-local PlayerData, Plots, Customers -- set in Start
+local PlayerData, Plots -- set in Start
 local doors = {} -- [model] = { Hinge, Parts, Open }
 
 -- Remembers where each part sits relative to the hinge, so it can swing around it.
@@ -50,32 +49,33 @@ local function update(shop)
 	local userId = shop:GetAttribute("OwnerUserId")
 	local owner = userId and Players:GetPlayerByUserId(userId)
 
-	-- Back room door: open only with the upgrade
-	local backDoor = shop:FindFirstChild("BackDoor")
-	if backDoor then
+	-- Ropes to the back area: gone once the owner has the Bigger shop upgrade
+	local ropes = shop:FindFirstChild("BackRopes")
+	if ropes then
 		local unlocked = owner ~= nil and PlayerData.GetUpgrade(owner, "BiggerShop") >= 1
-		swing(backDoor, unlocked, DOOR_ANGLE)
-		local sign = backDoor:FindFirstChild("LockSign")
-		local gui = sign and sign:FindFirstChildOfClass("SurfaceGui")
-		if gui then
-			gui.Enabled = not unlocked
+		if ropes:GetAttribute("Hidden") ~= unlocked then
+			ropes:SetAttribute("Hidden", unlocked)
+			for _, part in ropes:GetDescendants() do
+				if part:IsA("BasePart") then
+					part.Transparency = if unlocked then 1 else 0
+				elseif part:IsA("SurfaceGui") then
+					part.Enabled = not unlocked
+				end
+			end
 		end
 	end
 
-	-- Gate: open while the owner or a customer is close
+	-- Checkout gate: open while the owner is close (only the owner goes in)
 	local gate = shop.Counter:FindFirstChild("Gate")
 	if gate then
 		local middle = (doorFor(gate).Hinge * CFrame.new(1.95, 0, 0)).Position
 		local character = owner and owner.Character
-		local customer = Customers.Get(shop)
-		local open = near(middle, character and character:FindFirstChild("HumanoidRootPart"))
-			or (customer ~= nil and customer.Npc ~= nil and near(middle, customer.Root))
-		swing(gate, open, GATE_ANGLE)
+		swing(gate, near(middle, character and character:FindFirstChild("HumanoidRootPart")), GATE_ANGLE)
 	end
 end
 
-function ShopDoors.Start(playerData, plots, customers)
-	PlayerData, Plots, Customers = playerData, plots, customers
+function ShopDoors.Start(playerData, plots)
+	PlayerData, Plots = playerData, plots
 	task.spawn(function()
 		while true do
 			for _, shop in Plots.GetAllShops() do
