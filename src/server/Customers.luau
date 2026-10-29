@@ -213,7 +213,7 @@ end
 local function walkTo(state, target: Vector3, arriving: boolean?)
 	local root = state.Root
 	local deadline = os.clock() + 15
-	local path = PathfindingService:CreatePath({ AgentRadius = 1.6, AgentHeight = 5, AgentCanJump = false })
+	local path = PathfindingService:CreatePath({ AgentRadius = 1.4, AgentHeight = 5, AgentCanJump = false })
 	local ok = pcall(function()
 		path:ComputeAsync(root.Position, target)
 	end)
@@ -461,38 +461,53 @@ local function displayedItems(owner)
 	return list
 end
 
--- Walks from the door to stand in front of a displayed item, going around the glass cases.
+-- How far in front of a displayed item a buyer stands (clear of the case/shelf, so paths work)
+local STAND_DISTANCE = 3.4
+
+-- Walks through a list of points in order.
+local function walkRoute(state, points, arriving: boolean?)
+	for _, point in points do
+		if arriving and state.Leaving then
+			return
+		end
+		walkTo(state, point, arriving)
+	end
+end
+
+-- Walks from the door to stand in front of a displayed item, on set routes around the glass
+-- cases and the checkout island (in shop coordinates: cases at x +-10, island x -10..10 z 3..17,
+-- aisles at x +-13.8, back cases at x +-11 from z 19.5). Also sets the routes back to the
+-- counter (ToCounter) and out of the shop (ExitPath).
 local function walkToItem(state, model: Model)
 	local shop = state.Shop
 	local floor = shop.PrimaryPart.CFrame
 	local look = model:GetPivot()
-	local localStand = floor:PointToObjectSpace(look.Position + look.LookVector * 2.5)
-	local inside = shopPoint(shop, 0, -11) -- inside, past the open glass doors
-	if localStand.Z > 16 then
-		-- In the back area: around the checkout island, up one of the side aisles (pathfinding finds the way)
-		walkTo(state, inside, true)
-		walkTo(state, shopPoint(shop, localStand.X, localStand.Z), true)
-		if not state.Leaving then
-			state.Npc:PivotTo(CFrame.lookAt(state.Root.Position, Vector3.new(look.Position.X, state.Root.Position.Y, look.Position.Z)))
-		end
-		state.BackToCounter = nil
-		return
+	local stand = floor:PointToObjectSpace(look.Position + look.LookVector * STAND_DISTANCE)
+	local s = if stand.X > 0.5 then 1 elseif stand.X < -0.5 then -1 elseif rng:NextNumber() < 0.5 then 1 else -1
+	local function at(x, z)
+		return shopPoint(shop, x, z)
 	end
-	local s = if localStand.X >= 0 then 1 else -1
-	-- Glass cases sit at x = +-10 (z -10 .. -2); the aisle toward the wall shelves is at x = +-13
-	local onShelf = math.abs(localStand.X) > 12
-	local laneX = if onShelf then s * 13 else localStand.X
-	local lane = shopPoint(shop, laneX, -12)
-	state.ExitPath = { lane, inside }
-	walkTo(state, inside, true)
-	walkTo(state, lane, true)
-	walkTo(state, shopPoint(shop, localStand.X, localStand.Z), true)
+	local inside = at(0, -11) -- inside, past the open glass doors
+	local route
+	if stand.Z > 16 then
+		-- Back area: in front of the counter, up the side aisle, behind the island
+		local aisle = { at(s * 5.5, 0.5), at(s * 13.8, 0.5), at(s * 13.8, 18.6), at(s * 8, 18.6) }
+		route = { inside, table.unpack(aisle) }
+		state.ToCounter = { aisle[4], aisle[3], aisle[2] }
+		state.ExitPath = { aisle[4], aisle[3], aisle[2], aisle[1] }
+	else
+		-- Front: along a lane in front of the glass cases, then up to the item
+		local lane = at(stand.X, -12)
+		route = { inside, lane }
+		state.ToCounter = if math.abs(stand.X) > 12 then { at(s * 13.8, 0.5) } else {}
+		state.ExitPath = { lane, inside }
+	end
+	table.insert(route, at(stand.X, stand.Z))
+	walkRoute(state, route, true)
 	if state.Leaving then
 		return
 	end
 	state.Npc:PivotTo(CFrame.lookAt(state.Root.Position, Vector3.new(look.Position.X, state.Root.Position.Y, look.Position.Z)))
-	-- On the way to the counter, step out of the gap first so they don't walk through a case
-	state.BackToCounter = if onShelf then shopPoint(shop, s * 13, 0.5) else nil
 end
 
 local function visitBuyer(shop, owner)
@@ -527,9 +542,7 @@ local function visitBuyer(shop, owner)
 	end
 	say(state, "Ooh, nice...")
 	task.wait(Config.BrowseSeconds)
-	if state.BackToCounter then
-		walkTo(state, state.BackToCounter, true)
-	end
+	walkRoute(state, state.ToCounter or {}, true)
 	walkTo(state, markers.CustomerSpot.Position, true)
 	state.ExitPath = nil -- back in the middle of the shop: straight out works
 	if state.Leaving or not state.Npc.Parent then
