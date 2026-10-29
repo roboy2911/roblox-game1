@@ -1,0 +1,67 @@
+{
+  "Id": "OldBoot",
+  "Size": [
+    0.957,
+    1.986,
+    2.081
+  ],
+  "Parts": {
+    "Sole": {
+      "Color": [
+        45,
+        38,
+        34
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Leather": {
+      "Color": [
+        112,
+        74,
+        44
+      ],
+      "Material": "Leather",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Worn": {
+      "Color": [
+        150,
+        105,
+        65
+      ],
+      "Material": "Leather",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Laces": {
+      "Color": [
+        225,
+        212,
+        188
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Sole": 1544,
+    "Leather": 2292,
+    "Worn": 1256,
+    "Steel": 2760,
+    "Laces": 604
+  }
+}

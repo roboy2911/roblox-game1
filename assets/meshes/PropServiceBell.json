@@ -1,0 +1,39 @@
+{
+  "Id": "PropServiceBell",
+  "Size": [
+    1.04,
+    0.81,
+    1.04
+  ],
+  "Parts": {
+    "Wood": {
+      "Color": [
+        85,
+        55,
+        40
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    }
+  },
+  "Triangles": {
+    "Wood": 384,
+    "Gold": 764
+  },
+  "Origin": [
+    0.0,
+    -0.0,
+    -0.0
+  ]
+}

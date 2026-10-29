@@ -1,0 +1,83 @@
+{
+  "Id": "PropRetroTV",
+  "Size": [
+    4.1,
+    6.673,
+    2.73
+  ],
+  "Parts": {
+    "DarkWood": {
+      "Color": [
+        85,
+        55,
+        40
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Wood": {
+      "Color": [
+        150,
+        100,
+        60
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Case": {
+      "Color": [
+        95,
+        85,
+        80
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Screen": {
+      "Color": [
+        40,
+        70,
+        95
+      ],
+      "Material": "Glass",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    }
+  },
+  "Triangles": {
+    "DarkWood": 608,
+    "Wood": 404,
+    "Steel": 1160,
+    "Case": 428,
+    "Dark": 1344,
+    "Screen": 960
+  },
+  "Origin": [
+    0.0,
+    0.023,
+    0.065
+  ]
+}

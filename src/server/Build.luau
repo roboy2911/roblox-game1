@@ -88,6 +88,11 @@ function Build.at(origin: CFrame)
 		return b.part(parent, name, Vector3.new(diameter, diameter, diameter), pos, color, material, extra)
 	end
 
+	-- A CFrame at `pos` relative to the origin, optionally turned `turn` degrees around the vertical axis.
+	function b.cframe(pos: Vector3, turn: number?): CFrame
+		return origin * CFrame.new(pos) * CFrame.Angles(0, math.rad(turn or 0), 0)
+	end
+
 	-- Invisible spot that scripts use later (spawn points, where customers stand...).
 	function b.marker(parent, name, pos: Vector3)
 		local marker = b.part(parent, name, Vector3.new(1, 1, 1), pos, nil, nil, { transparency = 1, collide = false })

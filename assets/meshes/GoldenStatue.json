@@ -1,0 +1,45 @@
+{
+  "Id": "GoldenStatue",
+  "Size": [
+    1.3,
+    3.08,
+    1.3
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.25
+    },
+    "Flame": {
+      "Color": [
+        255,
+        160,
+        40
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Marble": 376,
+    "Gold": 7784,
+    "Flame": 960
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "Id": "Skateboard",
+  "Size": [
+    0.883,
+    0.617,
+    2.707
+  ],
+  "Parts": {
+    "Deck": {
+      "Color": [
+        255,
+        90,
+        60
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Grip": {
+      "Color": [
+        35,
+        35,
+        40
+      ],
+      "Material": "Sand",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Graphic": {
+      "Color": [
+        255,
+        210,
+        60
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Wheel": {
+      "Color": [
+        250,
+        240,
+        120
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Deck": 1748,
+    "Grip": 1748,
+    "Graphic": 108,
+    "Steel": 3856,
+    "Wheel": 1520,
+    "Dark": 752
+  }
+}

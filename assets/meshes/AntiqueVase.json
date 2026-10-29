@@ -1,0 +1,45 @@
+{
+  "Id": "AntiqueVase",
+  "Size": [
+    1.314,
+    2.048,
+    1.37
+  ],
+  "Parts": {
+    "Porcelain": {
+      "Color": [
+        245,
+        245,
+        250
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.05
+    },
+    "Blue": {
+      "Color": [
+        40,
+        80,
+        180
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    }
+  },
+  "Triangles": {
+    "Porcelain": 2432,
+    "Blue": 7192,
+    "Gold": 4264
+  }
+}

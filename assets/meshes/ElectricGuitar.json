@@ -1,0 +1,67 @@
+{
+  "Id": "ElectricGuitar",
+  "Size": [
+    1.408,
+    3.897,
+    0.431
+  ],
+  "Parts": {
+    "Paint": {
+      "Color": [
+        210,
+        30,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.05
+    },
+    "White": {
+      "Color": [
+        245,
+        245,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Chrome": {
+      "Color": [
+        200,
+        205,
+        215
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Maple": {
+      "Color": [
+        225,
+        185,
+        125
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Paint": 2636,
+    "White": 2444,
+    "Chrome": 6824,
+    "Maple": 1252,
+    "Dark": 1212
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "Id": "PropTree",
+  "Size": [
+    8.053,
+    11.539,
+    6.797
+  ],
+  "Parts": {
+    "Bark": {
+      "Color": [
+        115,
+        80,
+        55
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Leaf": {
+      "Color": [
+        95,
+        195,
+        85
+      ],
+      "Material": "Grass",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "DarkLeaf": {
+      "Color": [
+        60,
+        150,
+        65
+      ],
+      "Material": "Grass",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Bark": 1816,
+    "Leaf": 960,
+    "DarkLeaf": 960
+  },
+  "Origin": [
+    0.0,
+    0.155,
+    -0.232
+  ]
+}

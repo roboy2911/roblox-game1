@@ -1,0 +1,111 @@
+{
+  "Id": "Painting",
+  "Size": [
+    1.9,
+    2.627,
+    1.334
+  ],
+  "Parts": {
+    "Easel": {
+      "Color": [
+        110,
+        70,
+        45
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "SkyTop": {
+      "Color": [
+        190,
+        110,
+        170
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Sky": {
+      "Color": [
+        255,
+        165,
+        90
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Sun": {
+      "Color": [
+        255,
+        235,
+        130
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Sea": {
+      "Color": [
+        55,
+        105,
+        185
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Hills": {
+      "Color": [
+        70,
+        60,
+        95
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Boat": {
+      "Color": [
+        40,
+        30,
+        40
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "White": {
+      "Color": [
+        245,
+        245,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Easel": 456,
+    "Gold": 2864,
+    "SkyTop": 12,
+    "Sky": 12,
+    "Sun": 124,
+    "Sea": 12,
+    "Hills": 20,
+    "Boat": 12,
+    "White": 8
+  }
+}

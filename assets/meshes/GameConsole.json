@@ -1,0 +1,122 @@
+{
+  "Id": "GameConsole",
+  "Size": [
+    1.4,
+    0.35,
+    1.61
+  ],
+  "Parts": {
+    "Shell": {
+      "Color": [
+        75,
+        75,
+        92
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "ShellTop": {
+      "Color": [
+        95,
+        95,
+        115
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Led": {
+      "Color": [
+        80,
+        255,
+        120
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Controller": {
+      "Color": [
+        40,
+        40,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "BtnRed": {
+      "Color": [
+        240,
+        60,
+        60
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "BtnGreen": {
+      "Color": [
+        60,
+        200,
+        90
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "BtnBlue": {
+      "Color": [
+        60,
+        120,
+        240
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "BtnYellow": {
+      "Color": [
+        250,
+        210,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Cable": {
+      "Color": [
+        30,
+        30,
+        36
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Shell": 188,
+    "ShellTop": 188,
+    "Dark": 936,
+    "Led": 108,
+    "Controller": 1436,
+    "BtnRed": 188,
+    "BtnGreen": 188,
+    "BtnBlue": 188,
+    "BtnYellow": 188,
+    "Cable": 788
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "Id": "Trumpet",
+  "Size": [
+    0.72,
+    0.925,
+    2.735
+  ],
+  "Parts": {
+    "Brass": {
+      "Color": [
+        240,
+        190,
+        70
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Pearl": {
+      "Color": [
+        250,
+        245,
+        235
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.1
+    }
+  },
+  "Triangles": {
+    "Brass": 8820,
+    "Steel": 1068,
+    "Pearl": 1140
+  }
+}

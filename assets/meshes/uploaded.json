@@ -3,12 +3,144 @@
     "assetId": 110323470761324,
     "sha256": "1e1dfeb9cae9fb999cb77eb9cdf62fe7612a4473fb052ad098f11c1205068402"
   },
+  "AntiqueVase": {
+    "assetId": 72813640247957,
+    "sha256": "f0727dfc95e3e85bdf2511d2dffdb592027c3798cbed1ca3cb477ddbecc0c751"
+  },
+  "Camera": {
+    "assetId": 99310424010059,
+    "sha256": "88a5ae627a6badc0d76a9ed23cd84781b9ef7f1cd3bac3493ff147a63efef989"
+  },
+  "DeskLamp": {
+    "assetId": 91365945803081,
+    "sha256": "92dae532c9308b127b2e9823186a2b185c6dbcb40c722861c171d7560623e19c"
+  },
+  "DiamondRing": {
+    "assetId": 82142169575132,
+    "sha256": "88259cfb8a363dda238ba36f9635d1d3733f449a8bf181e1579957827abed5c0"
+  },
+  "ElectricGuitar": {
+    "assetId": 106777075212543,
+    "sha256": "07c2af86b9d411672d6e54dd8263fac8b8c7beaf0cec18bcfad6bc0bcb03b824"
+  },
+  "GameConsole": {
+    "assetId": 73762586519703,
+    "sha256": "057da123cd95f3c657f3bc6e4cbbacab0a4c6b7a2840d3299769bc4ddaf320d9"
+  },
   "GoldTrophy": {
     "assetId": 74467942019561,
     "sha256": "d9c3877aebf52290b38cbef63a52622608a1738049c98db29c2e27ce5853339b"
   },
+  "GoldWatch": {
+    "assetId": 133079768080949,
+    "sha256": "13d567b7d336888f75a7e7dce861650b7a18f5e03499ec3a009d2e9fa98f50a1"
+  },
+  "GoldenStatue": {
+    "assetId": 133531489129944,
+    "sha256": "c5b1552f288c5e08fc4e68afcb0b9a44820f58f45e3129f156f9c623e7f8d991"
+  },
+  "Katana": {
+    "assetId": 103154630896377,
+    "sha256": "8c1203be48f2d6b95f1a3cb929e4911646ad742929d148da967d3b3bd25ecee6"
+  },
+  "Meteorite": {
+    "assetId": 73226719710883,
+    "sha256": "8b8187d66e47e8f9ab42622b46af9b3613408ce159e23bc570eccfc4239191f3"
+  },
+  "OldBoot": {
+    "assetId": 91459181927821,
+    "sha256": "3aaa2a8a92ea8f7610d6fecb97666aab1018304f069ffcf0a0c694bf67b759a6"
+  },
+  "OldRadio": {
+    "assetId": 131761827612793,
+    "sha256": "618549a226cc1f814a9447e38897b2ade187c8be2db55e4039afcae6daf2f364"
+  },
+  "Painting": {
+    "assetId": 138825171870217,
+    "sha256": "7d98c2adecd1a2c09cb85d6140797603cc2c0b36d1f56d8afb3a2786228e89e2"
+  },
+  "PropBench": {
+    "assetId": 80802570713773,
+    "sha256": "e21f69707fa8c8aba7826ec0045643863cbc9cd7a8e805d1247a013ca8b6cd6e"
+  },
+  "PropCashRegister": {
+    "assetId": 111651218163935,
+    "sha256": "b4233059784531f063ad29b67852fd49050f582286f268dc0c82fb9b66866060"
+  },
+  "PropChandelier": {
+    "assetId": 140666662947210,
+    "sha256": "362ff4e35a4dedd0ff40863341e41c23923d989a8f010b6b3c367f88cb6f9d89"
+  },
+  "PropFountain": {
+    "assetId": 128621338758116,
+    "sha256": "53f6abd8a100423bb7240f2c265bb08d539938ec3395efa8d85940a166ba4ca6"
+  },
+  "PropLantern": {
+    "assetId": 99689947457978,
+    "sha256": "e0521d760502ba900168b7b643682ccf506224f655d6cbce976dfdf8e91cc8e8"
+  },
+  "PropPawnBalls": {
+    "assetId": 88936651455771,
+    "sha256": "4c37809969a152ddfbcc213b97de02babde9f7cd60a2c7220375b293e6ec0daa"
+  },
+  "PropPottedBush": {
+    "assetId": 105284230100208,
+    "sha256": "64d4a2eb056455d30d5a0e494878e610a7ebd1efd6998898bea208e30298fc25"
+  },
+  "PropPottedPlant": {
+    "assetId": 89509202074471,
+    "sha256": "6a8a69400e2582664ca788f6c8f50a2b1e08584105a63c4766af557fc0c8cf37"
+  },
+  "PropRetroTV": {
+    "assetId": 89649091820720,
+    "sha256": "fc8c238ecc38cbd9a7fe63e87f311939ea3113f57f47b231b788413ddffc5ad5"
+  },
+  "PropSafe": {
+    "assetId": 106301775646680,
+    "sha256": "e60f8df1ceaa289696e7da09eeca39412f5d4dd243b134f38b319bc8072b7673"
+  },
+  "PropServiceBell": {
+    "assetId": 85371204773576,
+    "sha256": "07360b9e6a7b02c42a8acb08b2f8beaa7e7c9fd5ab2837f23aca7e04bdc9f640"
+  },
+  "PropStreetLamp": {
+    "assetId": 113629771401713,
+    "sha256": "57ff0083dbfefaad90b91eba7f14318814ffc040f643b62fd839d08800e592bf"
+  },
+  "PropTree": {
+    "assetId": 82268578684716,
+    "sha256": "db3c3a8b53924f8d64c3189b658f2aa3efea650717bee89a2652549d317c0fac"
+  },
+  "PropWallClock": {
+    "assetId": 104848039626807,
+    "sha256": "d1e661a2f7736c2e2bdd4dadace7f530ba7a8794c1cea789da938876725bdaf4"
+  },
   "RoyalCrown": {
     "assetId": 114928381156600,
     "sha256": "ef85f9a3dda240d4d0d65b31380b854f0baadf86d1af7716865349e061f309fc"
+  },
+  "RubberDuck": {
+    "assetId": 125135334382469,
+    "sha256": "7405b8e4fc79d63f5868f3e004315a8f30265da98a8f930bc4fca18a4aff8f72"
+  },
+  "Skateboard": {
+    "assetId": 101552368265310,
+    "sha256": "ba0d92dcfe9912148febb8db6d3fa4ff4d1260fb7e135cdc8d0615b01282df42"
+  },
+  "TeddyBear": {
+    "assetId": 76699562056183,
+    "sha256": "99c1d238694dcefc90138686eacf2cda9733c8c300be16a7b760fc4d5fdd4d0d"
+  },
+  "TinCan": {
+    "assetId": 94001671991017,
+    "sha256": "d541c86636d09b17bb04e9cdc5707b765f96ace977d2ae8c6d562ac657d17b1c"
+  },
+  "Toaster": {
+    "assetId": 73213773451844,
+    "sha256": "458b429ba98f05f94ab4dbe0231e1811d8b369d211500df602a2e8ff4e4aabe3"
+  },
+  "Trumpet": {
+    "assetId": 88780161577260,
+    "sha256": "11bd2dd671c2856468a76aca79e55a5fe9884fdb1d5d8203fa2a144805e91de9"
   }
 }

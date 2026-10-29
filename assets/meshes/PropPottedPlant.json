@@ -1,0 +1,83 @@
+{
+  "Id": "PropPottedPlant",
+  "Size": [
+    3.023,
+    4.464,
+    3.357
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Soil": {
+      "Color": [
+        70,
+        50,
+        35
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "DarkLeaf": {
+      "Color": [
+        60,
+        150,
+        65
+      ],
+      "Material": "Grass",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Leaf": {
+      "Color": [
+        95,
+        195,
+        85
+      ],
+      "Material": "Grass",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Stem": {
+      "Color": [
+        80,
+        120,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Marble": 672,
+    "Gold": 1536,
+    "Soil": 124,
+    "DarkLeaf": 7396,
+    "Leaf": 6996,
+    "Stem": 2020
+  },
+  "Origin": [
+    0.0,
+    -0.0,
+    -0.134
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "Id": "PropLantern",
+  "Size": [
+    0.735,
+    1.77,
+    1.268
+  ],
+  "Parts": {
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Glass": {
+      "Color": [
+        255,
+        240,
+        200
+      ],
+      "Material": "Glass",
+      "Transparency": 0.45,
+      "Reflectance": 0.1
+    },
+    "Glow": {
+      "Color": [
+        255,
+        225,
+        160
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Gold": 1968,
+    "Glass": 108,
+    "Glow": 960,
+    "Dark": 220
+  },
+  "Origin": [
+    0.0,
+    1.42,
+    0.634
+  ]
+}
