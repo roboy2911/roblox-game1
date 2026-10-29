@@ -3,10 +3,33 @@
 -- If a model isn't in the catalog or fails to load, callers fall back to the part version.
 
 local InsertService = game:GetService("InsertService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local MeshCatalog = require(script.Parent.MeshCatalog)
 
 local MeshLoader = {}
+
+-- Finished models are kept here so players' devices can download the meshes early
+-- (see src/client/Main.client.luau). Otherwise the first spawn of each item appears late.
+local templateFolder = Instance.new("Folder")
+templateFolder.Name = "MeshTemplates"
+templateFolder.Parent = ReplicatedStorage
+
+-- Roblox materials like Wood and Metal add a texture pattern on top of the mesh.
+-- Use smooth surfaces instead; metal parts get some shine so gold still looks like gold.
+local KEEP_MATERIAL = {
+	[Enum.Material.SmoothPlastic] = true,
+	[Enum.Material.Glass] = true,
+	[Enum.Material.Neon] = true,
+	[Enum.Material.ForceField] = true,
+}
+local SHINY = {
+	[Enum.Material.Metal] = true,
+	[Enum.Material.Foil] = true,
+	[Enum.Material.DiamondPlate] = true,
+	[Enum.Material.CorrodedMetal] = true,
+}
+local METAL_SHINE = 0.25
 
 local templates = {} -- [id] = Model, or false if loading failed
 local loading = {} -- [id] = true while downloading
@@ -60,9 +83,16 @@ local function prepare(id, entry, loaded)
 			local look = lookFor(entry, part.Name)
 			if look then
 				part.Color = look.Color
-				part.Material = look.Material
 				part.Transparency = look.Transparency
-				part.Reflectance = look.Reflectance
+				if KEEP_MATERIAL[look.Material] then
+					part.Material = look.Material
+					part.Reflectance = look.Reflectance
+				else
+					part.Material = Enum.Material.SmoothPlastic
+					part.Reflectance = if SHINY[look.Material]
+						then math.max(look.Reflectance, METAL_SHINE)
+						else look.Reflectance
+				end
 			end
 			part.Anchored = true
 			part.CanCollide = false
@@ -124,6 +154,9 @@ local function load(id)
 		end
 	else
 		warn(`[MeshLoader] Couldn't load "{id}" (asset {entry.AssetId}): {result}`)
+	end
+	if template then
+		template.Parent = templateFolder
 	end
 	templates[id] = template or false
 	loading[id] = nil
