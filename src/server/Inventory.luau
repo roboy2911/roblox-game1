@@ -213,6 +213,12 @@ function Inventory.GetShownModel(player, uid)
 	return shown[player] and shown[player][uid]
 end
 
+-- Removes an item for good (sold to a buyer): off the shelf and out of the inventory.
+function Inventory.RemoveItem(player, uid): boolean
+	removeModel(player, uid)
+	return PlayerData.RemoveItem(player, uid) ~= nil
+end
+
 function Inventory.Start(playerData, plots)
 	PlayerData, Plots = playerData, plots
 

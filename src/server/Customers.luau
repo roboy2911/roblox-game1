@@ -1,9 +1,11 @@
--- Sellers walk into each owned shop, put an item on the counter and ask a price (step 4),
--- and the owner haggles with them (step 5). One seller at a time per shop. They wait
--- (patience), then leave, and the next one comes.
+-- Customers walking into each owned shop, one at a time:
+--   Sellers (step 4/5) bring an item, put it on the counter and ask a price. You haggle down.
+--   Buyers (step 7) browse your displayed items, pick one, and offer a price. You haggle up.
+-- They wait (patience), then leave, and the next one comes.
 --
--- Haggling: each seller has a secret lowest price (Floor) and a mood. Offers above the floor
--- get a counter-offer (or a yes); lowballs and going backwards hurt their mood; at 0 they leave.
+-- Haggling: each customer has a secret limit (a seller's lowest price, a buyer's highest)
+-- and a mood. Bids past the limit get a counter-offer (or a yes); bids way off, and going
+-- backwards, hurt their mood; at 0 they storm off.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -16,21 +18,34 @@ local ItemModels = require(script.Parent.ItemModels)
 local Customers = {}
 
 local rng = Random.new()
-local PlayerData -- set in Start
+local PlayerData, Inventory -- set in Start
 
 -- One RemoteEvent for the haggle panel: the server sends the deal's state to the owner,
 -- the owner's screen sends back "Offer" (with an amount), "Accept", "WalkAway" or "Close".
 local haggleRemote = require(script.Parent.Remotes).Event("Haggle")
 
+-- What customers say. {price} is replaced with a money amount.
 local LINES = {
-	Counter = { "How about {ask}?", "I could do {ask}.", "Meet me at {ask}?", "{ask}, and that's a good price!" },
-	Lowball = { "Too low! I'll go {ask}.", "Come on... {ask}.", "No way. {ask}?" },
-	Insult = { "Are you kidding me?!", "That's an insult!", "Ha! Nice try." },
-	Backwards = { "You offered more than that before!", "Hey, you're going backwards!" },
-	Deal = { "Deal!", "You got it!", "Pleasure doing business!", "Sold!" },
-	Angry = { "Forget it, I'm out!", "I'm taking this somewhere else!", "Unbelievable. Bye!" },
-	WalkAway = { "Fine, I'll go somewhere else!", "Your loss!", "Okay... bye then." },
-	Broke = { "You can't afford that!", "Come back when you have the cash." },
+	Seller = {
+		Counter = { "How about {price}?", "I could do {price}.", "Meet me at {price}?", "{price}, and that's a good price!" },
+		Far = { "Too low! I'll go {price}.", "Come on... {price}.", "No way. {price}?" },
+		Insult = { "Are you kidding me?!", "That's an insult!", "Ha! Nice try." },
+		Backwards = { "You offered more than that before!", "Hey, you're going backwards!" },
+		Deal = { "Deal!", "You got it!", "Pleasure doing business!", "Sold!" },
+		Angry = { "Forget it, I'm out!", "I'm taking this somewhere else!", "Unbelievable. Bye!" },
+		WalkAway = { "Fine, I'll go somewhere else!", "Your loss!", "Okay... bye then." },
+		Broke = { "You can't afford that!", "Come back when you have the cash." },
+	},
+	Buyer = {
+		Counter = { "I can do {price}.", "How about {price}?", "{price}, final offer... maybe.", "Let's say {price}?" },
+		Far = { "Way too much! {price}?", "Pfft. I'll pay {price}.", "Too pricey. {price}?" },
+		Insult = { "Are you serious?!", "For THAT? No way!", "Ha! In your dreams." },
+		Backwards = { "You asked for less than that before!", "Hey, your price went up!" },
+		Deal = { "Deal!", "It's mine!", "Sold! Thanks!", "Great, I'll take it!" },
+		Angry = { "Forget it, I'm out!", "I'll shop somewhere else!", "Unbelievable. Bye!" },
+		WalkAway = { "Oh... okay then.", "Your loss!", "Fine, keep it!" },
+		Gone = { "Hey, where did it go?", "Huh? It's gone..." },
+	},
 }
 
 local FIRST_NAMES = {
@@ -199,9 +214,14 @@ local function say(state, message: string)
 	state.LastLine = message
 end
 
-local function line(kind: string, ask: number?): string
-	local text = pick(LINES[kind])
-	return (text:gsub("{ask}", if ask then Items.FormatMoney(ask) else ""))
+local function line(state, kind: string, price: number?): string
+	local text = pick(LINES[state.Kind][kind])
+	return (text:gsub("{price}", if price then Items.FormatMoney(price) else ""))
+end
+
+local function rarityText(item)
+	local color = Items.Rarities[item.Rarity].Color:ToHex()
+	return `<font color="#{color}"><b>{item.Name}</b></font>`
 end
 
 -- Sends the deal's current state to the owner's haggle panel (or closes it).
@@ -217,12 +237,13 @@ local function sendPanel(state, open: boolean)
 	local item = state.Item
 	haggleRemote:FireClient(player, {
 		Open = true,
-		Seller = state.Name,
+		Mode = state.Kind, -- "Seller" (you buy) or "Buyer" (you sell)
+		Customer = state.Name,
 		ItemName = item.Name,
 		Rarity = item.Rarity,
 		Condition = item.Condition,
-		Ask = state.Ask,
-		LastOffer = state.LastOffer,
+		Price = state.Price,
+		Paid = item.Paid, -- what you paid, when selling
 		Mood = state.Mood,
 		Message = state.LastLine,
 		Cash = PlayerData.GetCash(player),
@@ -238,7 +259,7 @@ local function leave(state, message: string)
 	end
 	state.Leaving = true
 	if not state.Npc then
-		return -- still being created; visit() cleans up
+		return -- still being created; the visit cleans up
 	end
 	state.LastLine = message
 	sendPanel(state, false)
@@ -249,6 +270,9 @@ local function leave(state, message: string)
 	end
 	say(state, message)
 	local markers = state.Shop.Markers
+	for _, point in state.ExitPath or {} do
+		walkTo(state, point) -- out of the aisle by the shelves/cases, then to just inside the door
+	end
 	walkTo(state, markers.Door.Position)
 	walkTo(state, markers.Street.Position)
 	walkTo(state, state.ExitPosition)
@@ -257,49 +281,32 @@ local function leave(state, message: string)
 	nextArrival[state.Shop] = os.clock() + rng:NextNumber(Config.CustomerDelay.Min, Config.CustomerDelay.Max)
 end
 
-local function visit(shop)
-	local markers = shop.Markers
+-- Makes the customer's character on the sidewalk, with a bubble and a Haggle prompt.
+-- Returns false if it didn't work (or they were told to leave meanwhile).
+local function spawnCustomer(state): boolean
+	local shop = state.Shop
+	local street = shop.Markers.Street.CFrame
 	local side = if rng:NextNumber() < 0.5 then -1 else 1
-	local street = markers.Street.CFrame
-	local spawnCf = street * CFrame.new(side * 20, 3, 0)
-
-	local rolled = Items.Roll(rng)
-	local ask = math.max(1, math.round(rolled.TrueValue * rng:NextNumber(Config.AskMultiplier.Min, Config.AskMultiplier.Max)))
-	local name = pick(FIRST_NAMES)
-
-	local state = {
-		Shop = shop,
-		Item = rolled, -- includes the secret TrueValue (server only)
-		AskingPrice = ask, -- first price they asked
-		Ask = ask, -- current price (goes down while haggling)
-		Floor = math.max(1, math.round(ask * rng:NextNumber(Config.SellerFloor.Min, Config.SellerFloor.Max))),
-		Mood = rng:NextInteger(Config.SellerMood.Min, Config.SellerMood.Max),
-		LastOffer = nil,
-		Haggler = nil, -- the owner, once they open the haggle panel
-		Name = name,
-		Patience = Config.CustomerPatience,
-		ExitPosition = (street * CFrame.new(-side * 30, 0, 0)).Position,
-	}
+	state.ExitPosition = (street * CFrame.new(-side * 30, 0, 0)).Position
 	active[shop] = state
 
-	local npc = makeNpc(name, spawnCf)
+	local npc = makeNpc(state.Name, street * CFrame.new(side * 20, 3, 0))
 	if not npc or state.Leaving then
 		if npc then
 			npc:Destroy()
 		end
 		active[shop] = nil
 		nextArrival[shop] = os.clock() + 10
-		return
+		return false
 	end
 	state.Npc = npc
 	state.Humanoid = npc:FindFirstChildOfClass("Humanoid")
 	state.Root = npc:FindFirstChild("HumanoidRootPart")
 	state.Text, state.BarBack, state.Bar = makeBubble(npc)
 
-	-- Owner opens the haggle panel
 	local prompt = Instance.new("ProximityPrompt")
 	prompt.ActionText = "Haggle"
-	prompt.ObjectText = name
+	prompt.ObjectText = state.Name
 	prompt.HoldDuration = 0.3
 	prompt.MaxActivationDistance = 14
 	prompt.RequiresLineOfSight = false
@@ -312,19 +319,73 @@ local function visit(shop)
 			sendPanel(state, true)
 		end
 	end)
-
 	say(state, "...")
-	walkTo(state, markers.Street.Position, true)
-	walkTo(state, markers.Door.Position, true)
-	walkTo(state, markers.CustomerSpot.Position, true)
-	if state.Leaving or not npc.Parent then
+	return true
+end
+
+-- Turns to face the counter.
+local function faceCounter(state)
+	local top = state.Shop.Counter.Top
+	local here = state.Root.Position
+	state.Npc:PivotTo(CFrame.lookAt(here, Vector3.new(top.Position.X, here.Y, top.Position.Z)))
+end
+
+-- Waits at the counter until patience runs out (or they're sent away / the owner leaves).
+local function waitAtCounter(state)
+	state.BarBack.Visible = true
+	state.Prompt.Enabled = true
+	local waited = 0
+	while not state.Leaving and waited < state.Patience do
+		task.wait(0.25)
+		waited += 0.25
+		local left = 1 - waited / state.Patience
+		state.Bar.Size = UDim2.fromScale(left, 1)
+		state.Bar.BackgroundColor3 = Color3.fromRGB(240, 70, 70):Lerp(Color3.fromRGB(90, 220, 110), left)
+		if not ownerOf(state.Shop) then
+			break
+		end
+	end
+	leave(state, "I don't have all day... bye!")
+end
+
+local function newState(shop, kind: string)
+	return {
+		Kind = kind,
+		Shop = shop,
+		Name = pick(FIRST_NAMES),
+		Mood = rng:NextInteger(Config.SellerMood.Min, Config.SellerMood.Max),
+		Patience = Config.CustomerPatience,
+		LastBid = nil, -- your last offer (buying) or asking price (selling)
+		Haggler = nil, -- the owner, once they open the haggle panel
+	}
+end
+
+-- Sellers --------------------------------------------------------------------------
+
+local function visitSeller(shop)
+	local rolled = Items.Roll(rng)
+	local ask = math.max(1, math.round(rolled.TrueValue * rng:NextNumber(Config.AskMultiplier.Min, Config.AskMultiplier.Max)))
+	local state = newState(shop, "Seller")
+	state.Item = rolled -- includes the secret TrueValue (server only)
+	state.FirstPrice = ask
+	state.Price = ask -- their current asking price (goes down while haggling)
+	state.Limit = math.max(1, math.round(ask * rng:NextNumber(Config.SellerFloor.Min, Config.SellerFloor.Max)))
+	if not spawnCustomer(state) then
 		return
 	end
 
-	-- Face the owner behind the counter and put the item down
-	local counterTop = shop.Counter.Top
-	npc:PivotTo(CFrame.lookAt(state.Root.Position, Vector3.new(counterTop.Position.X, state.Root.Position.Y, counterTop.Position.Z)))
-	local itemCf = counterTop.CFrame * CFrame.new(-2.5, counterTop.Size.Y / 2, -0.6) * CFrame.Angles(0, math.pi, 0)
+	local markers = shop.Markers
+	walkTo(state, markers.Street.Position, true)
+	walkTo(state, markers.Door.Position, true)
+	walkTo(state, markers.CustomerSpot.Position, true)
+	if state.Leaving or not state.Npc.Parent then
+		return
+	end
+
+	-- Put the item down on the counter
+	faceCounter(state)
+	local top = shop.Counter.Top
+	local itemCf = top.CFrame * CFrame.new(-2.5, top.Size.Y / 2, -0.6) * CFrame.Angles(0, math.pi, 0)
 	local model = ItemModels.Build(rolled.Id, itemCf)
 	if state.Leaving then
 		model:Destroy() -- sent away while the item was loading
@@ -334,89 +395,215 @@ local function visit(shop)
 	model.Parent = shop
 	state.ItemModel = model
 
-	local color = Items.Rarities[rolled.Rarity].Color:ToHex()
-	say(state, `I'm selling this <font color="#{color}"><b>{rolled.Name}</b></font> ({rolled.Condition}).\nI want <b>{Items.FormatMoney(ask)}</b>!`)
-	state.BarBack.Visible = true
-	prompt.Enabled = true
-	print(`[Customers] {name} brought {rolled.Name} ({rolled.Rarity}, {rolled.Condition}), true value {Items.FormatMoney(rolled.TrueValue)}, asking {Items.FormatMoney(ask)}`)
+	say(state, `I'm selling this {rarityText(rolled)} ({rolled.Condition}).\nI want <b>{Items.FormatMoney(ask)}</b>!`)
+	print(`[Customers] {state.Name} brought {rolled.Name} ({rolled.Rarity}, {rolled.Condition}), true value {Items.FormatMoney(rolled.TrueValue)}, asking {Items.FormatMoney(ask)}`)
+	waitAtCounter(state)
+end
 
-	-- Wait at the counter until patience runs out (or they're sent away / the owner leaves)
-	local waited = 0
-	while not state.Leaving and waited < state.Patience do
-		task.wait(0.25)
-		waited += 0.25
-		local left = 1 - waited / state.Patience
-		state.Bar.Size = UDim2.fromScale(left, 1)
-		state.Bar.BackgroundColor3 = Color3.fromRGB(240, 70, 70):Lerp(Color3.fromRGB(90, 220, 110), left)
-		if not ownerOf(shop) then
-			break
+-- Buyers ---------------------------------------------------------------------------
+
+-- A point inside the shop, from shop coordinates (x right, z toward the back).
+local function shopPoint(shop, x: number, z: number): Vector3
+	return (shop.PrimaryPart.CFrame * CFrame.new(x, 1, z)).Position
+end
+
+-- Displayed items of the shop's owner: list of { Item, Model }.
+local function displayedItems(owner)
+	local list = {}
+	for _, item in PlayerData.GetInventory(owner) do
+		local model = item.Slot and Inventory.GetShownModel(owner, item.Uid)
+		if model then
+			table.insert(list, { Item = item, Model = model })
 		end
 	end
-	leave(state, "I don't have all day... bye!")
+	return list
 end
 
--- Haggling -------------------------------------------------------------------
-
--- Buys the item at `price`: takes the cash, saves the item, and the seller leaves happy.
-local function deal(state, player, price: number)
-	if not PlayerData.AddCash(player, -price) then
-		say(state, line("Broke"))
-		sendPanel(state, true)
+-- Walks from the door to stand in front of a displayed item, going around the glass cases.
+local function walkToItem(state, model: Model)
+	local shop = state.Shop
+	local floor = shop.PrimaryPart.CFrame
+	local look = model:GetPivot()
+	local localStand = floor:PointToObjectSpace(look.Position + look.LookVector * 2.5)
+	local s = if localStand.X >= 0 then 1 else -1
+	-- Glass cases sit at x = +-10 (z -10 .. -2); the aisle toward the wall shelves is at x = +-13
+	local onShelf = math.abs(localStand.X) > 12
+	local laneX = if onShelf then s * 13 else localStand.X
+	local inside = shopPoint(shop, 0, -13) -- just inside the door
+	local lane = shopPoint(shop, laneX, -12)
+	state.ExitPath = { lane, inside }
+	walkTo(state, inside, true)
+	walkTo(state, lane, true)
+	walkTo(state, shopPoint(shop, localStand.X, localStand.Z), true)
+	if state.Leaving then
 		return
 	end
-	local item = state.Item
-	PlayerData.AddItem(player, {
-		Id = item.Id,
-		Name = item.Name,
-		Rarity = item.Rarity,
-		Condition = item.Condition,
-		TrueValue = item.TrueValue,
-		Paid = price,
-	})
-	print(`[Customers] {player.Name} bought {item.Name} for {Items.FormatMoney(price)} (true value {Items.FormatMoney(item.TrueValue)})`)
-	leave(state, `{line("Deal")} {Items.FormatMoney(price)} it is.`)
+	state.Npc:PivotTo(CFrame.lookAt(state.Root.Position, Vector3.new(look.Position.X, state.Root.Position.Y, look.Position.Z)))
+	-- On the way to the counter, step out of the gap first so they don't walk through a case
+	state.BackToCounter = if onShelf then shopPoint(shop, s * 13, 0.5) else nil
 end
 
-local function offer(state, player, amount: number)
-	if amount >= state.Ask then
-		deal(state, player, state.Ask)
+local function visitBuyer(shop, owner)
+	local choices = displayedItems(owner)
+	if #choices == 0 then
+		return
+	end
+	local choice = choices[rng:NextInteger(1, #choices)]
+	local item = choice.Item
+	local offer = math.max(1, math.round(item.TrueValue * rng:NextNumber(Config.BuyerOffer.Min, Config.BuyerOffer.Max)))
+	local state = newState(shop, "Buyer")
+	state.Item = item
+	state.Owner = owner
+	state.FirstPrice = offer
+	state.Price = offer -- their current offer (goes up while haggling)
+	state.Limit = math.max(offer, math.round(item.TrueValue * rng:NextNumber(Config.BuyerCeiling.Min, Config.BuyerCeiling.Max)))
+	if not spawnCustomer(state) then
+		return
+	end
+
+	local markers = shop.Markers
+	walkTo(state, markers.Street.Position, true)
+	walkTo(state, markers.Door.Position, true)
+	if state.Leaving then
+		return
+	end
+	-- Browse: look at the item for a moment
+	walkToItem(state, choice.Model)
+	if state.Leaving then
+		return
+	end
+	say(state, "Ooh, nice...")
+	task.wait(Config.BrowseSeconds)
+	if state.BackToCounter then
+		walkTo(state, state.BackToCounter, true)
+	end
+	walkTo(state, markers.CustomerSpot.Position, true)
+	state.ExitPath = nil -- back in the middle of the shop: straight out works
+	if state.Leaving or not state.Npc.Parent then
+		return
+	end
+	if not PlayerData.FindItem(owner, item.Uid) or not item.Slot then
+		leave(state, line(state, "Gone"))
+		return
+	end
+	faceCounter(state)
+	say(state, `I'd like to buy your {rarityText(item)} ({item.Condition}).\nI'll give you <b>{Items.FormatMoney(offer)}</b>!`)
+	print(`[Customers] {state.Name} wants {item.Name} (true value {Items.FormatMoney(item.TrueValue)}, paid {Items.FormatMoney(item.Paid or 0)}), offering {Items.FormatMoney(offer)}`)
+	waitAtCounter(state)
+end
+
+-- Haggling -------------------------------------------------------------------------
+
+-- Gives the buyer the item: welds a copy into their hands so they carry it out.
+local function carryOut(state)
+	local model = ItemModels.Build(state.Item.Id, CFrame.identity)
+	model.WorldPivot = CFrame.identity
+	local box, size = model:GetBoundingBox()
+	model.WorldPivot = CFrame.new(box.Position)
+	local biggest = math.max(size.X, size.Y, size.Z)
+	if biggest > 1.8 then
+		model:ScaleTo(model:GetScale() * 1.8 / biggest)
+	end
+	if not state.Npc.Parent then
+		model:Destroy()
+		return
+	end
+	model:PivotTo(state.Root.CFrame * CFrame.new(0, 0.2, -1.3))
+	for _, part in model:GetDescendants() do
+		if part:IsA("BasePart") then
+			part.Anchored = false
+			part.CanCollide = false
+			part.Massless = true
+			local weld = Instance.new("WeldConstraint")
+			weld.Part0 = state.Root
+			weld.Part1 = part
+			weld.Parent = part
+		end
+	end
+	model.Parent = state.Npc
+end
+
+-- Closes the deal at `price`.
+local function deal(state, player, price: number)
+	local item = state.Item
+	if state.Kind == "Seller" then
+		if not PlayerData.AddCash(player, -price) then
+			say(state, line(state, "Broke"))
+			sendPanel(state, true)
+			return
+		end
+		PlayerData.AddItem(player, {
+			Id = item.Id,
+			Name = item.Name,
+			Rarity = item.Rarity,
+			Condition = item.Condition,
+			TrueValue = item.TrueValue,
+			Paid = price,
+		})
+		print(`[Customers] {player.Name} bought {item.Name} for {Items.FormatMoney(price)} (true value {Items.FormatMoney(item.TrueValue)})`)
+		leave(state, `{line(state, "Deal")} {Items.FormatMoney(price)} it is.`)
+	else
+		if not Inventory.RemoveItem(player, item.Uid) then
+			leave(state, line(state, "Gone"))
+			return
+		end
+		PlayerData.AddCash(player, price)
+		local profit = price - (item.Paid or 0)
+		print(`[Customers] {player.Name} sold {item.Name} for {Items.FormatMoney(price)} (paid {Items.FormatMoney(item.Paid or 0)}, profit {profit})`)
+		task.spawn(carryOut, state)
+		leave(state, `{line(state, "Deal")} {Items.FormatMoney(price)} it is.`)
+	end
+end
+
+-- The owner bids `amount`: an offer to a seller, or an asking price to a buyer.
+-- "toward" is the direction the customer moves: down for sellers, up for buyers.
+local function bid(state, player, amount: number)
+	local selling = state.Kind == "Buyer"
+	-- Already acceptable? (seller asking <= your offer, or buyer offering >= your price)
+	if (not selling and amount >= state.Price) or (selling and amount <= state.Price) then
+		deal(state, player, state.Price)
 		return
 	end
 	local loss = Config.MoodLoss
-	if state.LastOffer and amount < state.LastOffer then
+	-- "past the limit" = within what the customer would accept
+	local withinLimit = if selling then amount <= state.Limit else amount >= state.Limit
+	local wayOff = if selling then amount > state.Limit * 2 else amount < state.Limit * 0.5
+	local backwards = state.LastBid and (if selling then amount > state.LastBid else amount < state.LastBid)
+
+	if backwards then
 		state.Mood -= loss.Backwards
-		say(state, line("Backwards"))
+		say(state, line(state, "Backwards"))
 	else
-		state.LastOffer = amount
+		state.LastBid = amount
 		state.Mood -= loss.Round
 		local happy = math.clamp(state.Mood / 100, 0, 1)
-		if amount >= state.Floor then
+		if withinLimit then
 			-- Willing: sometimes they just take it, otherwise they meet you part of the way
 			if rng:NextNumber() < 0.15 + 0.35 * happy then
 				deal(state, player, amount)
 				return
 			end
-			local newAsk = state.Ask - (state.Ask - amount) * (0.4 + 0.5 * happy)
-			newAsk = math.max(state.Floor, math.round(newAsk))
-			if newAsk - amount <= math.max(1, state.AskingPrice * 0.03) then
+			local newPrice = math.round(state.Price + (amount - state.Price) * (0.4 + 0.5 * happy))
+			newPrice = if selling then math.min(state.Limit, newPrice) else math.max(state.Limit, newPrice)
+			if math.abs(amount - newPrice) <= math.max(1, state.FirstPrice * 0.03) then
 				deal(state, player, amount) -- close enough
 				return
 			end
-			state.Ask = newAsk
-			say(state, line("Counter", state.Ask))
-		elseif amount < state.Floor * 0.5 then
+			state.Price = newPrice
+			say(state, line(state, "Counter", state.Price))
+		elseif wayOff then
 			state.Mood -= loss.Insult
-			say(state, line("Insult"))
+			say(state, line(state, "Insult"))
 		else
 			state.Mood -= loss.Lowball
-			local newAsk = state.Ask - (state.Ask - state.Floor) * (0.15 + 0.3 * happy)
-			state.Ask = math.max(state.Floor, math.round(newAsk))
-			say(state, line("Lowball", state.Ask))
+			local newPrice = math.round(state.Price + (state.Limit - state.Price) * (0.15 + 0.3 * happy))
+			state.Price = newPrice
+			say(state, line(state, "Far", state.Price))
 		end
 	end
 	if state.Mood <= 0 then
 		state.Mood = 0
-		task.spawn(leave, state, line("Angry"))
+		task.spawn(leave, state, line(state, "Angry"))
 		return
 	end
 	sendPanel(state, true)
@@ -430,7 +617,7 @@ haggleRemote.OnServerEvent:Connect(function(player, action, amount)
 	end
 	lastAction[player] = os.clock()
 
-	-- Find the seller this player is haggling with
+	-- Find the customer this player is haggling with
 	local state = nil
 	for _, s in active do
 		if s.Haggler == player and not s.Leaving and s.Npc then
@@ -446,16 +633,16 @@ haggleRemote.OnServerEvent:Connect(function(player, action, amount)
 			return
 		end
 		amount = math.floor(amount)
-		if amount > PlayerData.GetCash(player) then
-			say(state, line("Broke"))
+		if state.Kind == "Seller" and amount > PlayerData.GetCash(player) then
+			say(state, line(state, "Broke"))
 			sendPanel(state, true)
 			return
 		end
-		offer(state, player, amount)
+		bid(state, player, amount)
 	elseif action == "Accept" then
-		deal(state, player, state.Ask)
+		deal(state, player, state.Price)
 	elseif action == "WalkAway" then
-		task.spawn(leave, state, line("WalkAway"))
+		task.spawn(leave, state, line(state, "WalkAway"))
 	elseif action == "Close" then
 		state.Haggler = nil
 	end
@@ -465,24 +652,33 @@ Players.PlayerRemoving:Connect(function(player)
 	lastAction[player] = nil
 end)
 
--- Returns the seller currently in this shop (or nil). Used by later steps (haggling).
+-- Public -----------------------------------------------------------------------------
+
+-- Returns the customer currently in this shop (or nil).
 function Customers.Get(shop)
 	return active[shop]
 end
 
-function Customers.Start(Plots, playerData)
+function Customers.Start(Plots, playerData, inventory)
 	PlayerData = playerData
+	Inventory = inventory
 	task.spawn(function()
 		while true do
 			for _, shop in Plots.GetAllShops() do
 				local state = active[shop]
-				if state and not ownerOf(shop) then
+				local owner = ownerOf(shop)
+				if state and not owner then
 					task.spawn(leave, state, "Huh, nobody's here.")
-				elseif not state and ownerOf(shop) then
+				elseif not state and owner then
 					nextArrival[shop] = nextArrival[shop] or os.clock() + 3
 					if os.clock() >= nextArrival[shop] then
 						nextArrival[shop] = nil
-						task.spawn(visit, shop)
+						-- A buyer if there's something on display (sometimes), otherwise a seller
+						if rng:NextNumber() < Config.BuyerChance and #displayedItems(owner) > 0 then
+							task.spawn(visitBuyer, shop, owner)
+						else
+							task.spawn(visitSeller, shop)
+						end
 					end
 				end
 			end

@@ -165,6 +165,19 @@ function PlayerData.SetItemSlot(player, uid: string, slot: string?)
 	end
 end
 
+-- Removes one of the player's items (sold). Returns the item, or nil if they don't have it.
+function PlayerData.RemoveItem(player, uid: string)
+	local inventory = PlayerData.GetInventory(player)
+	for i, item in inventory do
+		if item.Uid == uid then
+			table.remove(inventory, i)
+			PlayerData.InventoryChanged:Fire(player)
+			return item
+		end
+	end
+	return nil
+end
+
 -- True once the player's saved data has loaded.
 function PlayerData.IsLoaded(player): boolean
 	return profiles[player] ~= nil

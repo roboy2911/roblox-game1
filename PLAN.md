@@ -29,7 +29,7 @@
 - [ ] **Step 6 – Inventory + shelves:** Bought items go to inventory; place them on display shelves.
   Test: buy an item, open 🎒 Inventory, press Display; it appears in a glass case. Rejoin and it's still there.
 - [ ] **Step 7 – Buyers + selling:** Buyer NPCs browse shelves; haggle to sell high.
-  Test: buy low, sell high, cash goes up.
+  Test: put an item on display; a buyer looks at it, offers a price at the counter; haggle up and sell. Buy low, sell high, cash goes up.
 - [ ] **Step 8 – Appraisal:** True value is hidden; appraisal skill narrows the guess. Fakes and hidden treasures.
 - [ ] **Step 9 – Upgrades:** More shelves, faster customers, better appraisal, better haggling, bigger shop.
 - [ ] **Step 10 – Rare items + events:** Legendary items, collection book, special visitors (shady seller, rich collector).
