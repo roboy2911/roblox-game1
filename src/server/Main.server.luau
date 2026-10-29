@@ -1,6 +1,5 @@
 -- Server entry point. Runs once when the server starts.
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local PlayerData = require(script.Parent.PlayerData)
@@ -17,9 +16,7 @@ PlayerData.Start()
 Customers.Start(Plots, PlayerData, Inventory)
 Inventory.Start(PlayerData, Plots)
 
--- Testing helpers (cash pad, item spawner), only when playing in Studio.
-if RunService:IsStudio() then
-	require(script.Parent.DebugTools).Start(PlayerData, Plots)
-end
+-- Admin menu (testing tools) for the IDs in Config.AdminUserIds
+require(script.Parent.Admin).Start(PlayerData, Plots)
 
 print(`{Config.GameName} v{Config.Version} – Pawn Shop loaded!`)

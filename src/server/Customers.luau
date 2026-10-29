@@ -9,7 +9,6 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local Items = require(ReplicatedStorage.Shared.Items)
@@ -247,8 +246,8 @@ local function sendPanel(state, open: boolean)
 		Mood = state.Mood,
 		Message = state.LastLine,
 		Cash = PlayerData.GetCash(player),
-		-- Only while testing in Studio: the secret value, so you can tell a good deal
-		DebugValue = if RunService:IsStudio() then item.TrueValue else nil,
+		-- Admins only (testing): the secret value, so you can tell a good deal
+		DebugValue = if table.find(Config.AdminUserIds, player.UserId) then item.TrueValue else nil,
 	})
 end
 
