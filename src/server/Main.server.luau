@@ -8,6 +8,7 @@ local LightingSetup = require(script.Parent.LightingSetup)
 local MeshLoader = require(script.Parent.MeshLoader)
 local Customers = require(script.Parent.Customers)
 local Inventory = require(script.Parent.Inventory)
+local Upgrades = require(script.Parent.Upgrades)
 
 LightingSetup.Start()
 MeshLoader.Preload()
@@ -15,6 +16,7 @@ Plots.Start()
 PlayerData.Start()
 Customers.Start(Plots, PlayerData, Inventory)
 Inventory.Start(PlayerData, Plots)
+Upgrades.Start(PlayerData)
 
 -- Admin menu (testing tools) for the IDs in Config.AdminUserIds
 require(script.Parent.Admin).Start(PlayerData, Plots)

@@ -14,7 +14,7 @@ function Appraisal.MaxLevel(): number
 	return #Config.AppraisalWidth
 end
 
--- Makes an estimate of `item` at appraisal `level`: { Low, High, Note? }.
+-- Makes an estimate of `item` at appraisal `level`: { Low, High, Level, Note? }.
 -- Note is "Fake" or "Treasure" when you spotted something.
 function Appraisal.Estimate(item, level: number)
 	level = math.clamp(level, 1, Appraisal.MaxLevel())
@@ -28,12 +28,17 @@ function Appraisal.Estimate(item, level: number)
 	local high = math.ceil(center + value * width)
 	if not spotted and (item.Fake or item.Treasure) then
 		-- Fooled: the range is around what it looks like, not the true value
-		return { Low = low, High = high }
+		return { Low = low, High = high, Level = level }
 	end
 	-- Make sure the true value is inside the range
 	low = math.min(low, item.TrueValue)
 	high = math.max(high, item.TrueValue)
-	return { Low = low, High = high, Note = if spotted then (if item.Fake then "Fake" else "Treasure") else nil }
+	return {
+		Low = low,
+		High = high,
+		Level = level,
+		Note = if spotted then (if item.Fake then "Fake" else "Treasure") else nil,
+	}
 end
 
 return Appraisal

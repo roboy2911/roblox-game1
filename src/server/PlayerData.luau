@@ -18,6 +18,7 @@ local function defaultData()
 	return {
 		Cash = Config.StartingCash,
 		Appraisal = 1, -- appraisal level: how well you guess what items are worth
+		Upgrades = {}, -- other upgrade levels by id (Shelves, Speed, Haggling); missing = 0
 		-- Items bought from sellers: { Uid, Id, Name, Rarity, Condition, TrueValue, ApparentValue,
 		--   Fake, Treasure, Estimate = { Low, High, Note }, Paid, Slot }
 		-- Uid = unique id for this copy; Slot = where it's on display in the shop (nil = in the bag)
@@ -191,6 +192,31 @@ function PlayerData.SetAppraisal(player, level: number)
 		profile.data.Appraisal = level
 		PlayerData.InventoryChanged:Fire(player)
 	end
+end
+
+-- Level of an upgrade (see Config.Upgrades). Appraisal returns the appraisal level.
+function PlayerData.GetUpgrade(player, id: string): number
+	local profile = profiles[player]
+	if not profile then
+		return if id == "Appraisal" then 1 else 0
+	end
+	if id == "Appraisal" then
+		return profile.data.Appraisal
+	end
+	return profile.data.Upgrades[id] or 0
+end
+
+function PlayerData.SetUpgrade(player, id: string, level: number)
+	local profile = profiles[player]
+	if not profile then
+		return
+	end
+	if id == "Appraisal" then
+		profile.data.Appraisal = level
+	else
+		profile.data.Upgrades[id] = level
+	end
+	PlayerData.InventoryChanged:Fire(player) -- spots / estimates may have changed
 end
 
 -- True once the player's saved data has loaded.

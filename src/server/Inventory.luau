@@ -5,6 +5,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local Config = require(ReplicatedStorage.Shared.Config)
 local ItemModels = require(script.Parent.ItemModels)
 local Appraisal = require(script.Parent.Appraisal)
 local Remotes = require(script.Parent.Remotes)
@@ -58,15 +59,6 @@ local function spotsFor(shop)
 	return list
 end
 
-local function spotById(shop, id)
-	for _, spot in spotsFor(shop) do
-		if spot.Id == id then
-			return spot
-		end
-	end
-	return nil
-end
-
 local function usedSpots(player)
 	local used = {}
 	for _, item in PlayerData.GetInventory(player) do
@@ -77,9 +69,21 @@ local function usedSpots(player)
 	return used
 end
 
+-- How many display spots the player has unlocked (More shelves upgrade).
+local function spotLimit(player): number
+	local level = PlayerData.GetUpgrade(player, "Shelves")
+	return Config.DisplaySpots[math.min(level + 1, #Config.DisplaySpots)]
+end
+
+-- The spots this player may use: the first few, in fill order.
+local function unlockedSpots(player, shop)
+	local all = spotsFor(shop)
+	return { table.unpack(all, 1, math.min(#all, spotLimit(player))) }
+end
+
 local function freeSpot(player, shop)
 	local used = usedSpots(player)
-	for _, spot in spotsFor(shop) do
+	for _, spot in unlockedSpots(player, shop) do
 		if not used[spot.Id] then
 			return spot
 		end
@@ -142,8 +146,12 @@ local function sendUpdate(player)
 	end
 	local list = {}
 	for _, item in PlayerData.GetInventory(player) do
-		-- Items from before appraisal existed (or admin gifts) get an estimate the first time
-		item.Estimate = item.Estimate or Appraisal.Estimate(item, PlayerData.GetAppraisal(player))
+		-- Items from before appraisal existed (or admin gifts) get an estimate the first time,
+		-- and items are looked at again whenever your appraisal level goes up
+		local level = PlayerData.GetAppraisal(player)
+		if not item.Estimate or (item.Estimate.Level or 1) < level then
+			item.Estimate = Appraisal.Estimate(item, level)
+		end
 		table.insert(list, {
 			Uid = item.Uid,
 			Id = item.Id,
@@ -156,7 +164,7 @@ local function sendUpdate(player)
 		})
 	end
 	local shop = Plots.GetShop(player)
-	local total = if shop then #spotsFor(shop) else 0
+	local total = if shop then #unlockedSpots(player, shop) else 0
 	local used = 0
 	for _ in usedSpots(player) do
 		used += 1
@@ -203,8 +211,12 @@ local function restore(player)
 		return
 	end
 	local taken = {}
+	local unlocked = {}
+	for _, spot in unlockedSpots(player, shop) do
+		unlocked[spot.Id] = spot
+	end
 	for _, item in PlayerData.GetInventory(player) do
-		local spot = item.Slot and spotById(shop, item.Slot)
+		local spot = item.Slot and unlocked[item.Slot]
 		if spot and not taken[spot.Id] then
 			taken[spot.Id] = true
 			placeModel(player, shop, item, spot)

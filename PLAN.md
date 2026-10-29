@@ -33,6 +33,7 @@
 - [ ] **Step 8 – Appraisal:** True value is hidden; appraisal skill narrows the guess. Fakes and hidden treasures.
   Test: the haggle panel and inventory show an estimate range; use the admin menu to raise appraisal and see it narrow. Some items get spotted as fake / special.
 - [ ] **Step 9 – Upgrades:** More shelves, faster customers, better appraisal, better haggling, bigger shop.
+  Test: open ⬆ Upgrades, buy one (admin menu for cash); shelves allow more items, customers come sooner, estimates narrow, haggling gets easier. (Bigger shop: not built yet.)
 - [ ] **Step 10 – Rare items + events:** Legendary items, collection book, special visitors (shady seller, rich collector).
 - [ ] **Step 11 – Rebirth + leaderboards:** Reset for a permanent bonus; top shops on the server.
 - [ ] **Step 12 – Polish + publish:** Sounds, effects, tutorial, icon/thumbnails, publish. Optional gamepasses.
