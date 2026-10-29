@@ -13,7 +13,7 @@ LightingSetup.Start()
 MeshLoader.Preload()
 Plots.Start()
 PlayerData.Start()
-Customers.Start(Plots)
+Customers.Start(Plots, PlayerData)
 
 -- Testing helpers (cash pad, item spawner), only when playing in Studio.
 if RunService:IsStudio() then

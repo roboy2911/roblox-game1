@@ -25,6 +25,7 @@
 - [ ] **Step 4 – Sellers walk in:** NPC customers walk to your counter with an item and ask a price.
   Test: a seller walks in, puts an item on the counter, asks a price, waits, then leaves (or you send them away).
 - [ ] **Step 5 – Haggling (buying):** ⭐ Offer / Counter / Accept / Walk away. Customers have patience and mood.
+  Test: hold E on a seller to haggle. Offer low, get countered, make a deal; cash goes down and the item is saved.
 - [ ] **Step 6 – Inventory + shelves:** Bought items go to inventory; place them on display shelves.
 - [ ] **Step 7 – Buyers + selling:** Buyer NPCs browse shelves; haggle to sell high.
   Test: buy low, sell high, cash goes up.
