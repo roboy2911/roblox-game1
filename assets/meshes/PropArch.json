@@ -1,0 +1,51 @@
+{
+  "Id": "PropArch",
+  "Size": [
+    31.9,
+    20.2,
+    2.8
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    }
+  },
+  "Triangles": {
+    "Marble": 912,
+    "Gold": 2892
+  },
+  "Centers": {
+    "Marble": [
+      -0.0,
+      -0.0995,
+      0.0
+    ],
+    "Gold": [
+      -0.0,
+      0.2171,
+      0.0
+    ]
+  },
+  "Origin": [
+    0.0,
+    0.0,
+    0.0
+  ]
+}

@@ -1,0 +1,387 @@
+{
+  "Id": "PropShopInterior",
+  "Size": [
+    38.0,
+    15.845,
+    32.0
+  ],
+  "Parts": {
+    "DarkWood": {
+      "Color": [
+        85,
+        55,
+        40
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "PanelWood": {
+      "Color": [
+        110,
+        72,
+        50
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Trim": {
+      "Color": [
+        236,
+        224,
+        200
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "RugGold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "RugCream": {
+      "Color": [
+        250,
+        240,
+        220
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "AccentRug": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Glow": {
+      "Color": [
+        255,
+        225,
+        160
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Board": {
+      "Color": [
+        205,
+        165,
+        115
+      ],
+      "Material": "WoodPlanks",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "PlankLine": {
+      "Color": [
+        170,
+        130,
+        85
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "GuitarRed": {
+      "Color": [
+        220,
+        60,
+        60
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "White": {
+      "Color": [
+        245,
+        245,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Rosewood": {
+      "Color": [
+        55,
+        35,
+        28
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "GuitarBlue": {
+      "Color": [
+        60,
+        120,
+        230
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "GuitarOrange": {
+      "Color": [
+        240,
+        160,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "SkyBlue": {
+      "Color": [
+        120,
+        190,
+        240
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Hills": {
+      "Color": [
+        95,
+        195,
+        85
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Sun": {
+      "Color": [
+        255,
+        235,
+        130
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "SkyOrange": {
+      "Color": [
+        240,
+        170,
+        110
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Cardboard": {
+      "Color": [
+        196,
+        152,
+        100
+      ],
+      "Material": "Cardboard",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Tape": {
+      "Color": [
+        225,
+        190,
+        130
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "DarkWood": 1188,
+    "Gold": 3664,
+    "PanelWood": 2700,
+    "Trim": 752,
+    "RugGold": 144,
+    "RugCream": 288,
+    "AccentRug": 108,
+    "Glow": 108,
+    "Board": 108,
+    "PlankLine": 60,
+    "GuitarRed": 1436,
+    "Dark": 276,
+    "White": 864,
+    "Rosewood": 2316,
+    "Steel": 4176,
+    "GuitarBlue": 1436,
+    "GuitarOrange": 1436,
+    "SkyBlue": 12,
+    "Hills": 328,
+    "Sun": 184,
+    "SkyOrange": 12,
+    "Cardboard": 324,
+    "Tape": 36
+  },
+  "Centers": {
+    "DarkWood": [
+      -0.0,
+      -0.0739,
+      0.0
+    ],
+    "Gold": [
+      -0.0,
+      0.0,
+      0.0
+    ],
+    "PanelWood": [
+      -0.0,
+      -0.1072,
+      0.0022
+    ],
+    "Trim": [
+      -0.0,
+      0.1994,
+      0.0
+    ],
+    "RugGold": [
+      -0.0,
+      -0.2052,
+      -0.1842
+    ],
+    "RugCream": [
+      -0.0,
+      -0.2049,
+      -0.1842
+    ],
+    "AccentRug": [
+      -0.0,
+      -0.2056,
+      -0.1842
+    ],
+    "Glow": [
+      -0.0,
+      0.2026,
+      0.2632
+    ],
+    "Board": [
+      -0.2632,
+      -0.0243,
+      0.4132
+    ],
+    "PlankLine": [
+      -0.2342,
+      -0.0243,
+      0.41
+    ],
+    "GuitarRed": [
+      -0.3421,
+      -0.0479,
+      0.4013
+    ],
+    "Dark": [
+      -0.2632,
+      -0.0309,
+      0.3945
+    ],
+    "White": [
+      -0.2632,
+      -0.0309,
+      0.3942
+    ],
+    "Rosewood": [
+      -0.2632,
+      0.0166,
+      0.3991
+    ],
+    "Steel": [
+      -0.2632,
+      0.0152,
+      0.3985
+    ],
+    "GuitarBlue": [
+      -0.2632,
+      -0.0479,
+      0.4013
+    ],
+    "GuitarOrange": [
+      -0.1842,
+      -0.0479,
+      0.4013
+    ],
+    "SkyBlue": [
+      -0.4934,
+      0.1126,
+      -0.1579
+    ],
+    "Hills": [
+      -0.0,
+      0.0773,
+      -0.1576
+    ],
+    "Sun": [
+      -0.0,
+      0.1363,
+      -0.1316
+    ],
+    "SkyOrange": [
+      0.4934,
+      0.1126,
+      -0.1579
+    ],
+    "Cardboard": [
+      -0.4428,
+      -0.1585,
+      0.3386
+    ],
+    "Tape": [
+      -0.4412,
+      -0.1348,
+      0.3406
+    ]
+  },
+  "Origin": [
+    0.0,
+    -1.0,
+    0.0
+  ]
+}

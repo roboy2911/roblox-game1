@@ -6,6 +6,15 @@ return {
 	AcousticGuitar = {
 		AssetId = 110323470761324,
 		Size = Vector3.new(1.664, 4.811, 0.511),
+		Centers = {
+			Binding = Vector3.new(-0.0, -0.0054, -0.0216),
+			Body = Vector3.new(-0.0, -0.0628, 0.0111),
+			Dark = Vector3.new(-0.0, -0.1391, -0.0352),
+			Pickguard = Vector3.new(-0.0583, -0.204, -0.0373),
+			Rosewood = Vector3.new(-0.0, 0.0646, -0.017),
+			Steel = Vector3.new(-0.0, 0.0624, -0.0248),
+			Top = Vector3.new(-0.0, -0.2298, -0.0321),
+		},
 		Parts = {
 			Binding = { Color = Color3.fromRGB(240, 230, 210), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Body = { Color = Color3.fromRGB(150, 85, 40), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
@@ -19,6 +28,11 @@ return {
 	AntiqueVase = {
 		AssetId = 72813640247957,
 		Size = Vector3.new(1.314, 2.048, 1.37),
+		Centers = {
+			Blue = Vector3.new(-0.0, -0.002, 0.0),
+			Gold = Vector3.new(-0.0, 0.0059, 0.0),
+			Porcelain = Vector3.new(-0.0, -0.002, 0.0),
+		},
 		Parts = {
 			Blue = { Color = Color3.fromRGB(40, 80, 180), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
@@ -28,6 +42,14 @@ return {
 	Camera = {
 		AssetId = 99310424010059,
 		Size = Vector3.new(1.341, 1.03, 0.94),
+		Centers = {
+			Body = Vector3.new(-0.0, 0.0485, -0.0),
+			Chrome = Vector3.new(-0.0, -0.0466, 0.0222),
+			Leather = Vector3.new(-0.0, -0.1156, 0.1641),
+			Lens = Vector3.new(-0.0, -0.0858, -0.3132),
+			Red = Vector3.new(-0.3132, 0.2797, 0.1641),
+			White = Vector3.new(-0.0, 0.1081, -0.2312),
+		},
 		Parts = {
 			Body = { Color = Color3.fromRGB(40, 40, 46), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Chrome = { Color = Color3.fromRGB(200, 205, 215), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
@@ -40,6 +62,12 @@ return {
 	DeskLamp = {
 		AssetId = 91365945803081,
 		Size = Vector3.new(1.0, 1.62, 1.649),
+		Centers = {
+			Bulb = Vector3.new(-0.0, 0.3335, -0.2398),
+			Dark = Vector3.new(-0.0697, 0.0424, 0.1301),
+			Paint = Vector3.new(-0.0, -0.0011, 0.0),
+			Steel = Vector3.new(-0.0097, 0.0214, 0.1524),
+		},
 		Parts = {
 			Bulb = { Color = Color3.fromRGB(255, 225, 160), Material = Enum.Material.Neon, Transparency = 0.0, Reflectance = 0.0 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -50,6 +78,12 @@ return {
 	DiamondRing = {
 		AssetId = 82142169575132,
 		Size = Vector3.new(0.92, 1.391, 1.096),
+		Centers = {
+			Diamond = Vector3.new(-0.0, 0.2816, -0.0703),
+			Gold = Vector3.new(-0.0, 0.0698, -0.0631),
+			Satin = Vector3.new(-0.0, 0.1371, -0.0255),
+			Velvet = Vector3.new(-0.0, 0.0, 0.0036),
+		},
 		Parts = {
 			Diamond = { Color = Color3.fromRGB(215, 245, 255), Material = Enum.Material.Glass, Transparency = 0.15, Reflectance = 0.4 },
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
@@ -60,6 +94,13 @@ return {
 	ElectricGuitar = {
 		AssetId = 106777075212543,
 		Size = Vector3.new(1.408, 3.897, 0.431),
+		Centers = {
+			Chrome = Vector3.new(-0.0474, 0.0274, -0.0269),
+			Dark = Vector3.new(-0.0011, 0.0605, -0.0273),
+			Maple = Vector3.new(-0.0051, 0.1633, -0.0101),
+			Paint = Vector3.new(-0.0, -0.2509, 0.0194),
+			White = Vector3.new(-0.0145, -0.0759, -0.0268),
+		},
 		Parts = {
 			Chrome = { Color = Color3.fromRGB(200, 205, 215), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -71,6 +112,18 @@ return {
 	GameConsole = {
 		AssetId = 73762586519703,
 		Size = Vector3.new(1.4, 0.35, 1.61),
+		Centers = {
+			BtnBlue = Vector3.new(-0.1553, -0.0217, -0.2949),
+			BtnGreen = Vector3.new(-0.1987, -0.0217, -0.3384),
+			BtnRed = Vector3.new(-0.1553, -0.0217, -0.3819),
+			BtnYellow = Vector3.new(-0.1118, -0.0217, -0.3384),
+			Cable = Vector3.new(0.0774, -0.0734, -0.1921),
+			Controller = Vector3.new(-0.0, -0.0652, -0.3573),
+			Dark = Vector3.new(0.0155, 0.0279, 0.0094),
+			Led = Vector3.new(-0.3105, 0.0031, -0.1242),
+			Shell = Vector3.new(-0.0, -0.0342, 0.1895),
+			ShellTop = Vector3.new(-0.0, 0.059, 0.1895),
+		},
 		Parts = {
 			BtnBlue = { Color = Color3.fromRGB(60, 120, 240), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			BtnGreen = { Color = Color3.fromRGB(60, 200, 90), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -87,6 +140,12 @@ return {
 	GoldTrophy = {
 		AssetId = 74467942019561,
 		Size = Vector3.new(1.884, 1.96, 1.24),
+		Centers = {
+			Gold = Vector3.new(-0.0, 0.0587, 0.0),
+			Marble = Vector3.new(-0.0, -0.3801, 0.0),
+			Plate = Vector3.new(-0.0, -0.3112, -0.2015),
+			Ruby = Vector3.new(-0.0, 0.2755, -0.2745),
+		},
 		Parts = {
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 			Marble = { Color = Color3.fromRGB(40, 40, 52), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
@@ -97,6 +156,14 @@ return {
 	GoldWatch = {
 		AssetId = 133079768080949,
 		Size = Vector3.new(0.92, 0.981, 0.72),
+		Centers = {
+			Crystal = Vector3.new(-0.0, 0.1119, -0.3365),
+			Dark = Vector3.new(-0.0, 0.1119, -0.3411),
+			Face = Vector3.new(-0.0, 0.1119, -0.3263),
+			Gold = Vector3.new(-0.0, 0.0892, 0.0),
+			Marble = Vector3.new(-0.0, -0.4082, 0.0),
+			Velvet = Vector3.new(-0.0, 0.0303, 0.051),
+		},
 		Parts = {
 			Crystal = { Color = Color3.fromRGB(210, 235, 255), Material = Enum.Material.Glass, Transparency = 0.6, Reflectance = 0.3 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -109,6 +176,11 @@ return {
 	GoldenStatue = {
 		AssetId = 133531489129944,
 		Size = Vector3.new(1.3, 3.08, 1.3),
+		Centers = {
+			Flame = Vector3.new(-0.1104, 0.4481, -0.0162),
+			Gold = Vector3.new(-0.0, 0.0081, 0.0),
+			Marble = Vector3.new(-0.0, -0.4058, 0.0),
+		},
 		Parts = {
 			Flame = { Color = Color3.fromRGB(255, 160, 40), Material = Enum.Material.Neon, Transparency = 0.0, Reflectance = 0.0 },
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.25 },
@@ -118,6 +190,14 @@ return {
 	Katana = {
 		AssetId = 103154630896377,
 		Size = Vector3.new(3.248, 1.4, 0.6),
+		Centers = {
+			Blade = Vector3.new(-0.1311, 0.1553, -0.0123),
+			Gold = Vector3.new(0.029, 0.1054, -0.0123),
+			Ray = Vector3.new(0.3738, 0.1662, -0.0123),
+			Scabbard = Vector3.new(-0.0418, 0.0185, -0.0123),
+			Stand = Vector3.new(0.0043, -0.0181, 0.0),
+			Wrap = Vector3.new(0.3645, 0.1662, -0.0123),
+		},
 		Parts = {
 			Blade = { Color = Color3.fromRGB(215, 220, 230), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.35 },
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
@@ -130,6 +210,13 @@ return {
 	Meteorite = {
 		AssetId = 73226719710883,
 		Size = Vector3.new(1.313, 1.745, 1.342),
+		Centers = {
+			Crust = Vector3.new(-0.0198, 0.0181, 0.0373),
+			Crystal = Vector3.new(-0.0129, 0.1853, -0.0549),
+			Gold = Vector3.new(0.0093, -0.3854, 0.0178),
+			Marble = Vector3.new(0.0093, -0.4198, 0.0178),
+			Rock = Vector3.new(0.0113, -0.0023, -0.0021),
+		},
 		Parts = {
 			Crust = { Color = Color3.fromRGB(45, 38, 52), Material = Enum.Material.Basalt, Transparency = 0.0, Reflectance = 0.0 },
 			Crystal = { Color = Color3.fromRGB(170, 90, 255), Material = Enum.Material.Neon, Transparency = 0.0, Reflectance = 0.0 },
@@ -141,6 +228,13 @@ return {
 	OldBoot = {
 		AssetId = 91459181927821,
 		Size = Vector3.new(0.957, 1.986, 2.081),
+		Centers = {
+			Laces = Vector3.new(-0.0466, 0.0683, -0.0483),
+			Leather = Vector3.new(-0.0053, 0.0234, -0.0274),
+			Sole = Vector3.new(-0.0, -0.4026, 0.0002),
+			Steel = Vector3.new(-0.0053, 0.0322, -0.0431),
+			Worn = Vector3.new(-0.0053, 0.0337, -0.0143),
+		},
 		Parts = {
 			Laces = { Color = Color3.fromRGB(225, 212, 188), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
 			Leather = { Color = Color3.fromRGB(112, 74, 44), Material = Enum.Material.Leather, Transparency = 0.0, Reflectance = 0.0 },
@@ -152,6 +246,14 @@ return {
 	OldRadio = {
 		AssetId = 131761827612793,
 		Size = Vector3.new(1.525, 1.737, 0.75),
+		Centers = {
+			Cloth = Vector3.new(0.0, 0.1323, -0.1727),
+			Dark = Vector3.new(-0.0115, -0.1332, -0.1928),
+			DarkWood = Vector3.new(-0.0, -0.0032, 0.0029),
+			DialFace = Vector3.new(-0.0, -0.1505, -0.1784),
+			Gold = Vector3.new(-0.0, -0.1505, -0.19),
+			Wood = Vector3.new(-0.0, 0.0, 0.0115),
+		},
 		Parts = {
 			Cloth = { Color = Color3.fromRGB(220, 195, 150), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -164,6 +266,17 @@ return {
 	Painting = {
 		AssetId = 138825171870217,
 		Size = Vector3.new(1.9, 2.627, 1.334),
+		Centers = {
+			Boat = Vector3.new(-0.1713, -0.1326, -0.2071),
+			Easel = Vector3.new(-0.0, 0.0, 0.0),
+			Gold = Vector3.new(-0.0, 0.0386, -0.1799),
+			Hills = Vector3.new(0.1332, 0.0144, -0.1826),
+			Sea = Vector3.new(-0.0, -0.1332, -0.1976),
+			Sky = Vector3.new(-0.0, 0.0184, -0.1686),
+			SkyTop = Vector3.new(-0.0, 0.1711, -0.1471),
+			Sun = Vector3.new(-0.1142, -0.0212, -0.1819),
+			White = Vector3.new(-0.1904, -0.0761, -0.1992),
+		},
 		Parts = {
 			Boat = { Color = Color3.fromRGB(40, 30, 40), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Easel = { Color = Color3.fromRGB(110, 70, 45), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
@@ -176,10 +289,28 @@ return {
 			White = { Color = Color3.fromRGB(245, 245, 245), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 		},
 	},
+	PropArch = {
+		AssetId = 119815876905383,
+		Size = Vector3.new(31.9, 20.2, 2.8),
+		Origin = Vector3.new(0.0, 0.0, 0.0),
+		Centers = {
+			Gold = Vector3.new(-0.0, 0.2171, 0.0),
+			Marble = Vector3.new(-0.0, -0.0995, 0.0),
+		},
+		Parts = {
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Marble = { Color = Color3.fromRGB(240, 240, 245), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 	PropBench = {
 		AssetId = 80802570713773,
 		Size = Vector3.new(5.0, 3.68, 2.175),
 		Origin = Vector3.new(0.0, 0.04, -0.008),
+		Centers = {
+			Gold = Vector3.new(-0.0, 0.106, -0.1975),
+			Iron = Vector3.new(-0.0, 0.0, 0.008),
+			Wood = Vector3.new(-0.0, 0.1561, 0.0169),
+		},
 		Parts = {
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 			Iron = { Color = Color3.fromRGB(45, 45, 55), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.0 },
@@ -189,7 +320,15 @@ return {
 	PropCashRegister = {
 		AssetId = 111651218163935,
 		Size = Vector3.new(2.6, 2.23, 2.1),
-		Origin = Vector3.new(0.0, -0.0, 0.05),
+		Origin = Vector3.new(0.0, 0.0, 0.05),
+		Centers = {
+			Accent = Vector3.new(-0.0, -0.1365, 0.0019),
+			Dark = Vector3.new(-0.0, -0.0058, 0.0192),
+			Display = Vector3.new(-0.0, 0.2442, -0.2462),
+			Gold = Vector3.new(-0.0, 0.0404, -0.0058),
+			Keys = Vector3.new(0.0654, 0.0269, 0.1654),
+			Paper = Vector3.new(-0.3769, 0.0289, -0.2613),
+		},
 		Parts = {
 			Accent = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -202,7 +341,13 @@ return {
 	PropChandelier = {
 		AssetId = 140666662947210,
 		Size = Vector3.new(4.44, 3.35, 3.904),
-		Origin = Vector3.new(0.0, 3.35, -0.0),
+		Origin = Vector3.new(0.0, 3.35, 0.0),
+		Centers = {
+			Candle = Vector3.new(-0.0, -0.0507, 0.0),
+			Crystal = Vector3.new(-0.0, -0.2975, 0.0),
+			Glow = Vector3.new(-0.0, 0.0124, 0.0),
+			Gold = Vector3.new(-0.0, 0.0597, 0.0),
+		},
 		Parts = {
 			Candle = { Color = Color3.fromRGB(250, 245, 235), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Crystal = { Color = Color3.fromRGB(200, 235, 255), Material = Enum.Material.Glass, Transparency = 0.3, Reflectance = 0.3 },
@@ -210,20 +355,80 @@ return {
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 		},
 	},
+	PropCounter = {
+		AssetId = 127735770188089,
+		Size = Vector3.new(18.6, 4.0, 3.75),
+		Origin = Vector3.new(0.0, 0.0, 0.075),
+		Centers = {
+			Accent = Vector3.new(-0.0, -0.0054, -0.082),
+			DarkMarble = Vector3.new(-0.0, 0.0968, 0.004),
+			DarkWood = Vector3.new(-0.0, -0.0054, 0.0585),
+			Gold = Vector3.new(-0.0, -0.0094, -0.0054),
+			Marble = Vector3.new(-0.0, -0.0108, -0.0007),
+		},
+		Parts = {
+			Accent = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			DarkMarble = { Color = Color3.fromRGB(45, 45, 60), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.05 },
+			DarkWood = { Color = Color3.fromRGB(85, 55, 40), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Marble = { Color = Color3.fromRGB(240, 240, 245), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
+	PropDisplayCase = {
+		AssetId = 97867869229281,
+		Size = Vector3.new(3.2, 5.36, 8.2),
+		Origin = Vector3.new(0.0, 0.0, 0.0),
+		Centers = {
+			AccentCloth = Vector3.new(-0.0, -0.0037, 0.0),
+			Glass = Vector3.new(-0.0, 0.1488, 0.0),
+			Gold = Vector3.new(-0.0, 0.0, 0.0),
+			Marble = Vector3.new(-0.0, -0.1683, 0.0),
+		},
+		Parts = {
+			AccentCloth = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			Glass = { Color = Color3.fromRGB(190, 230, 255), Material = Enum.Material.Glass, Transparency = 0.75, Reflectance = 0.2 },
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Marble = { Color = Color3.fromRGB(240, 240, 245), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 	PropFountain = {
 		AssetId = 128621338758116,
 		Size = Vector3.new(16.3, 7.35, 16.3),
-		Origin = Vector3.new(0.0, -0.0, -0.0),
+		Origin = Vector3.new(0.0, 0.0, 0.0),
+		Centers = {
+			Gold = Vector3.new(-0.0, 0.0635, 0.0),
+			Marble = Vector3.new(-0.0, -0.0475, 0.0),
+			Water = Vector3.new(-0.0, 0.0345, 0.0),
+		},
 		Parts = {
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 			Marble = { Color = Color3.fromRGB(240, 240, 245), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
 			Water = { Color = Color3.fromRGB(80, 180, 255), Material = Enum.Material.Glass, Transparency = 0.3, Reflectance = 0.1 },
 		},
 	},
+	PropHedge = {
+		AssetId = 91692455265467,
+		Size = Vector3.new(8.999, 2.983, 1.981),
+		Origin = Vector3.new(0.01, -0.05, 0.025),
+		Centers = {
+			Leaf = Vector3.new(-0.0, 0.0, -0.0016),
+			LeafLight = Vector3.new(0.001, 0.0859, 0.0062),
+		},
+		Parts = {
+			Leaf = { Color = Color3.fromRGB(60, 150, 65), Material = Enum.Material.Grass, Transparency = 0.0, Reflectance = 0.0 },
+			LeafLight = { Color = Color3.fromRGB(80, 175, 75), Material = Enum.Material.Grass, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 	PropLantern = {
 		AssetId = 99689947457978,
 		Size = Vector3.new(0.735, 1.77, 1.268),
 		Origin = Vector3.new(0.0, 1.42, 0.634),
+		Centers = {
+			Dark = Vector3.new(0.0002, 0.1893, -0.1504),
+			Glass = Vector3.new(-0.0, -0.065, -0.1504),
+			Glow = Vector3.new(-0.0, -0.048, -0.1504),
+			Gold = Vector3.new(-0.0, 0.0, 0.0),
+		},
 		Parts = {
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Glass = { Color = Color3.fromRGB(255, 240, 200), Material = Enum.Material.Glass, Transparency = 0.45, Reflectance = 0.1 },
@@ -235,15 +440,42 @@ return {
 		AssetId = 88936651455771,
 		Size = Vector3.new(2.7, 4.3, 3.35),
 		Origin = Vector3.new(0.0, 3.9, 1.675),
+		Centers = {
+			Balls = Vector3.new(-0.0, -0.1919, -0.2384),
+			Gold = Vector3.new(-0.0, 0.1512, 0.014),
+		},
 		Parts = {
 			Balls = { Color = Color3.fromRGB(255, 200, 60), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.3 },
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 		},
 	},
+	PropPlazaFloor = {
+		AssetId = 87706118018916,
+		Size = Vector3.new(60.0, 0.74, 40.0),
+		Origin = Vector3.new(0.0, 0.0, 0.0),
+		Centers = {
+			Gold = Vector3.new(-0.0, 0.0058, 0.0),
+			Plaza = Vector3.new(-0.0, -0.0003, 0.0),
+			Stone = Vector3.new(-0.0, 0.0058, 0.0),
+			StoneDark = Vector3.new(-0.0, 0.0058, 0.0),
+		},
+		Parts = {
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Plaza = { Color = Color3.fromRGB(235, 228, 215), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+			Stone = { Color = Color3.fromRGB(215, 205, 190), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+			StoneDark = { Color = Color3.fromRGB(180, 168, 150), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 	PropPottedBush = {
 		AssetId = 105284230100208,
 		Size = Vector3.new(2.714, 4.223, 2.685),
-		Origin = Vector3.new(0.0, -0.0, -0.004),
+		Origin = Vector3.new(-0.012, 0.0, -0.004),
+		Centers = {
+			DarkLeaf = Vector3.new(0.011, 0.2421, 0.0207),
+			Gold = Vector3.new(-0.0028, -0.2798, -0.001),
+			Leaf = Vector3.new(-0.0, 0.1895, 0.0),
+			Marble = Vector3.new(-0.0028, -0.2999, -0.001),
+		},
 		Parts = {
 			DarkLeaf = { Color = Color3.fromRGB(60, 150, 65), Material = Enum.Material.Grass, Transparency = 0.0, Reflectance = 0.0 },
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
@@ -254,7 +486,15 @@ return {
 	PropPottedPlant = {
 		AssetId = 89509202074471,
 		Size = Vector3.new(3.023, 4.464, 3.357),
-		Origin = Vector3.new(0.0, -0.0, -0.134),
+		Origin = Vector3.new(-0.166, 0.0, -0.134),
+		Centers = {
+			DarkLeaf = Vector3.new(-0.0, 0.1773, -0.0204),
+			Gold = Vector3.new(-0.0372, -0.2883, -0.0299),
+			Leaf = Vector3.new(-0.0504, 0.16, 0.0),
+			Marble = Vector3.new(-0.0372, -0.3074, -0.0299),
+			Soil = Vector3.new(-0.0372, -0.1416, -0.0299),
+			Stem = Vector3.new(-0.0457, 0.0154, -0.0299),
+		},
 		Parts = {
 			DarkLeaf = { Color = Color3.fromRGB(60, 150, 65), Material = Enum.Material.Grass, Transparency = 0.0, Reflectance = 0.0 },
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
@@ -268,6 +508,14 @@ return {
 		AssetId = 89649091820720,
 		Size = Vector3.new(4.1, 6.673, 2.73),
 		Origin = Vector3.new(0.0, 0.023, 0.065),
+		Centers = {
+			Case = Vector3.new(-0.0, 0.0819, 0.0172),
+			Dark = Vector3.new(0.0056, 0.1191, -0.0487),
+			DarkWood = Vector3.new(-0.0, -0.1311, 0.0097),
+			Screen = Vector3.new(0.0525, 0.0879, -0.1341),
+			Steel = Vector3.new(-0.0466, 0.1089, -0.0749),
+			Wood = Vector3.new(-0.0, -0.2718, 0.0045),
+		},
 		Parts = {
 			Case = { Color = Color3.fromRGB(95, 85, 80), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -277,10 +525,36 @@ return {
 			Wood = { Color = Color3.fromRGB(150, 100, 60), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
 		},
 	},
+	PropRoad = {
+		AssetId = 125843901589349,
+		Size = Vector3.new(8.0, 0.235, 24.0),
+		Origin = Vector3.new(0.0, 0.0, 0.0),
+		Centers = {
+			Asphalt = Vector3.new(-0.0, -0.0007, 0.0),
+			Gutter = Vector3.new(-0.0, -0.0016, 0.0),
+			Line = Vector3.new(-0.0, 0.0041, 0.0),
+			Patch = Vector3.new(-0.0125, 0.0036, -0.001),
+			Yellow = Vector3.new(-0.0, 0.0041, 0.0),
+		},
+		Parts = {
+			Asphalt = { Color = Color3.fromRGB(60, 60, 72), Material = Enum.Material.Asphalt, Transparency = 0.0, Reflectance = 0.0 },
+			Gutter = { Color = Color3.fromRGB(150, 150, 158), Material = Enum.Material.Concrete, Transparency = 0.0, Reflectance = 0.0 },
+			Line = { Color = Color3.fromRGB(245, 245, 245), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Patch = { Color = Color3.fromRGB(52, 52, 63), Material = Enum.Material.Asphalt, Transparency = 0.0, Reflectance = 0.0 },
+			Yellow = { Color = Color3.fromRGB(255, 210, 60), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 	PropSafe = {
 		AssetId = 106301775646680,
 		Size = Vector3.new(4.0, 5.95, 3.92),
-		Origin = Vector3.new(0.0, -0.0, 0.21),
+		Origin = Vector3.new(0.0, 0.0, 0.21),
+		Centers = {
+			Body = Vector3.new(-0.0, -0.0597, 0.0353),
+			Dark = Vector3.new(-0.0, -0.1874, 0.0008),
+			Door = Vector3.new(-0.0, -0.0597, -0.2672),
+			Gold = Vector3.new(-0.0, 0.0471, -0.1298),
+			Steel = Vector3.new(-0.0297, -0.063, -0.2924),
+		},
 		Parts = {
 			Body = { Color = Color3.fromRGB(45, 45, 55), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.05 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -292,16 +566,131 @@ return {
 	PropServiceBell = {
 		AssetId = 85371204773576,
 		Size = Vector3.new(1.04, 0.81, 1.04),
-		Origin = Vector3.new(0.0, -0.0, -0.0),
+		Origin = Vector3.new(0.0, 0.0, 0.0),
+		Centers = {
+			Gold = Vector3.new(-0.0, 0.0962, 0.0),
+			Wood = Vector3.new(-0.0, -0.2933, 0.0),
+		},
 		Parts = {
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 			Wood = { Color = Color3.fromRGB(85, 55, 40), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
 		},
 	},
+	PropShopExterior = {
+		AssetId = 129382971970953,
+		Size = Vector3.new(41.3, 22.5, 40.5),
+		Origin = Vector3.new(0.0, 0.0, 2.75),
+		Centers = {
+			Accent = Vector3.new(-0.0, -0.0036, 0.0666),
+			AccentFabric = Vector3.new(0.0121, 0.0117, -0.3887),
+			AccentNeon = Vector3.new(-0.0, 0.1295, -0.3487),
+			DarkMarble = Vector3.new(-0.0, -0.2513, -0.0047),
+			Glass = Vector3.new(-0.0, -0.1186, -0.2881),
+			Gold = Vector3.new(-0.0, 0.0121, 0.0203),
+			Marble = Vector3.new(-0.0, -0.0811, -0.0061),
+			Roof = Vector3.new(-0.0, 0.1659, 0.0666),
+			Steel = Vector3.new(-0.0, 0.1937, 0.3087),
+			Stripe = Vector3.new(-0.0121, 0.0117, -0.3887),
+			Trim = Vector3.new(-0.0, -0.0478, 0.069),
+			Wall = Vector3.new(-0.0, -0.0545, 0.0666),
+		},
+		Parts = {
+			Accent = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			AccentFabric = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			AccentNeon = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.Neon, Transparency = 0.0, Reflectance = 0.0 },
+			DarkMarble = { Color = Color3.fromRGB(45, 45, 60), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+			Glass = { Color = Color3.fromRGB(190, 230, 255), Material = Enum.Material.Glass, Transparency = 0.55, Reflectance = 0.15 },
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Marble = { Color = Color3.fromRGB(240, 240, 245), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+			Roof = { Color = Color3.fromRGB(70, 65, 90), Material = Enum.Material.Slate, Transparency = 0.0, Reflectance = 0.0 },
+			Steel = { Color = Color3.fromRGB(190, 195, 205), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.0 },
+			Stripe = { Color = Color3.fromRGB(255, 255, 255), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			Trim = { Color = Color3.fromRGB(236, 224, 200), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Wall = { Color = Color3.fromRGB(250, 240, 220), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
+	PropShopInterior = {
+		AssetId = 125636777523407,
+		Size = Vector3.new(38.0, 15.845, 32.0),
+		Origin = Vector3.new(0.0, -1.0, 0.0),
+		Centers = {
+			AccentRug = Vector3.new(-0.0, -0.2056, -0.1842),
+			Board = Vector3.new(-0.2632, -0.0243, 0.4132),
+			Cardboard = Vector3.new(-0.4428, -0.1585, 0.3386),
+			Dark = Vector3.new(-0.2632, -0.0309, 0.3945),
+			DarkWood = Vector3.new(-0.0, -0.0739, 0.0),
+			Glow = Vector3.new(-0.0, 0.2026, 0.2632),
+			Gold = Vector3.new(-0.0, 0.0, 0.0),
+			GuitarBlue = Vector3.new(-0.2632, -0.0479, 0.4013),
+			GuitarOrange = Vector3.new(-0.1842, -0.0479, 0.4013),
+			GuitarRed = Vector3.new(-0.3421, -0.0479, 0.4013),
+			Hills = Vector3.new(-0.0, 0.0773, -0.1576),
+			PanelWood = Vector3.new(-0.0, -0.1072, 0.0022),
+			PlankLine = Vector3.new(-0.2342, -0.0243, 0.41),
+			Rosewood = Vector3.new(-0.2632, 0.0166, 0.3991),
+			RugCream = Vector3.new(-0.0, -0.2049, -0.1842),
+			RugGold = Vector3.new(-0.0, -0.2052, -0.1842),
+			SkyBlue = Vector3.new(-0.4934, 0.1126, -0.1579),
+			SkyOrange = Vector3.new(0.4934, 0.1126, -0.1579),
+			Steel = Vector3.new(-0.2632, 0.0152, 0.3985),
+			Sun = Vector3.new(-0.0, 0.1363, -0.1316),
+			Tape = Vector3.new(-0.4412, -0.1348, 0.3406),
+			Trim = Vector3.new(-0.0, 0.1994, 0.0),
+			White = Vector3.new(-0.2632, -0.0309, 0.3942),
+		},
+		Parts = {
+			AccentRug = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			Board = { Color = Color3.fromRGB(205, 165, 115), Material = Enum.Material.WoodPlanks, Transparency = 0.0, Reflectance = 0.0 },
+			Cardboard = { Color = Color3.fromRGB(196, 152, 100), Material = Enum.Material.Cardboard, Transparency = 0.0, Reflectance = 0.0 },
+			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			DarkWood = { Color = Color3.fromRGB(85, 55, 40), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
+			Glow = { Color = Color3.fromRGB(255, 225, 160), Material = Enum.Material.Neon, Transparency = 0.0, Reflectance = 0.0 },
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			GuitarBlue = { Color = Color3.fromRGB(60, 120, 230), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			GuitarOrange = { Color = Color3.fromRGB(240, 160, 50), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			GuitarRed = { Color = Color3.fromRGB(220, 60, 60), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Hills = { Color = Color3.fromRGB(95, 195, 85), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			PanelWood = { Color = Color3.fromRGB(110, 72, 50), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
+			PlankLine = { Color = Color3.fromRGB(170, 130, 85), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Rosewood = { Color = Color3.fromRGB(55, 35, 28), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
+			RugCream = { Color = Color3.fromRGB(250, 240, 220), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			RugGold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			SkyBlue = { Color = Color3.fromRGB(120, 190, 240), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			SkyOrange = { Color = Color3.fromRGB(240, 170, 110), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Steel = { Color = Color3.fromRGB(190, 195, 205), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.0 },
+			Sun = { Color = Color3.fromRGB(255, 235, 130), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Tape = { Color = Color3.fromRGB(225, 190, 130), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Trim = { Color = Color3.fromRGB(236, 224, 200), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			White = { Color = Color3.fromRGB(245, 245, 245), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
+	PropSidewalk = {
+		AssetId = 109385629952301,
+		Size = Vector3.new(8.0, 0.6, 8.425),
+		Origin = Vector3.new(0.0, 0.03, 0.213),
+		Centers = {
+			Curb = Vector3.new(-0.0, 0.0, -0.4199),
+			Grout = Vector3.new(-0.0, -0.0053, 0.0),
+			Paving = Vector3.new(-0.0, 0.0237, 0.0519),
+			PavingDark = Vector3.new(-0.0, 0.0237, 0.0519),
+		},
+		Parts = {
+			Curb = { Color = Color3.fromRGB(240, 240, 245), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+			Grout = { Color = Color3.fromRGB(170, 170, 178), Material = Enum.Material.Concrete, Transparency = 0.0, Reflectance = 0.0 },
+			Paving = { Color = Color3.fromRGB(210, 210, 216), Material = Enum.Material.Concrete, Transparency = 0.0, Reflectance = 0.0 },
+			PavingDark = { Color = Color3.fromRGB(192, 192, 200), Material = Enum.Material.Concrete, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 	PropStreetLamp = {
 		AssetId = 113629771401713,
 		Size = Vector3.new(1.84, 12.63, 4.547),
-		Origin = Vector3.new(0.0, -0.0, 1.523),
+		Origin = Vector3.new(0.0, 0.0, 1.523),
+		Centers = {
+			Glass = Vector3.new(-0.0, 0.4026, -0.1169),
+			Glow = Vector3.new(-0.0, 0.3987, -0.1169),
+			Gold = Vector3.new(-0.0, 0.0471, 0.1206),
+			Iron = Vector3.new(-0.0, -0.0036, 0.0),
+		},
 		Parts = {
 			Glass = { Color = Color3.fromRGB(255, 240, 200), Material = Enum.Material.Glass, Transparency = 0.4, Reflectance = 0.1 },
 			Glow = { Color = Color3.fromRGB(255, 225, 160), Material = Enum.Material.Neon, Transparency = 0.0, Reflectance = 0.0 },
@@ -312,7 +701,12 @@ return {
 	PropTree = {
 		AssetId = 82268578684716,
 		Size = Vector3.new(8.053, 11.539, 6.797),
-		Origin = Vector3.new(0.0, 0.155, -0.232),
+		Origin = Vector3.new(0.138, 0.155, -0.232),
+		Centers = {
+			Bark = Vector3.new(0.0042, -0.1861, -0.0115),
+			DarkLeaf = Vector3.new(-0.0656, 0.16, 0.0),
+			Leaf = Vector3.new(0.0456, 0.1964, -0.0218),
+		},
 		Parts = {
 			Bark = { Color = Color3.fromRGB(115, 80, 55), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
 			DarkLeaf = { Color = Color3.fromRGB(60, 150, 65), Material = Enum.Material.Grass, Transparency = 0.0, Reflectance = 0.0 },
@@ -323,6 +717,12 @@ return {
 		AssetId = 104848039626807,
 		Size = Vector3.new(2.6, 2.6, 0.333),
 		Origin = Vector3.new(0.0, 1.3, 0.167),
+		Centers = {
+			Dark = Vector3.new(-0.0, 0.0, -0.0263),
+			Face = Vector3.new(-0.0, 0.0, -0.0167),
+			Glass = Vector3.new(0.0, 0.0, -0.0206),
+			Gold = Vector3.new(-0.0, 0.0, 0.0063),
+		},
 		Parts = {
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Face = { Color = Color3.fromRGB(250, 248, 240), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -330,9 +730,37 @@ return {
 			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 		},
 	},
+	PropWallShelf = {
+		AssetId = 75542219657358,
+		Size = Vector3.new(15.2, 10.125, 3.65),
+		Origin = Vector3.new(0.0, 0.0, 0.025),
+		Centers = {
+			Accent = Vector3.new(-0.0, -0.3133, 0.0016),
+			Gold = Vector3.new(-0.0, -0.0035, -0.0104),
+			Trim = Vector3.new(-0.0, 0.0066, -0.0016),
+			White = Vector3.new(-0.0, -0.0107, 0.0049),
+		},
+		Parts = {
+			Accent = { Color = Color3.fromRGB(140, 80, 220), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Trim = { Color = Color3.fromRGB(236, 224, 200), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			White = { Color = Color3.fromRGB(250, 250, 250), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 	RoyalCrown = {
 		AssetId = 114928381156600,
 		Size = Vector3.new(1.57, 1.69, 1.57),
+		Centers = {
+			Cushion = Vector3.new(-0.0, -0.4112, 0.0),
+			Emerald = Vector3.new(0.1461, -0.1686, 0.0),
+			Ermine = Vector3.new(-0.0, -0.287, 0.0),
+			Gold = Vector3.new(-0.0, 0.0059, 0.0),
+			Pearl = Vector3.new(-0.0, 0.1598, 0.0),
+			Ruby = Vector3.new(-0.0, -0.1686, -0.0958),
+			Sapphire = Vector3.new(-0.0, -0.1686, 0.0958),
+			Spots = Vector3.new(-0.0, -0.2751, 0.0),
+			Velvet = Vector3.new(-0.0, -0.074, 0.0),
+		},
 		Parts = {
 			Cushion = { Color = Color3.fromRGB(110, 25, 120), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
 			Emerald = { Color = Color3.fromRGB(30, 190, 100), Material = Enum.Material.Glass, Transparency = 0.0, Reflectance = 0.3 },
@@ -348,6 +776,12 @@ return {
 	RubberDuck = {
 		AssetId = 125135334382469,
 		Size = Vector3.new(1.048, 1.34, 1.646),
+		Centers = {
+			Beak = Vector3.new(-0.0, 0.1422, -0.3785),
+			Dark = Vector3.new(0.0, 0.2613, -0.3359),
+			White = Vector3.new(-0.0122, 0.2795, -0.3724),
+			Yellow = Vector3.new(-0.0, 0.0, 0.0608),
+		},
 		Parts = {
 			Beak = { Color = Color3.fromRGB(255, 135, 30), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -358,6 +792,14 @@ return {
 	Skateboard = {
 		AssetId = 101552368265310,
 		Size = Vector3.new(0.883, 0.617, 2.707),
+		Centers = {
+			Dark = Vector3.new(-0.0, -0.0512, 0.0),
+			Deck = Vector3.new(-0.0, 0.0622, 0.0),
+			Graphic = Vector3.new(-0.0, 0.0246, 0.0),
+			Grip = Vector3.new(-0.0, 0.0772, 0.0),
+			Steel = Vector3.new(-0.0, 0.0011, 0.0),
+			Wheel = Vector3.new(-0.0, -0.0512, 0.0),
+		},
 		Parts = {
 			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Deck = { Color = Color3.fromRGB(255, 90, 60), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
@@ -370,6 +812,14 @@ return {
 	TeddyBear = {
 		AssetId = 76699562056183,
 		Size = Vector3.new(1.368, 1.859, 1.085),
+		Centers = {
+			Bow = Vector3.new(0.0, 0.0446, -0.1896),
+			Fur = Vector3.new(-0.0, 0.0, 0.0052),
+			LightFur = Vector3.new(-0.0, 0.0024, -0.1356),
+			Nose = Vector3.new(0.0, 0.2283, -0.1993),
+			Stitch = Vector3.new(0.0, 0.1692, -0.23),
+			White = Vector3.new(-0.0081, 0.301, -0.195),
+		},
 		Parts = {
 			Bow = { Color = Color3.fromRGB(220, 50, 70), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
 			Fur = { Color = Color3.fromRGB(170, 110, 65), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
@@ -382,6 +832,12 @@ return {
 	TinCan = {
 		AssetId = 94001671991017,
 		Size = Vector3.new(0.83, 1.711, 0.861),
+		Centers = {
+			Label = Vector3.new(-0.0, -0.1786, 0.0092),
+			Rust = Vector3.new(-0.0117, -0.1698, -0.1622),
+			Stripe = Vector3.new(-0.0, -0.1727, 0.0092),
+			Tin = Vector3.new(-0.0, 0.0, 0.0092),
+		},
 		Parts = {
 			Label = { Color = Color3.fromRGB(205, 50, 50), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
 			Rust = { Color = Color3.fromRGB(140, 75, 40), Material = Enum.Material.CorrodedMetal, Transparency = 0.0, Reflectance = 0.0 },
@@ -392,6 +848,13 @@ return {
 	Toaster = {
 		AssetId = 73213773451844,
 		Size = Vector3.new(1.62, 1.401, 0.92),
+		Centers = {
+			Chrome = Vector3.new(0.037, -0.0497, 0.0062),
+			Crust = Vector3.new(0.037, 0.2021, 0.0062),
+			Dark = Vector3.new(0.034, -0.0836, 0.0062),
+			Red = Vector3.new(-0.0123, -0.0435, -0.0123),
+			Toast = Vector3.new(0.037, 0.2025, 0.0062),
+		},
 		Parts = {
 			Chrome = { Color = Color3.fromRGB(200, 205, 215), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.25 },
 			Crust = { Color = Color3.fromRGB(150, 90, 45), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
@@ -403,6 +866,11 @@ return {
 	Trumpet = {
 		AssetId = 88780161577260,
 		Size = Vector3.new(0.72, 0.925, 2.735),
+		Centers = {
+			Brass = Vector3.new(-0.0, -0.0283, -0.0311),
+			Pearl = Vector3.new(-0.0, 0.1619, -0.0009),
+			Steel = Vector3.new(-0.0, 0.0915, 0.2154),
+		},
 		Parts = {
 			Brass = { Color = Color3.fromRGB(240, 190, 70), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
 			Pearl = { Color = Color3.fromRGB(250, 245, 235), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.1 },

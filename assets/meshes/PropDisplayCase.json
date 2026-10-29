@@ -1,0 +1,83 @@
+{
+  "Id": "PropDisplayCase",
+  "Size": [
+    3.2,
+    5.36,
+    8.2
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "AccentCloth": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Glass": {
+      "Color": [
+        190,
+        230,
+        255
+      ],
+      "Material": "Glass",
+      "Transparency": 0.75,
+      "Reflectance": 0.2
+    }
+  },
+  "Triangles": {
+    "Marble": 540,
+    "Gold": 2184,
+    "AccentCloth": 108,
+    "Glass": 108
+  },
+  "Centers": {
+    "Marble": [
+      -0.0,
+      -0.1683,
+      0.0
+    ],
+    "Gold": [
+      -0.0,
+      0.0,
+      0.0
+    ],
+    "AccentCloth": [
+      -0.0,
+      -0.0037,
+      0.0
+    ],
+    "Glass": [
+      -0.0,
+      0.1488,
+      0.0
+    ]
+  },
+  "Origin": [
+    0.0,
+    0.0,
+    0.0
+  ]
+}
