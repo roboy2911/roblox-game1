@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local Build = require(script.Parent.Build)
+local Props = require(script.Parent.Props)
 
 local C = Build.Colors
 local M = Enum.Material
@@ -22,6 +23,11 @@ local SHOP_BACK = Config.StreetToShop + SHOP_HALF_DEPTH
 -- Props, each built facing `cf.LookVector` --------------------------------
 
 local function tree(parent, base: Vector3)
+	-- Each tree is turned a different (but always the same) amount so they don't look copy-pasted
+	local turn = math.rad((base.X * 37 + base.Z * 53) % 360)
+	if Props.Place(parent, "Tree", CFrame.new(base) * CFrame.Angles(0, turn, 0)) then
+		return
+	end
 	local m = Build.model(parent, "Tree")
 	local b = Build.at(CFrame.new(base))
 	b.column(m, "Trunk", 1.2, 6, V(0, 0, 0), C.Trunk, M.Wood)
@@ -32,6 +38,9 @@ end
 
 -- Street lamp; the arm reaches out in the direction cf is facing.
 local function lamp(parent, cf: CFrame)
+	if Props.Place(parent, "StreetLamp", cf, { light = { 20, 0.6 } }) then
+		return
+	end
 	local m = Build.model(parent, "StreetLamp")
 	local b = Build.at(cf)
 	b.column(m, "Base", 1.4, 0.6, V(0, 0, 0), C.DarkMetal, M.Metal)
@@ -46,6 +55,9 @@ end
 
 -- Park bench; people sitting on it face the direction cf is facing.
 local function bench(parent, cf: CFrame)
+	if Props.Place(parent, "Bench", cf) then
+		return
+	end
 	local m = Build.model(parent, "Bench")
 	local b = Build.at(cf)
 	for _, z in { -0.55, 0, 0.55 } do
@@ -126,13 +138,18 @@ local function buildPlaza(town, streetEndZ)
 	b.part(plaza, "Floor", V(60, top, 40), V(0, top / 2, cz), C.Plaza, M.Marble)
 	b.column(plaza, "GoldRing", 22, 0.05, V(0, top, cz), C.Gold, M.Metal)
 
-	-- Fountain
-	b.column(plaza, "Basin", 16, 2, V(0, top, cz), C.Marble, M.Marble)
-	b.column(plaza, "Water", 14.4, 0.3, V(0, 2.5, cz), C.Water, M.Glass, { transparency = 0.3 })
-	b.column(plaza, "Pillar", 2, 4, V(0, 2.7, cz), C.Marble, M.Marble)
-	b.column(plaza, "Bowl", 6, 0.8, V(0, 6.7, cz), C.Gold, M.Metal)
-	b.column(plaza, "BowlWater", 5.2, 0.2, V(0, 7.4, cz), C.Water, M.Glass, { transparency = 0.3 })
-	local spout = b.ball(plaza, "Spout", 1.2, V(0, 8.1, cz), Color3.fromRGB(150, 220, 255), M.Neon)
+	-- Fountain (the glowing spout with the spray stays a part either way)
+	local spoutY = 8.1
+	if Props.Place(plaza, "Fountain", CFrame.new(0, top, cz)) then
+		spoutY = top + 7.55
+	else
+		b.column(plaza, "Basin", 16, 2, V(0, top, cz), C.Marble, M.Marble)
+		b.column(plaza, "Water", 14.4, 0.3, V(0, 2.5, cz), C.Water, M.Glass, { transparency = 0.3 })
+		b.column(plaza, "Pillar", 2, 4, V(0, 2.7, cz), C.Marble, M.Marble)
+		b.column(plaza, "Bowl", 6, 0.8, V(0, 6.7, cz), C.Gold, M.Metal)
+		b.column(plaza, "BowlWater", 5.2, 0.2, V(0, 7.4, cz), C.Water, M.Glass, { transparency = 0.3 })
+	end
+	local spout = b.ball(plaza, "Spout", 1.2, V(0, spoutY, cz), Color3.fromRGB(150, 220, 255), M.Neon)
 
 	local spray = Instance.new("ParticleEmitter")
 	spray.Color = ColorSequence.new(Color3.fromRGB(170, 225, 255))

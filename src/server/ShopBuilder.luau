@@ -5,6 +5,7 @@
 -- The owner stands behind the counter (back half). Customers come in the front door.
 
 local Build = require(script.Parent.Build)
+local Props = require(script.Parent.Props)
 
 local C = Build.Colors
 local M = Enum.Material
@@ -104,20 +105,24 @@ local function buildFacade(b, m, shop, accent)
 
 	-- Lanterns on the pillars next to the door
 	for _, s in SIDES do
-		b.part(m, "LanternArm", V(0.3, 0.3, 0.6), V(s * 5.5, 9.5, -18.7), C.Gold, M.Metal)
-		b.part(m, "LanternCap", V(1, 0.2, 1), V(s * 5.5, 10.2, -19.3), C.Gold, M.Metal)
-		local bulb = b.part(m, "Lantern", V(0.7, 1, 0.7), V(s * 5.5, 9.6, -19.3), C.WarmLight, M.Neon)
-		b.part(m, "LanternCap", V(1, 0.2, 1), V(s * 5.5, 9.0, -19.3), C.Gold, M.Metal)
-		Build.light(bulb, 12, 0.5)
+		if not Props.Place(m, "Lantern", b.cframe(V(s * 5.5, 10.25, -18.4)), { light = { 12, 0.5 }, collide = false }) then
+			b.part(m, "LanternArm", V(0.3, 0.3, 0.6), V(s * 5.5, 9.5, -18.7), C.Gold, M.Metal)
+			b.part(m, "LanternCap", V(1, 0.2, 1), V(s * 5.5, 10.2, -19.3), C.Gold, M.Metal)
+			local bulb = b.part(m, "Lantern", V(0.7, 1, 0.7), V(s * 5.5, 9.6, -19.3), C.WarmLight, M.Neon)
+			b.part(m, "LanternCap", V(1, 0.2, 1), V(s * 5.5, 9.0, -19.3), C.Gold, M.Metal)
+			Build.light(bulb, 12, 0.5)
+		end
 	end
 
 	-- The classic pawnbroker symbol: three gold balls hanging from a bracket
-	b.part(m, "PawnArm", V(0.4, 0.4, 3), V(16, 16, -18.5), C.Gold, M.Metal)
-	b.part(m, "PawnRod", V(0.2, 1, 0.2), V(16, 15.4, -19.7), C.Gold, M.Metal)
-	b.part(m, "PawnBar", V(2.2, 0.25, 0.25), V(16, 14.9, -19.7), C.Gold, M.Metal)
-	b.ball(m, "PawnBall", 1.3, V(15.35, 14.1, -19.7), C.Gold, M.Metal, { reflectance = 0.25 })
-	b.ball(m, "PawnBall", 1.3, V(16.65, 14.1, -19.7), C.Gold, M.Metal, { reflectance = 0.25 })
-	b.ball(m, "PawnBall", 1.3, V(16, 13.0, -19.7), C.Gold, M.Metal, { reflectance = 0.25 })
+	if not Props.Place(m, "PawnBalls", b.cframe(V(16, 16, -17)), { collide = false }) then
+		b.part(m, "PawnArm", V(0.4, 0.4, 3), V(16, 16, -18.5), C.Gold, M.Metal)
+		b.part(m, "PawnRod", V(0.2, 1, 0.2), V(16, 15.4, -19.7), C.Gold, M.Metal)
+		b.part(m, "PawnBar", V(2.2, 0.25, 0.25), V(16, 14.9, -19.7), C.Gold, M.Metal)
+		b.ball(m, "PawnBall", 1.3, V(15.35, 14.1, -19.7), C.Gold, M.Metal, { reflectance = 0.25 })
+		b.ball(m, "PawnBall", 1.3, V(16.65, 14.1, -19.7), C.Gold, M.Metal, { reflectance = 0.25 })
+		b.ball(m, "PawnBall", 1.3, V(16, 13.0, -19.7), C.Gold, M.Metal, { reflectance = 0.25 })
+	end
 
 	-- Glowing OPEN sign inside the left window
 	local open = b.part(m, "OpenSign", V(3, 1.2, 0.1), V(-9.2, 9.6, -16.25), C.DarkMetal)
@@ -125,9 +130,11 @@ local function buildFacade(b, m, shop, accent)
 
 	-- Potted bushes on each side of the door
 	for _, s in SIDES do
-		b.column(m, "Pot", 2, 1.6, V(s * 8.5, 0.2, -19), C.Marble, M.Marble)
-		b.column(m, "PotRim", 2.2, 0.2, V(s * 8.5, 1.8, -19), C.Gold, M.Metal)
-		b.ball(m, "Bush", 2.6, V(s * 8.5, 2.9, -19), C.Leaf)
+		if not Props.Place(m, "PottedBush", b.cframe(V(s * 8.5, 0.2, -19))) then
+			b.column(m, "Pot", 2, 1.6, V(s * 8.5, 0.2, -19), C.Marble, M.Marble)
+			b.column(m, "PotRim", 2.2, 0.2, V(s * 8.5, 1.8, -19), C.Gold, M.Metal)
+			b.ball(m, "Bush", 2.6, V(s * 8.5, 2.9, -19), C.Leaf)
+		end
 	end
 end
 
@@ -143,15 +150,19 @@ local function buildCounter(b, shop, accent)
 	b.part(m, "TopEdge", V(18.6, 0.2, 0.2), V(0, 4.55, 2.15), C.Gold, M.Metal)
 
 	-- Cash register
-	b.part(m, "Register", V(2.6, 1, 2), V(5, 5.5, 4.4), accent)
-	b.part(m, "RegisterKeys", V(2.2, 0.15, 0.9), V(5, 6.075, 4.9), C.DarkMetal)
-	b.part(m, "RegisterScreen", V(1.8, 1, 0.2), V(5, 6.6, 4.0), C.DarkMetal)
-	b.part(m, "RegisterDisplay", V(1.5, 0.7, 0.05), V(5, 6.6, 3.88), Color3.fromRGB(110, 255, 170), M.Neon)
+	if not Props.Place(m, "CashRegister", b.cframe(V(5, 5.0, 4.4)), { accent = accent }) then
+		b.part(m, "Register", V(2.6, 1, 2), V(5, 5.5, 4.4), accent)
+		b.part(m, "RegisterKeys", V(2.2, 0.15, 0.9), V(5, 6.075, 4.9), C.DarkMetal)
+		b.part(m, "RegisterScreen", V(1.8, 1, 0.2), V(5, 6.6, 4.0), C.DarkMetal)
+		b.part(m, "RegisterDisplay", V(1.5, 0.7, 0.05), V(5, 6.6, 3.88), Color3.fromRGB(110, 255, 170), M.Neon)
+	end
 
 	-- Service bell
-	b.column(m, "BellBase", 1, 0.2, V(-6, 5.0, 3.4), C.DarkWood, M.Wood)
-	b.ball(m, "Bell", 0.9, V(-6, 5.35, 3.4), C.Gold, M.Metal, { reflectance = 0.2 })
-	b.ball(m, "BellButton", 0.25, V(-6, 5.85, 3.4), C.Gold, M.Metal)
+	if not Props.Place(m, "ServiceBell", b.cframe(V(-6, 5.0, 3.4))) then
+		b.column(m, "BellBase", 1, 0.2, V(-6, 5.0, 3.4), C.DarkWood, M.Wood)
+		b.ball(m, "Bell", 0.9, V(-6, 5.35, 3.4), C.Gold, M.Metal, { reflectance = 0.2 })
+		b.ball(m, "BellButton", 0.25, V(-6, 5.85, 3.4), C.Gold, M.Metal)
+	end
 end
 
 -- Glass display cases (items go here in a later step) -----------------------
@@ -214,14 +225,16 @@ local function buildInterior(b, m, accent)
 	b.part(m, "RugBorder", V(10.8, 0.08, 14.8), V(0, 1.09, -7), C.Gold, M.Fabric)
 	b.part(m, "Rug", V(10, 0.1, 14), V(0, 1.1, -7), accent, M.Fabric)
 
-	-- Gold chandelier
-	b.part(m, "ChandelierChain", V(0.2, 2, 0.2), V(0, 15.8, -6), C.Gold, M.Metal)
-	b.column(m, "ChandelierRing", 4, 0.3, V(0, 14.5, -6), C.Gold, M.Metal)
-	local crystal = b.ball(m, "ChandelierCrystal", 1, V(0, 14.2, -6), C.Glass, M.Glass, { transparency = 0.3 })
-	Build.light(crystal, 26, 0.6)
-	for k = 0, 5 do
-		local angle = math.rad(k * 60)
-		b.ball(m, "ChandelierBulb", 0.6, V(2 * math.cos(angle), 14.95, -6 + 2 * math.sin(angle)), C.WarmLight)
+	-- Gold chandelier hanging from the ceiling
+	if not Props.Place(m, "Chandelier", b.cframe(V(0, 16.8, -6)), { light = { 26, 0.6 }, collide = false }) then
+		b.part(m, "ChandelierChain", V(0.2, 2, 0.2), V(0, 15.8, -6), C.Gold, M.Metal)
+		b.column(m, "ChandelierRing", 4, 0.3, V(0, 14.5, -6), C.Gold, M.Metal)
+		local crystal = b.ball(m, "ChandelierCrystal", 1, V(0, 14.2, -6), C.Glass, M.Glass, { transparency = 0.3 })
+		Build.light(crystal, 26, 0.6)
+		for k = 0, 5 do
+			local angle = math.rad(k * 60)
+			b.ball(m, "ChandelierBulb", 0.6, V(2 * math.cos(angle), 14.95, -6 + 2 * math.sin(angle)), C.WarmLight)
+		end
 	end
 	local backLight = b.part(m, "CeilingLight", V(4, 0.2, 4), V(0, 16.7, 10), C.WarmLight)
 	Build.light(backLight, 20, 0.4)
@@ -248,26 +261,32 @@ local function buildInterior(b, m, accent)
 	Build.text(plate, Enum.NormalId.Front, "STAFF ONLY", C.DarkMarble)
 
 	-- Wall clock above the office door
-	b.disc(m, "ClockRim", 2.6, 0.2, V(3, 12.5, 15.8), C.Gold, M.Metal)
-	b.disc(m, "ClockFace", 2.2, 0.1, V(3, 12.5, 15.7), C.White)
-	b.part(m, "HourHand", V(0.2, 0.7, 0.05), V(3, 12.8, 15.63), C.DarkMetal)
-	b.part(m, "MinuteHand", V(0.15, 1, 0.05), V(3.43, 12.75, 15.62), C.DarkMetal, nil, { rot = V(0, 0, -60) })
+	if not Props.Place(m, "WallClock", b.cframe(V(3, 12.5, 16)), { collide = false }) then
+		b.disc(m, "ClockRim", 2.6, 0.2, V(3, 12.5, 15.8), C.Gold, M.Metal)
+		b.disc(m, "ClockFace", 2.2, 0.1, V(3, 12.5, 15.7), C.White)
+		b.part(m, "HourHand", V(0.2, 0.7, 0.05), V(3, 12.8, 15.63), C.DarkMetal)
+		b.part(m, "MinuteHand", V(0.15, 1, 0.05), V(3.43, 12.75, 15.62), C.DarkMetal, nil, { rot = V(0, 0, -60) })
+	end
 
 	-- Big safe in the back corner, with gold bars on top
-	b.part(m, "Safe", V(4, 5, 3.5), V(14.5, 3.5, 13.8), C.DarkMetal, M.Metal)
-	b.part(m, "SafeDoor", V(3.3, 4.2, 0.15), V(14.5, 3.5, 12.0), Color3.fromRGB(75, 75, 90), M.Metal)
-	b.disc(m, "SafeDial", 1.1, 0.3, V(14.5, 4.3, 11.85), C.Gold, M.Metal)
-	b.part(m, "SafeHandle", V(0.25, 1.2, 0.25), V(13.3, 3.3, 11.8), C.Steel, M.Metal)
-	b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(14, 6.25, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
-	b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(15.2, 6.25, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
-	b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(14.6, 6.75, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
+	if not Props.Place(m, "Safe", b.cframe(V(14.5, 1, 13.8))) then
+		b.part(m, "Safe", V(4, 5, 3.5), V(14.5, 3.5, 13.8), C.DarkMetal, M.Metal)
+		b.part(m, "SafeDoor", V(3.3, 4.2, 0.15), V(14.5, 3.5, 12.0), Color3.fromRGB(75, 75, 90), M.Metal)
+		b.disc(m, "SafeDial", 1.1, 0.3, V(14.5, 4.3, 11.85), C.Gold, M.Metal)
+		b.part(m, "SafeHandle", V(0.25, 1.2, 0.25), V(13.3, 3.3, 11.8), C.Steel, M.Metal)
+		b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(14, 6.25, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
+		b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(15.2, 6.25, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
+		b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(14.6, 6.75, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
+	end
 
 	-- Retro TV on a cabinet
-	b.part(m, "TVCabinet", V(4, 2.5, 2.5), V(15.5, 2.25, 8), C.Wood, M.Wood)
-	b.part(m, "TV", V(3.4, 2.6, 2.2), V(15.5, 4.8, 8), Color3.fromRGB(60, 55, 60))
-	b.part(m, "TVScreen", V(2.8, 2, 0.1), V(15.5, 4.9, 6.85), Color3.fromRGB(35, 55, 75), M.Glass)
-	b.part(m, "Antenna", V(0.1, 1.6, 0.1), V(15.1, 6.8, 8), C.Steel, M.Metal, { rot = V(0, 0, 25) })
-	b.part(m, "Antenna", V(0.1, 1.6, 0.1), V(15.9, 6.8, 8), C.Steel, M.Metal, { rot = V(0, 0, -25) })
+	if not Props.Place(m, "RetroTV", b.cframe(V(15.5, 1, 8))) then
+		b.part(m, "TVCabinet", V(4, 2.5, 2.5), V(15.5, 2.25, 8), C.Wood, M.Wood)
+		b.part(m, "TV", V(3.4, 2.6, 2.2), V(15.5, 4.8, 8), Color3.fromRGB(60, 55, 60))
+		b.part(m, "TVScreen", V(2.8, 2, 0.1), V(15.5, 4.9, 6.85), Color3.fromRGB(35, 55, 75), M.Glass)
+		b.part(m, "Antenna", V(0.1, 1.6, 0.1), V(15.1, 6.8, 8), C.Steel, M.Metal, { rot = V(0, 0, 25) })
+		b.part(m, "Antenna", V(0.1, 1.6, 0.1), V(15.9, 6.8, 8), C.Steel, M.Metal, { rot = V(0, 0, -25) })
+	end
 
 	-- Stacked boxes in the back-left corner
 	b.part(m, "Box", V(2.6, 2.2, 2.6), V(-16.8, 2.1, 14.3), C.Cardboard, M.Cardboard)
@@ -276,9 +295,11 @@ local function buildInterior(b, m, accent)
 
 	-- Plants in the front corners
 	for _, s in SIDES do
-		b.column(m, "Pot", 1.8, 1.8, V(s * 17.6, 1, -14.6), C.Marble, M.Marble)
-		b.ball(m, "Plant", 2.4, V(s * 17.6, 3.6, -14.6), C.Leaf)
-		b.ball(m, "Plant", 1.6, V(s * 17.6, 4.7, -14.6), C.DarkLeaf)
+		if not Props.Place(m, "PottedPlant", b.cframe(V(s * 17.6, 1, -14.6), s * 30)) then
+			b.column(m, "Pot", 1.8, 1.8, V(s * 17.6, 1, -14.6), C.Marble, M.Marble)
+			b.ball(m, "Plant", 2.4, V(s * 17.6, 3.6, -14.6), C.Leaf)
+			b.ball(m, "Plant", 1.6, V(s * 17.6, 4.7, -14.6), C.DarkLeaf)
+		end
 	end
 
 	-- Paintings above the shelves

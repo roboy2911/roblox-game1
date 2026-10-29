@@ -118,6 +118,9 @@ def write_catalog(uploaded):
         lines.append(f"\t{model_id} = {{")
         lines.append(f"\t\tAssetId = {uploaded[model_id]['assetId']},")
         lines.append(f"\t\tSize = Vector3.new({size[0]}, {size[1]}, {size[2]}),")
+        if "Origin" in info:
+            o = info["Origin"]
+            lines.append(f"\t\tOrigin = Vector3.new({o[0]}, {o[1]}, {o[2]}),")
         lines.append("\t\tParts = {")
         for name, look in sorted(info["Parts"].items()):
             lines.append(

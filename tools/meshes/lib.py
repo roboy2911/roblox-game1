@@ -10,7 +10,7 @@ import math
 
 import bpy  # must be imported before bmesh/mathutils
 import bmesh
-from mathutils import Euler, Vector
+from mathutils import Euler, Vector, noise
 
 _pieces = []  # (object, look)
 _materials = {}
@@ -255,6 +255,21 @@ def slab(look, outline, thickness, pos=(0, 0, 0), rot=(0, 0, 0), bevel=0.03, res
     bpy.ops.object.convert(target="MESH")
     obj = bpy.context.active_object
     _place(obj, pos, rot)
+    return finish(obj, look, **kw)
+
+
+def blob(look, radius, pos=(0, 0, 0), scale=(1, 1, 1), seed=0.0, lumps=0.35, detail=0.08, subdivisions=3,
+         **kw):
+    """A lumpy ball (rocks, bushes, tree leaves): an ico-sphere pushed in and out with noise."""
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=subdivisions, radius=radius)
+    obj = bpy.context.active_object
+    offset = Vector((seed, seed * 2.0, seed * 3.0))
+    for v in obj.data.vertices:
+        big = noise.noise(v.co * (2.2 / radius) + offset)
+        small = noise.noise(v.co * (5.0 / radius) + offset * 1.7)
+        v.co *= 1 + lumps * big + detail * small
+        v.co = Vector((v.co.x * scale[0], v.co.y * scale[1], v.co.z * scale[2]))
+    _place(obj, pos, (0, 0, 0))
     return finish(obj, look, **kw)
 
 

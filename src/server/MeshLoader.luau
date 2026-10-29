@@ -123,6 +123,12 @@ local function prepare(id, entry, loaded)
 	if height > 0 then
 		model:ScaleTo(model:GetScale() * entry.Size.Y / height)
 	end
+
+	-- Props keep their own attachment point (the bottom of a lamp pole, the back of a wall clock...).
+	if entry.Origin then
+		lo, hi = worldExtents(model)
+		model.WorldPivot = CFrame.new((lo.X + hi.X) / 2, lo.Y, (lo.Z + hi.Z) / 2) + entry.Origin
+	end
 	return model
 end
 
@@ -168,14 +174,23 @@ function MeshLoader.Has(id: string): boolean
 	return MeshCatalog[id] ~= nil
 end
 
--- Returns a copy of the detailed model with its bottom-center at `cf`, or nil.
+-- Returns a copy of the detailed model with its pivot at `cf`, or nil.
+-- The pivot is the bottom-center, or the model's own attachment point if it has an Origin.
+-- `accent` recolors the parts named "Accent" (e.g. a shop's own color).
 -- May wait while the model downloads the first time.
-function MeshLoader.Clone(id: string, cf: CFrame): Model?
+function MeshLoader.Clone(id: string, cf: CFrame, accent: Color3?): Model?
 	local template = load(id)
 	if not template then
 		return nil
 	end
 	local model = template:Clone()
+	if accent then
+		for _, part in model:GetChildren() do
+			if part:IsA("BasePart") and part.Name:sub(1, 6) == "Accent" then
+				part.Color = accent
+			end
+		end
+	end
 	model:PivotTo(cf)
 	return model
 end

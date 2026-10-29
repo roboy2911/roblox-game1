@@ -46,6 +46,15 @@ def build(model_id, render=True):
         "Parts": {name: look.to_dict() for name, look in looks.items()},
         "Triangles": tris,
     }
+    if getattr(module, "KEEP_ORIGIN", False):
+        # Where the model's (0, 0, 0) sits, measured from the bottom-center of its bounding box,
+        # in Roblox axes. The game uses it as the pivot, so a lamp is placed by the bottom of its
+        # pole and a wall clock by its back. Props should be centered on X (left/right);
+        # a little off (random leaves) is fine.
+        center_x, center_y = (lo.x + hi.x) / 2, (lo.y + hi.y) / 2
+        if abs(center_x) > 0.25:
+            print(f"  WARNING: {model_id} is not centered on X (off by {center_x:.2f})")
+        info["Origin"] = [0.0, round(-lo.z, 3), round(-center_y, 3)]
     with open(os.path.join(OUT, model_id + ".json"), "w") as f:
         json.dump(info, f, indent=2)
     print(f"{model_id}: size {info['Size']}, triangles {sum(tris.values())} {tris}")
