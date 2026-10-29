@@ -1,0 +1,83 @@
+{
+  "Id": "PropPlazaFloor",
+  "Size": [
+    60.0,
+    0.74,
+    40.0
+  ],
+  "Parts": {
+    "Plaza": {
+      "Color": [
+        235,
+        228,
+        215
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "StoneDark": {
+      "Color": [
+        180,
+        168,
+        150
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Stone": {
+      "Color": [
+        215,
+        205,
+        190
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    }
+  },
+  "Triangles": {
+    "Plaza": 108,
+    "StoneDark": 1776,
+    "Stone": 1872,
+    "Gold": 768
+  },
+  "Centers": {
+    "Plaza": [
+      -0.0,
+      -0.0003,
+      0.0
+    ],
+    "StoneDark": [
+      -0.0,
+      0.0058,
+      0.0
+    ],
+    "Stone": [
+      -0.0,
+      0.0058,
+      0.0
+    ],
+    "Gold": [
+      -0.0,
+      0.0058,
+      0.0
+    ]
+  },
+  "Origin": [
+    0.0,
+    0.0,
+    0.0
+  ]
+}

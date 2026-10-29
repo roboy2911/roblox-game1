@@ -1,0 +1,211 @@
+{
+  "Id": "PropShopExterior",
+  "Size": [
+    41.3,
+    22.5,
+    40.5
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "DarkMarble": {
+      "Color": [
+        45,
+        45,
+        60
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Wall": {
+      "Color": [
+        250,
+        240,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Accent": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Trim": {
+      "Color": [
+        236,
+        224,
+        200
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Glass": {
+      "Color": [
+        190,
+        230,
+        255
+      ],
+      "Material": "Glass",
+      "Transparency": 0.55,
+      "Reflectance": 0.15
+    },
+    "Stripe": {
+      "Color": [
+        255,
+        255,
+        255
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "AccentFabric": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "AccentNeon": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Roof": {
+      "Color": [
+        70,
+        65,
+        90
+      ],
+      "Material": "Slate",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Marble": 2580,
+    "DarkMarble": 4356,
+    "Gold": 13680,
+    "Wall": 1308,
+    "Accent": 648,
+    "Trim": 780,
+    "Glass": 48,
+    "Stripe": 8920,
+    "AccentFabric": 8920,
+    "AccentNeon": 108,
+    "Roof": 324,
+    "Steel": 216
+  },
+  "Centers": {
+    "Marble": [
+      -0.0,
+      -0.0811,
+      -0.0061
+    ],
+    "DarkMarble": [
+      -0.0,
+      -0.2513,
+      -0.0047
+    ],
+    "Gold": [
+      -0.0,
+      0.0121,
+      0.0203
+    ],
+    "Wall": [
+      -0.0,
+      -0.0545,
+      0.0666
+    ],
+    "Accent": [
+      -0.0,
+      -0.0036,
+      0.0666
+    ],
+    "Trim": [
+      -0.0,
+      -0.0478,
+      0.069
+    ],
+    "Glass": [
+      -0.0,
+      -0.1186,
+      -0.2881
+    ],
+    "Stripe": [
+      -0.0121,
+      0.0117,
+      -0.3887
+    ],
+    "AccentFabric": [
+      0.0121,
+      0.0117,
+      -0.3887
+    ],
+    "AccentNeon": [
+      -0.0,
+      0.1295,
+      -0.3487
+    ],
+    "Roof": [
+      -0.0,
+      0.1659,
+      0.0666
+    ],
+    "Steel": [
+      -0.0,
+      0.1937,
+      0.3087
+    ]
+  },
+  "Origin": [
+    0.0,
+    0.0,
+    2.75
+  ]
+}

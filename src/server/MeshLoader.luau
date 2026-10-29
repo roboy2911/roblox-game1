@@ -62,17 +62,50 @@ local function shapeError(size: Vector3, expected: Vector3)
 	return math.abs(a.X - b.X) + math.abs(a.Y - b.Y) + math.abs(a.Z - b.Z)
 end
 
-local function lookFor(entry, partName)
-	if entry.Parts[partName] then
-		return entry.Parts[partName]
+-- Ways an imported model might be turned: lying on its back/front, upside down, or facing backwards.
+local ROTATIONS = {}
+for _, x in { 0, -90, 90, 180 } do
+	for _, y in { 0, 180 } do
+		table.insert(ROTATIONS, CFrame.Angles(0, math.rad(y), 0) * CFrame.Angles(math.rad(x), 0, 0))
 	end
-	-- Roblox may add suffixes when importing; match on the start of the name.
-	for name, look in entry.Parts do
-		if partName:sub(1, #name) == name then
-			return look
+end
+
+-- Name in the catalog that a mesh part belongs to (Roblox may add suffixes when importing).
+local function catalogName(names, partName)
+	if names[partName] then
+		return partName
+	end
+	-- Longest match wins, so "AccentNeon2" belongs to AccentNeon, not Accent
+	local best = nil
+	for name in names do
+		if partName:sub(1, #name) == name and (best == nil or #name > #best) then
+			best = name
 		end
 	end
-	return nil
+	return best
+end
+
+-- How far the model is from how it should be standing (lower = better).
+local function orientationError(model, entry)
+	local lo, hi = worldExtents(model)
+	local err = shapeError(hi - lo, entry.Size)
+	if entry.Centers then
+		local center = (lo + hi) / 2
+		local size = hi - lo
+		local longest = math.max(size.X, size.Y, size.Z)
+		for _, part in model:GetChildren() do
+			local name = part:IsA("BasePart") and catalogName(entry.Centers, part.Name)
+			if name then
+				err += ((part.Position - center) / longest - entry.Centers[name]).Magnitude
+			end
+		end
+	end
+	return err
+end
+
+local function lookFor(entry, partName)
+	local name = catalogName(entry.Parts, partName)
+	return name and entry.Parts[name]
 end
 
 local function prepare(id, entry, loaded)
@@ -103,13 +136,13 @@ local function prepare(id, entry, loaded)
 		return nil
 	end
 
-	-- Stand it upright: try a few rotations and keep the one whose shape matches best.
-	local best, bestError = CFrame.identity, math.huge
+	-- Turn it the right way round. Roblox may import a model lying down or facing backwards,
+	-- so try each way and keep the one where the parts sit where they should (from the catalog).
 	local start = model:GetPivot()
-	for _, rotation in { CFrame.identity, CFrame.Angles(-math.pi / 2, 0, 0), CFrame.Angles(math.pi / 2, 0, 0) } do
+	local best, bestError = CFrame.identity, math.huge
+	for _, rotation in ROTATIONS do
 		model:PivotTo(CFrame.new(start.Position) * rotation)
-		local lo, hi = worldExtents(model)
-		local err = shapeError(hi - lo, entry.Size)
+		local err = orientationError(model, entry)
 		if err < bestError then
 			best, bestError = rotation, err
 		end

@@ -71,6 +71,19 @@ local function bench(parent, cf: CFrame)
 	end
 end
 
+-- Hedge: a plain part, covered by a row of detailed hedge pieces when they're uploaded.
+local function hedge(parent, name, from: Vector3, to: Vector3, width: number)
+	local b = Build.at(CFrame.identity)
+	local length = (to - from).Magnitude
+	local size = if math.abs(to.X - from.X) > 0 then V(length, 3, width) else V(width, 3, length)
+	local part = b.part(parent, name, size, (from + to) / 2 + V(0, 1.5, 0), C.DarkLeaf)
+	local across = (to - from).Unit:Cross(Vector3.yAxis)
+	if Props.Row(parent, "Hedge", from, to, across, 8, { collide = false }) then
+		part.Transparency = 1
+		part.CastShadow = false
+	end
+end
+
 -- Street and sidewalks -----------------------------------------------------
 
 local function buildStreet(town, length)
@@ -89,6 +102,18 @@ local function buildStreet(town, length)
 		b.part(town, "Sidewalk", V(8, 0.5, length), V(s * 16, 0.45, 0), C.Concrete, M.Concrete)
 		b.part(town, "Curb", V(0.6, 0.55, length), V(s * 12.3, 0.475, 0), C.Marble)
 	end
+
+	-- Detailed road and sidewalk pieces, lined up along the street (the plain parts stay as the floor)
+	local road = Props.Row(town, "Road", V(0, 0.2, -half), V(0, 0.2, half), V(1, 0, 0), 8, { collide = false })
+	if road then
+		Props.Hide(town, { Street = true, CenterLine = true, EdgeLine = true })
+	end
+	for _, s in SIDES do
+		local from, to = V(s * 16, 0.2, -half), V(s * 16, 0.2, half)
+		if Props.Row(town, "Sidewalk", from, to, V(-s, 0, 0), 8, { collide = false }) then
+			Props.Hide(town, { Sidewalk = true, Curb = true })
+		end
+	end
 end
 
 -- Hedges, trees, lamps and benches along the street -------------------------
@@ -102,7 +127,7 @@ local function buildStreetProps(town, rowZs, spacing)
 	for i = 0, #rowZs do
 		local z = firstGap + i * spacing
 		for _, s in SIDES do
-			b.part(props, "Hedge", V(SHOP_BACK - SHOP_FRONT, 3, 2), V(s * Config.StreetToShop, 1.7, z), C.DarkLeaf)
+			hedge(props, "Hedge", V(s * SHOP_FRONT, 0.2, z), V(s * SHOP_BACK, 0.2, z), 2)
 			tree(props, V(s * (SHOP_FRONT - 3), 0.2, z))
 			local pos = V(s * 18.5, SIDEWALK_TOP, z)
 			lamp(props, CFrame.lookAt(pos, pos - V(s, 0, 0)))
@@ -112,7 +137,7 @@ local function buildStreetProps(town, rowZs, spacing)
 	-- Hedge along the back of the shops, with a row of trees behind it
 	local half = (#rowZs * spacing + 24) / 2
 	for _, s in SIDES do
-		b.part(props, "BackHedge", V(2, 3, half * 2), V(s * (SHOP_BACK + 3), 1.7, 0), C.DarkLeaf)
+		hedge(props, "BackHedge", V(s * (SHOP_BACK + 3), 0.2, -half), V(s * (SHOP_BACK + 3), 0.2, half), 2)
 		for z = -half + 8, half - 8, 30 do
 			tree(props, V(s * (SHOP_BACK + 14), 0.2, z))
 		end
@@ -137,6 +162,9 @@ local function buildPlaza(town, streetEndZ)
 
 	b.part(plaza, "Floor", V(60, top, 40), V(0, top / 2, cz), C.Plaza, M.Marble)
 	b.column(plaza, "GoldRing", 22, 0.05, V(0, top, cz), C.Gold, M.Metal)
+	if Props.Place(plaza, "PlazaFloor", CFrame.new(0, 0, cz), { collide = false }) then
+		Props.Hide(plaza, { Floor = true, GoldRing = true })
+	end
 
 	-- Fountain (the glowing spout with the spray stays a part either way)
 	local spoutY = 8.1
@@ -174,6 +202,9 @@ local function buildPlaza(town, streetEndZ)
 	Build.text(archSign, Enum.NormalId.Back, "PAWN STREET", C.Gold, { stroke = C.DarkMarble })
 	b.part(plaza, "ArchTrim", V(31.4, 0.4, 1.2), V(0, 18.2, streetEndZ), C.Gold, M.Metal)
 	b.part(plaza, "ArchTrim", V(31.4, 0.4, 1.2), V(0, 14.8, streetEndZ), C.Gold, M.Metal)
+	if Props.Place(plaza, "Arch", CFrame.new(0, top, streetEndZ), { collide = false }) then
+		Props.Hide(plaza, { ArchBase = true, ArchPillar = true, ArchTop = true, ArchTrim = true })
+	end
 
 	-- Benches around the fountain, facing it
 	local center = V(0, top, cz)

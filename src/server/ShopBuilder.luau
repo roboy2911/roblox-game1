@@ -15,6 +15,30 @@ local ShopBuilder = {}
 
 local SIDES = { -1, 1 } -- left, right
 
+-- Plain parts that the detailed meshes cover. When a mesh loads, these are hidden but stay solid,
+-- so walking, item spots and later scripts keep working the same.
+local function names(list)
+	local set = {}
+	for _, name in list do
+		set[name] = true
+	end
+	return set
+end
+local EXTERIOR_PARTS = names({
+	"Floor", "Tile", "BackWall", "LeftWall", "RightWall", "FrontWall", "UnderWindow", "OverWindow",
+	"Window", "WindowFrame", "WindowBar", "WindowSill", "BaseStrip", "RoofTrim", "AboveDoor", "Ceiling",
+	"Roof", "Parapet", "ParapetCap", "SignFrame", "NeonStrip", "Awning", "AwningEdge", "DoorFrame",
+	"Door", "DoorEdge", "Threshold", "Path", "PillarBase", "Pillar", "PillarTop",
+})
+local INTERIOR_PARTS = names({
+	"Wainscot", "Rail", "RugBorder", "Rug", "CeilingLight", "GuitarBoard", "Body", "UpperBody", "SoundHole",
+	"Neck", "Head", "OfficeDoorFrame", "OfficeDoor", "DoorKnob", "PaintingFrame", "PaintingSky",
+	"PaintingHills", "Box",
+})
+local COUNTER_PARTS = names({ "Body", "Panel", "Kick", "Top", "TopEdge" })
+local CASE_PARTS = names({ "Base", "Kick", "DisplaySurface", "Glass", "Post", "TopBar" })
+local SHELF_PARTS = names({ "Back", "Side", "Top", "Plinth", "Level1", "Level2", "Level3", "Lip" })
+
 -- Floor, walls, windows, roof ------------------------------------------------
 local function buildShell(b, m, accent)
 	b.part(m, "Floor", V(40, 1, 34), V(0, 0.5, 0), C.Marble, M.Marble)
@@ -148,6 +172,9 @@ local function buildCounter(b, shop, accent)
 	b.part(m, "Kick", V(18.2, 0.4, 3.2), V(0, 1.2, 4), C.Gold, M.Metal)
 	b.part(m, "Top", V(18.6, 0.4, 3.6), V(0, 4.8, 4), C.DarkMarble, M.Marble)
 	b.part(m, "TopEdge", V(18.6, 0.2, 0.2), V(0, 4.55, 2.15), C.Gold, M.Metal)
+	if Props.Place(m, "Counter", b.cframe(V(0, 1, 4)), { accent = accent, collide = false }) then
+		Props.Hide(m, COUNTER_PARTS)
+	end
 
 	-- Cash register
 	if not Props.Place(m, "CashRegister", b.cframe(V(5, 5.0, 4.4)), { accent = accent }) then
@@ -186,6 +213,9 @@ local function buildDisplayCases(b, shop, accent)
 		for _, dz in { -3.9, 3.9 } do
 			b.part(m, "TopBar", V(3, 0.2, 0.2), V(cx, 6.1, cz + dz), C.Gold, M.Metal)
 		end
+		if Props.Place(m, "DisplayCase", b.cframe(V(cx, 1, cz)), { accent = accent, collide = false }) then
+			Props.Hide(m, CASE_PARTS)
+		end
 	end
 end
 
@@ -207,6 +237,10 @@ local function buildShelves(b, shop, accent)
 			local plank = b.part(m, `Level{level}`, V(2.8, 0.3, 14), V(s * 17.2, y, cz), C.White)
 			plank:SetAttribute("ShelfLevel", level)
 			b.part(m, "Lip", V(0.15, 0.35, 14), V(s * 15.75, y + 0.1, cz), C.Gold, M.Metal)
+		end
+		-- The shelf's open front faces into the room
+		if Props.Place(m, "WallShelf", b.cframe(V(s * 17.2, 1, cz), s * 90), { accent = accent, collide = false }) then
+			Props.Hide(m, SHELF_PARTS)
 		end
 	end
 end
@@ -323,6 +357,13 @@ function ShopBuilder.Build(origin: CFrame, name: string, accent: Color3): Model
 	buildShell(b, exterior, accent)
 	buildFacade(b, exterior, shop, accent)
 	buildInterior(b, interior, accent)
+	-- Detailed building and interior meshes (the sign, OPEN sign, banner and door sign stay parts: they carry text)
+	if Props.Place(exterior, "ShopExterior", origin, { accent = accent, collide = false }) then
+		Props.Hide(exterior, EXTERIOR_PARTS)
+	end
+	if Props.Place(interior, "ShopInterior", origin, { accent = accent, collide = false }) then
+		Props.Hide(interior, INTERIOR_PARTS)
+	end
 	buildCounter(b, shop, accent)
 	buildDisplayCases(b, shop, accent)
 	buildShelves(b, shop, accent)

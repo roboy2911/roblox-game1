@@ -1,0 +1,99 @@
+{
+  "Id": "PropRoad",
+  "Size": [
+    8.0,
+    0.235,
+    24.0
+  ],
+  "Parts": {
+    "Asphalt": {
+      "Color": [
+        60,
+        60,
+        72
+      ],
+      "Material": "Asphalt",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gutter": {
+      "Color": [
+        150,
+        150,
+        158
+      ],
+      "Material": "Concrete",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Line": {
+      "Color": [
+        245,
+        245,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Yellow": {
+      "Color": [
+        255,
+        210,
+        60
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Patch": {
+      "Color": [
+        52,
+        52,
+        63
+      ],
+      "Material": "Asphalt",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Asphalt": 12,
+    "Gutter": 216,
+    "Line": 24,
+    "Yellow": 108,
+    "Patch": 24
+  },
+  "Centers": {
+    "Asphalt": [
+      -0.0,
+      -0.0007,
+      0.0
+    ],
+    "Gutter": [
+      -0.0,
+      -0.0016,
+      0.0
+    ],
+    "Line": [
+      -0.0,
+      0.0041,
+      0.0
+    ],
+    "Yellow": [
+      -0.0,
+      0.0041,
+      0.0
+    ],
+    "Patch": [
+      -0.0125,
+      0.0036,
+      -0.001
+    ]
+  },
+  "Origin": [
+    0.0,
+    0.0,
+    0.0
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "Id": "PropWallShelf",
+  "Size": [
+    15.2,
+    10.125,
+    3.65
+  ],
+  "Parts": {
+    "White": {
+      "Color": [
+        250,
+        250,
+        250
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Trim": {
+      "Color": [
+        236,
+        224,
+        200
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Accent": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "White": 756,
+    "Trim": 404,
+    "Gold": 1044,
+    "Accent": 108
+  },
+  "Centers": {
+    "White": [
+      -0.0,
+      -0.0107,
+      0.0049
+    ],
+    "Trim": [
+      -0.0,
+      0.0066,
+      -0.0016
+    ],
+    "Gold": [
+      -0.0,
+      -0.0035,
+      -0.0104
+    ],
+    "Accent": [
+      -0.0,
+      -0.3133,
+      0.0016
+    ]
+  },
+  "Origin": [
+    0.0,
+    0.0,
+    0.025
+  ]
+}

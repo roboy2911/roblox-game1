@@ -121,6 +121,11 @@ def write_catalog(uploaded):
         if "Origin" in info:
             o = info["Origin"]
             lines.append(f"\t\tOrigin = Vector3.new({o[0]}, {o[1]}, {o[2]}),")
+        if "Centers" in info:
+            lines.append("\t\tCenters = {")
+            for name, c in sorted(info["Centers"].items()):
+                lines.append(f"\t\t\t{name} = Vector3.new({c[0]}, {c[1]}, {c[2]}),")
+            lines.append("\t\t},")
         lines.append("\t\tParts = {")
         for name, look in sorted(info["Parts"].items()):
             lines.append(

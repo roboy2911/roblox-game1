@@ -273,6 +273,32 @@ def blob(look, radius, pos=(0, 0, 0), scale=(1, 1, 1), seed=0.0, lumps=0.35, det
     return finish(obj, look, **kw)
 
 
+# Roblox-space helpers ---------------------------------------------------------
+# Big pieces (shop building, street) are easiest to write with the same numbers as the Roblox
+# code: X right, Y up, Z toward the back, front facing -Z. These convert to Blender.
+
+def R(x, y, z):
+    """Roblox position -> Blender position."""
+    return (-x, z, y)
+
+
+def rbox(look, size, pos, **kw):
+    """Box with a Roblox size (X, Y, Z) at a Roblox position."""
+    sx, sy, sz = size
+    return box(look, (sx, sz, sy), R(*pos), **kw)
+
+
+def rcolumn(look, diameter, height, base, **kw):
+    """Standing cylinder; `base` is the Roblox position of the center of its bottom."""
+    x, y, z = base
+    return cylinder(look, diameter / 2, height, pos=R(x, y + height / 2, z), **kw)
+
+
+def rturn(degrees):
+    """Blender rotation for turning `degrees` around Roblox's vertical axis (like CFrame.Angles(0, a, 0))."""
+    return (0, 0, degrees)
+
+
 # Output ---------------------------------------------------------------------
 
 def merge_by_look():
@@ -301,6 +327,17 @@ def triangle_counts():
         if obj.type == "MESH":
             counts[obj.name] = sum(len(p.vertices) - 2 for p in obj.data.polygons)
     return counts
+
+
+def part_bounds():
+    """Bounding box (lo, hi) of each mesh part, by name."""
+    result = {}
+    for obj in bpy.context.scene.objects:
+        if obj.type == "MESH":
+            cos = [obj.matrix_world @ v.co for v in obj.data.vertices]
+            axes = list(zip(*cos))
+            result[obj.name] = (Vector([min(a) for a in axes]), Vector([max(a) for a in axes]))
+    return result
 
 
 def bounds():

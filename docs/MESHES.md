@@ -21,6 +21,14 @@ the hook of the chandelier. `build.py` saves it as `Origin`, and the game places
 - A part with the look name `Accent` is painted in each shop's own color (the cash register).
 - A part with the look name `Glow` gets a light when the prop asks for one (lamps, lanterns, chandelier).
 - `src/server/Props.luau` places a prop; `ShopBuilder` and `TownBuilder` fall back to parts if it isn't uploaded.
+- Big pieces (shop building, interior, counter, cases, shelves, plaza, arch) cover the plain parts, which
+  `Props.Hide` makes invisible but keeps solid, so walking, item spots and text signs work the same.
+  These models are written with `lib.R` / `lib.rbox` in the same Roblox coordinates as the Luau code.
+- Repeating pieces (road, sidewalk, hedge) are 8 studs long and lined up with `Props.Row`.
+
+## Orientation
+`build.py` saves where each part sits (`Centers`). Roblox can import a model lying down or turned
+around, so `MeshLoader` tries each way and keeps the one where the parts are where they should be.
 
 ## Setup in a cloud session
 ```
@@ -42,4 +50,6 @@ Uploading needs these environment variables (set in the cloud environment settin
 - [x] Remaining 19 items built and uploaded
 - [x] Props built and uploaded: cash register, service bell, safe, chandelier, retro TV, wall clock,
       door lanterns, pawn balls sign, potted plant, potted bush, street lamp, bench, fountain, tree
-- [ ] Remaining items and props checked in Studio
+- [x] Shop building, interior, counter, display cases, wall shelves, road, sidewalks, hedges,
+      plaza floor and arch built and uploaded
+- [ ] Everything checked in Studio

@@ -1,0 +1,83 @@
+{
+  "Id": "PropSidewalk",
+  "Size": [
+    8.0,
+    0.6,
+    8.425
+  ],
+  "Parts": {
+    "Grout": {
+      "Color": [
+        170,
+        170,
+        178
+      ],
+      "Material": "Concrete",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "PavingDark": {
+      "Color": [
+        192,
+        192,
+        200
+      ],
+      "Material": "Concrete",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Paving": {
+      "Color": [
+        210,
+        210,
+        216
+      ],
+      "Material": "Concrete",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Curb": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Grout": 24,
+    "PavingDark": 308,
+    "Paving": 484,
+    "Curb": 188
+  },
+  "Centers": {
+    "Grout": [
+      -0.0,
+      -0.0053,
+      0.0
+    ],
+    "PavingDark": [
+      -0.0,
+      0.0237,
+      0.0519
+    ],
+    "Paving": [
+      -0.0,
+      0.0237,
+      0.0519
+    ],
+    "Curb": [
+      -0.0,
+      0.0,
+      -0.4199
+    ]
+  },
+  "Origin": [
+    0.0,
+    0.03,
+    0.213
+  ]
+}
