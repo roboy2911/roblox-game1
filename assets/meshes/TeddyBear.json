@@ -1,0 +1,78 @@
+{
+  "Id": "TeddyBear",
+  "Size": [
+    1.368,
+    1.859,
+    1.085
+  ],
+  "Parts": {
+    "Fur": {
+      "Color": [
+        170,
+        110,
+        65
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "LightFur": {
+      "Color": [
+        230,
+        190,
+        145
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Nose": {
+      "Color": [
+        40,
+        28,
+        25
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "White": {
+      "Color": [
+        245,
+        245,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Stitch": {
+      "Color": [
+        90,
+        55,
+        35
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Bow": {
+      "Color": [
+        220,
+        50,
+        70
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Fur": 7680,
+    "LightFur": 7680,
+    "Nose": 1268,
+    "White": 160,
+    "Stitch": 20,
+    "Bow": 1120
+  }
+}

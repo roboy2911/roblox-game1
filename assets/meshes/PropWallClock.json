@@ -1,0 +1,61 @@
+{
+  "Id": "PropWallClock",
+  "Size": [
+    2.6,
+    2.6,
+    0.333
+  ],
+  "Parts": {
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Face": {
+      "Color": [
+        250,
+        248,
+        240
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Glass": {
+      "Color": [
+        220,
+        240,
+        255
+      ],
+      "Material": "Glass",
+      "Transparency": 0.7,
+      "Reflectance": 0.25
+    }
+  },
+  "Triangles": {
+    "Gold": 2488,
+    "Face": 252,
+    "Dark": 936,
+    "Glass": 1440
+  },
+  "Origin": [
+    0.0,
+    1.3,
+    0.167
+  ]
+}

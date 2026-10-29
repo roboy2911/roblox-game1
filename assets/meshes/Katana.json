@@ -1,0 +1,78 @@
+{
+  "Id": "Katana",
+  "Size": [
+    3.248,
+    1.4,
+    0.6
+  ],
+  "Parts": {
+    "Stand": {
+      "Color": [
+        60,
+        30,
+        25
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.05
+    },
+    "Scabbard": {
+      "Color": [
+        25,
+        20,
+        22
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.1
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Blade": {
+      "Color": [
+        215,
+        220,
+        230
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.35
+    },
+    "Ray": {
+      "Color": [
+        240,
+        235,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Wrap": {
+      "Color": [
+        35,
+        35,
+        45
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Stand": 3060,
+    "Scabbard": 188,
+    "Gold": 798,
+    "Blade": 536,
+    "Ray": 188,
+    "Wrap": 756
+  }
+}

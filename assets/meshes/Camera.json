@@ -1,0 +1,78 @@
+{
+  "Id": "Camera",
+  "Size": [
+    1.341,
+    1.03,
+    0.94
+  ],
+  "Parts": {
+    "Chrome": {
+      "Color": [
+        200,
+        205,
+        215
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Leather": {
+      "Color": [
+        110,
+        75,
+        50
+      ],
+      "Material": "Leather",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Body": {
+      "Color": [
+        40,
+        40,
+        46
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Red": {
+      "Color": [
+        220,
+        50,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Lens": {
+      "Color": [
+        110,
+        160,
+        230
+      ],
+      "Material": "Glass",
+      "Transparency": 0.0,
+      "Reflectance": 0.3
+    },
+    "White": {
+      "Color": [
+        245,
+        245,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Chrome": 2316,
+    "Leather": 188,
+    "Body": 916,
+    "Red": 188,
+    "Lens": 960,
+    "White": 12
+  }
+}

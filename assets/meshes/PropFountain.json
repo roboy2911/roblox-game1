@@ -1,0 +1,50 @@
+{
+  "Id": "PropFountain",
+  "Size": [
+    16.3,
+    7.35,
+    16.3
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Water": {
+      "Color": [
+        80,
+        180,
+        255
+      ],
+      "Material": "Glass",
+      "Transparency": 0.3,
+      "Reflectance": 0.1
+    }
+  },
+  "Triangles": {
+    "Marble": 4512,
+    "Gold": 4048,
+    "Water": 632
+  },
+  "Origin": [
+    0.0,
+    -0.0,
+    -0.0
+  ]
+}

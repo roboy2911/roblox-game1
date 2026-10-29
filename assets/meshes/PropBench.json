@@ -1,0 +1,50 @@
+{
+  "Id": "PropBench",
+  "Size": [
+    5.0,
+    3.68,
+    2.175
+  ],
+  "Parts": {
+    "Iron": {
+      "Color": [
+        45,
+        45,
+        55
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Wood": {
+      "Color": [
+        150,
+        100,
+        60
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Iron": 1744,
+    "Gold": 1920,
+    "Wood": 864
+  },
+  "Origin": [
+    0.0,
+    0.04,
+    -0.008
+  ]
+}

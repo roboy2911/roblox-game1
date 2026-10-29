@@ -1,0 +1,56 @@
+{
+  "Id": "DiamondRing",
+  "Size": [
+    0.92,
+    1.391,
+    1.096
+  ],
+  "Parts": {
+    "Velvet": {
+      "Color": [
+        150,
+        20,
+        45
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Satin": {
+      "Color": [
+        245,
+        240,
+        235
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Diamond": {
+      "Color": [
+        215,
+        245,
+        255
+      ],
+      "Material": "Glass",
+      "Transparency": 0.15,
+      "Reflectance": 0.4
+    }
+  },
+  "Triangles": {
+    "Velvet": 976,
+    "Gold": 1576,
+    "Satin": 296,
+    "Diamond": 106
+  }
+}

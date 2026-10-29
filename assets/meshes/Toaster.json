@@ -1,0 +1,67 @@
+{
+  "Id": "Toaster",
+  "Size": [
+    1.62,
+    1.401,
+    0.92
+  ],
+  "Parts": {
+    "Chrome": {
+      "Color": [
+        200,
+        205,
+        215
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.25
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Red": {
+      "Color": [
+        215,
+        50,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Crust": {
+      "Color": [
+        150,
+        90,
+        45
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Toast": {
+      "Color": [
+        215,
+        160,
+        90
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Chrome": 588,
+    "Dark": 1740,
+    "Red": 404,
+    "Crust": 2152,
+    "Toast": 2152
+  }
+}

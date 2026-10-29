@@ -1,0 +1,61 @@
+{
+  "Id": "PropPottedBush",
+  "Size": [
+    2.714,
+    4.223,
+    2.685
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Leaf": {
+      "Color": [
+        95,
+        195,
+        85
+      ],
+      "Material": "Grass",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "DarkLeaf": {
+      "Color": [
+        60,
+        150,
+        65
+      ],
+      "Material": "Grass",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Marble": 296,
+    "Gold": 216,
+    "Leaf": 1280,
+    "DarkLeaf": 1280
+  },
+  "Origin": [
+    0.0,
+    -0.0,
+    -0.004
+  ]
+}

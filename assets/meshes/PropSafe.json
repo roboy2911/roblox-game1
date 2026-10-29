@@ -1,0 +1,72 @@
+{
+  "Id": "PropSafe",
+  "Size": [
+    4.0,
+    5.95,
+    3.92
+  ],
+  "Parts": {
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Body": {
+      "Color": [
+        45,
+        45,
+        55
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.05
+    },
+    "Door": {
+      "Color": [
+        75,
+        75,
+        90
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.05
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.25
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Dark": 828,
+    "Body": 300,
+    "Door": 188,
+    "Gold": 1148,
+    "Steel": 3908
+  },
+  "Origin": [
+    0.0,
+    -0.0,
+    0.21
+  ]
+}

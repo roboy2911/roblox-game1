@@ -19,7 +19,7 @@ def build(lib):
     lib.box(gold, (2.2, 0.22, 0.22), pos=(0, -2.7, -1.1), bevel=0.08, bevel_segments=3)
     for x in (-1.1, 1.1):
         lib.sphere(gold, 0.13, pos=(x, -2.7, -1.1))
-    for x, z in ((-0.65, -1.9), (0.65, -1.9), (0.0, -3.0)):
+    for x, z in ((-0.7, -1.9), (0.7, -1.9), (0.0, -3.25)):
         top = z + 0.65
         lib.rod(gold, (x * 0.9, -2.7, -1.15), (x, -2.7, top), 0.04, verts=8)
         lib.sphere(shiny, 0.65, pos=(x, -2.7, z), segments=40, rings=20)

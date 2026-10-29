@@ -1,0 +1,67 @@
+{
+  "Id": "Meteorite",
+  "Size": [
+    1.313,
+    1.745,
+    1.342
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        40,
+        40,
+        52
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Rock": {
+      "Color": [
+        70,
+        60,
+        80
+      ],
+      "Material": "Basalt",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Crust": {
+      "Color": [
+        45,
+        38,
+        52
+      ],
+      "Material": "Basalt",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Crystal": {
+      "Color": [
+        170,
+        90,
+        255
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Marble": 560,
+    "Gold": 1792,
+    "Rock": 1280,
+    "Crust": 640,
+    "Crystal": 360
+  }
+}

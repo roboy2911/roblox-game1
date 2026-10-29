@@ -1,0 +1,39 @@
+{
+  "Id": "PropPawnBalls",
+  "Size": [
+    2.7,
+    4.3,
+    3.35
+  ],
+  "Parts": {
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Balls": {
+      "Color": [
+        255,
+        200,
+        60
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.3
+    }
+  },
+  "Triangles": {
+    "Gold": 4088,
+    "Balls": 4560
+  },
+  "Origin": [
+    0.0,
+    3.9,
+    1.675
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "Id": "GoldWatch",
+  "Size": [
+    0.92,
+    0.981,
+    0.72
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        40,
+        40,
+        52
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Velvet": {
+      "Color": [
+        130,
+        30,
+        50
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Face": {
+      "Color": [
+        250,
+        248,
+        240
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Crystal": {
+      "Color": [
+        210,
+        235,
+        255
+      ],
+      "Material": "Glass",
+      "Transparency": 0.6,
+      "Reflectance": 0.3
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Marble": 188,
+    "Gold": 4316,
+    "Velvet": 428,
+    "Face": 572,
+    "Crystal": 960,
+    "Dark": 120
+  }
+}

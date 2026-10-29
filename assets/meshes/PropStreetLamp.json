@@ -1,0 +1,61 @@
+{
+  "Id": "PropStreetLamp",
+  "Size": [
+    1.84,
+    12.63,
+    4.547
+  ],
+  "Parts": {
+    "Iron": {
+      "Color": [
+        45,
+        45,
+        55
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Glass": {
+      "Color": [
+        255,
+        240,
+        200
+      ],
+      "Material": "Glass",
+      "Transparency": 0.4,
+      "Reflectance": 0.1
+    },
+    "Glow": {
+      "Color": [
+        255,
+        225,
+        160
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Iron": 1688,
+    "Gold": 1728,
+    "Glass": 24,
+    "Glow": 960
+  },
+  "Origin": [
+    0.0,
+    -0.0,
+    1.523
+  ]
+}

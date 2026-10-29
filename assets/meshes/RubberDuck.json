@@ -1,0 +1,56 @@
+{
+  "Id": "RubberDuck",
+  "Size": [
+    1.048,
+    1.34,
+    1.646
+  ],
+  "Parts": {
+    "Yellow": {
+      "Color": [
+        255,
+        214,
+        40
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Beak": {
+      "Color": [
+        255,
+        135,
+        30
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "White": {
+      "Color": [
+        245,
+        245,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Yellow": 4800,
+    "Beak": 1920,
+    "Dark": 576,
+    "White": 160
+  }
+}

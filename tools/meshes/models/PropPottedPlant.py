@@ -26,8 +26,8 @@ def build(lib):
     blade = [(0.0, 0.0), (0.18, 0.4), (0.2, 0.9), (0.1, 1.3), (0.0, 1.45), (-0.1, 1.3), (-0.2, 0.9), (-0.18, 0.4)]
     for k in range(22):
         a = 2 * math.pi * k / 22 + random.uniform(-0.15, 0.15)
-        lean = random.uniform(15, 55)
-        length = random.uniform(1.6, 2.6)
+        lean = random.uniform(8, 32)
+        length = random.uniform(2.0, 3.0)
         look = leaf if k % 2 else dark_leaf
         outline = [(x * length / 1.8, y * length / 1.45) for x, y in blade]
         r = 0.15 + lean / 200

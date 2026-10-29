@@ -1,0 +1,56 @@
+{
+  "Id": "DeskLamp",
+  "Size": [
+    1.0,
+    1.62,
+    1.649
+  ],
+  "Parts": {
+    "Paint": {
+      "Color": [
+        60,
+        140,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Bulb": {
+      "Color": [
+        255,
+        225,
+        160
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Paint": 1104,
+    "Dark": 1052,
+    "Steel": 1220,
+    "Bulb": 440
+  }
+}

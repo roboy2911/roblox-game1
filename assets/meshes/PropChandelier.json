@@ -1,0 +1,61 @@
+{
+  "Id": "PropChandelier",
+  "Size": [
+    4.44,
+    3.35,
+    3.904
+  ],
+  "Parts": {
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Crystal": {
+      "Color": [
+        200,
+        235,
+        255
+      ],
+      "Material": "Glass",
+      "Transparency": 0.3,
+      "Reflectance": 0.3
+    },
+    "Candle": {
+      "Color": [
+        250,
+        245,
+        235
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Glow": {
+      "Color": [
+        255,
+        225,
+        160
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Gold": 6440,
+    "Crystal": 1356,
+    "Candle": 1128,
+    "Glow": 1728
+  },
+  "Origin": [
+    0.0,
+    3.35,
+    -0.0
+  ]
+}

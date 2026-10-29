@@ -1,0 +1,56 @@
+{
+  "Id": "TinCan",
+  "Size": [
+    0.83,
+    1.711,
+    0.861
+  ],
+  "Parts": {
+    "Tin": {
+      "Color": [
+        175,
+        180,
+        190
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.1
+    },
+    "Label": {
+      "Color": [
+        205,
+        50,
+        50
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Stripe": {
+      "Color": [
+        250,
+        235,
+        200
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Rust": {
+      "Color": [
+        140,
+        75,
+        40
+      ],
+      "Material": "CorrodedMetal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Tin": 2876,
+    "Label": 96,
+    "Stripe": 96,
+    "Rust": 504
+  }
+}

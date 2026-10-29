@@ -1,0 +1,83 @@
+{
+  "Id": "PropCashRegister",
+  "Size": [
+    2.6,
+    2.23,
+    2.1
+  ],
+  "Parts": {
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Accent": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Keys": {
+      "Color": [
+        245,
+        240,
+        230
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Display": {
+      "Color": [
+        110,
+        255,
+        170
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Paper": {
+      "Color": [
+        250,
+        250,
+        245
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Dark": 592,
+    "Accent": 516,
+    "Gold": 1076,
+    "Keys": 3760,
+    "Display": 108,
+    "Paper": 596
+  },
+  "Origin": [
+    0.0,
+    -0.0,
+    0.05
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "Id": "OldRadio",
+  "Size": [
+    1.525,
+    1.737,
+    0.75
+  ],
+  "Parts": {
+    "Wood": {
+      "Color": [
+        150,
+        95,
+        55
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "DarkWood": {
+      "Color": [
+        85,
+        52,
+        35
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Cloth": {
+      "Color": [
+        220,
+        195,
+        150
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "DialFace": {
+      "Color": [
+        250,
+        235,
+        200
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Wood": 2152,
+    "DarkWood": 2672,
+    "Cloth": 836,
+    "Gold": 788,
+    "DialFace": 380,
+    "Dark": 12
+  }
+}
