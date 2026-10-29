@@ -161,7 +161,7 @@ local function show(state)
 		input.PlaceholderText = "$ your offer"
 	end
 	if state.DebugValue then
-		table.insert(extra, `(Studio only) true value: {Items.FormatMoney(state.DebugValue)}`)
+		table.insert(extra, `(admin) true value: {Items.FormatMoney(state.DebugValue)}`)
 	end
 	debugLabel.Text = table.concat(extra, "   •   ")
 	if input.Text == "" or not parseOffer() then

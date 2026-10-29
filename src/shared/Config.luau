@@ -33,6 +33,9 @@ Config.MoodLoss = {
 	Backwards = 20, -- going back on your last bid (offering less, or asking more)
 }
 
+-- Admins: Roblox user IDs that get the 🛠 Admin menu (testing tools). Anyone else never sees it.
+Config.AdminUserIds = { 394075114 } -- roboy2911
+
 -- Money
 Config.StartingCash = 100
 
