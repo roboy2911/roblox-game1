@@ -1,6 +1,6 @@
-"""Shop interior details: wood wall panels, rug, guitar wall, office door, paintings, boxes,
-ceiling light and crown molding. Same coordinates as PropShopExterior (origin: shop center at
-ground level). The banner and door sign stay as parts because they carry text."""
+"""Shop interior details: wood wall panels, rugs, guitar wall, paintings, boxes, ceiling light and
+crown molding. Same coordinates as PropShopExterior (origin: shop center at ground level; the room
+is x -19..19, z -16..32). The banner stays a part because it carries text."""
 
 import math
 
@@ -47,39 +47,35 @@ def build(lib):
     cardboard = Look("Cardboard", (196, 152, 100), "Cardboard", roughness=0.9)
     tape = Look("Tape", (225, 190, 130), roughness=0.4)
 
-    # Dark wood panels along the lower walls: frame, raised panels, gold rail, baseboard
-    def wainscot_run(length, place):
-        """place(along, out) -> Roblox position; along runs the wall, out comes into the room."""
+    def panels(length, skip=None):
+        """Centers and widths of raised panels along a wall `length` long (centered on 0)."""
         n = int(length // 3.2)
         for k in range(n):
             a = -length / 2 + (k + 0.5) * length / n
-            yield a, length / n, place
+            if skip and skip[0] < a < skip[1]:
+                continue
+            yield a, length / n
 
-    # Back wall panels, with a gap for the back room doorway (x 1..5)
-    for width, x in ((20, -9), (14, 12)):
-        rbox(wood, (width, 4, 0.2), (x, 3, 15.9), bevel=0.02)
-        rbox(gold, (width, 0.3, 0.4), (x, 5.15, 15.8), bevel=0.12, bevel_segments=3)
-        rbox(wood, (width, 0.5, 0.35), (x, 1.25, 15.82), bevel=0.08)
-    for a, w, _ in wainscot_run(38, None):
-        if a + w / 2 > 0.8 and a - w / 2 < 5.2:
-            continue  # doorway
-        rbox(wood_light, (w - 0.7, 2.4, 0.12), (a, 3.1, 15.76), bevel=0.06, bevel_segments=2)
+    # Dark wood panels along the lower walls: frame, raised panels, gold rail, baseboard
+    rbox(wood, (38, 4, 0.2), (0, 3, 31.9), bevel=0.02)
+    rbox(gold, (38, 0.3, 0.4), (0, 5.15, 31.8), bevel=0.12, bevel_segments=3)
+    rbox(wood, (38, 0.5, 0.35), (0, 1.25, 31.82), bevel=0.08)
+    for a, w in panels(38, skip=(-8, 8)):  # the middle is behind the back wall shelf
+        rbox(wood_light, (w - 0.7, 2.4, 0.12), (a, 3.1, 31.76), bevel=0.06, bevel_segments=2)
     for s in SIDES:
-        rbox(wood, (0.2, 4, 32), (s * 18.9, 3, 0), bevel=0.02)
-        rbox(gold, (0.4, 0.3, 32), (s * 18.8, 5.15, 0), bevel=0.12, bevel_segments=3)
-        rbox(wood, (0.35, 0.5, 32), (s * 18.82, 1.25, 0), bevel=0.08)
-        for a, w, _ in wainscot_run(32, None):
-            if -13.5 < a < 1.5:
-                continue  # hidden behind the wall shelves
-            rbox(wood_light, (0.12, 2.4, w - 0.7), (s * 18.76, 3.1, a), bevel=0.06, bevel_segments=2)
+        rbox(wood, (0.2, 4, 48), (s * 18.9, 3, 8), bevel=0.02)
+        rbox(gold, (0.4, 0.3, 48), (s * 18.8, 5.15, 8), bevel=0.12, bevel_segments=3)
+        rbox(wood, (0.35, 0.5, 48), (s * 18.82, 1.25, 8), bevel=0.08)
+        for a, w in panels(48, skip=(-22, -6)):  # skip behind the front wall shelves (z -13.5..1.5)
+            rbox(wood_light, (0.12, 2.4, w - 0.7), (s * 18.76, 3.1, 8 + a), bevel=0.06, bevel_segments=2)
 
     # Crown molding where the walls meet the ceiling
-    rbox(trim, (38, 0.6, 0.6), (0, 16.5, 15.7), bevel=0.2, bevel_segments=3)
+    rbox(trim, (38, 0.6, 0.6), (0, 16.5, 31.7), bevel=0.2, bevel_segments=3)
     rbox(trim, (38, 0.6, 0.6), (0, 16.5, -15.7), bevel=0.2, bevel_segments=3)
     for s in SIDES:
-        rbox(trim, (0.6, 0.6, 32), (s * 18.7, 16.5, 0), bevel=0.2, bevel_segments=3)
+        rbox(trim, (0.6, 0.6, 48), (s * 18.7, 16.5, 8), bevel=0.2, bevel_segments=3)
 
-    # Rug from the door to the counter: gold border, cream line, colored field, center medallion
+    # Rug from the door to the checkout: gold border, cream line, colored field, center medallion
     rbox(rug_gold, (10.8, 0.08, 14.8), (0, 1.09, -7), bevel=0.03)
     rbox(rug_cream, (10.2, 0.1, 14.2), (0, 1.1, -7), bevel=0.02)
     rbox(accent_rug, (9.8, 0.12, 13.8), (0, 1.11, -7), bevel=0.02)
@@ -93,35 +89,33 @@ def build(lib):
         for z in (-14.55, 0.55):
             rbox(rug_cream, (0.12, 0.04, 0.5), (x, 1.07, z), bevel=0)
 
-    # Ceiling light over the back of the shop
+    # Runner rug in the back area, between the back glass cases
+    rbox(rug_gold, (6.4, 0.08, 10.4), (0, 1.09, 23.5), bevel=0.03)
+    rbox(accent_rug, (5.8, 0.1, 9.8), (0, 1.1, 23.5), bevel=0.02)
+
+    # Ceiling light over the checkout
     rbox(gold, (4.4, 0.25, 4.4), (0, 16.72, 10), bevel=0.08)
     rbox(glow, (3.8, 0.2, 3.8), (0, 16.62, 10), bevel=0.05)
 
-    # Guitar wall: planked board with a frame, three guitars, a rod for the banner above
-    rbox(board, (10, 6, 0.2), (-10, 8, 15.7), bevel=0.03)
-    for x in (-14.4, -12.2, -10, -7.8, -5.6):
-        rbox(Look("PlankLine", (170, 130, 85)), (0.06, 6, 0.05), (x + 1.1, 8, 15.58), bevel=0)
+    # Guitar wall on the back wall (left): planked board with a frame and three guitars
+    rbox(board, (9, 6, 0.2), (-13.5, 8, 31.7), bevel=0.03)
+    for x in (-16.5, -14.5, -12.5, -10.5):
+        rbox(Look("PlankLine", (170, 130, 85)), (0.06, 6, 0.05), (x, 8, 31.58), bevel=0)
     for y in (4.9, 11.1):
-        rbox(wood, (10.4, 0.25, 0.35), (-10, y, 15.65), bevel=0.06)
-    for x in (-15.1, -4.9):
-        rbox(wood, (0.25, 6.4, 0.35), (x, 8, 15.65), bevel=0.06)
+        rbox(wood, (9.4, 0.25, 0.35), (-13.5, y, 31.65), bevel=0.06)
+    for x in (-18.1, -8.9):
+        rbox(wood, (0.25, 6.4, 0.35), (x, 8, 31.65), bevel=0.06)
     colors = (Look("GuitarRed", (220, 60, 60), roughness=0.2), Look("GuitarBlue", (60, 120, 230), roughness=0.2),
               Look("GuitarOrange", (240, 160, 50), roughness=0.2))
-    for look, gx in zip(colors, (-13, -10, -7)):
-        guitar(lib, look, gx, 5.3, 15.25)
-    lib.rod(gold, R(-15.3, 16.0, 15.75), R(-4.7, 16.0, 15.75), 0.06)
-    for x in (-15.4, -4.6):
-        lib.sphere(gold, 0.16, pos=R(x, 16.0, 15.75), segments=12, rings=8)
+    for look, gx in zip(colors, (-16.3, -13.5, -10.7)):
+        guitar(lib, look, gx, 5.3, 31.25)
 
-    # Staff-only door frame with molding (the door to the back room)
-    for x in (0.85, 5.15):
-        rbox(gold, (0.35, 8.8, 0.35), (x, 5.4, 15.75), bevel=0.1, bevel_segments=2)
-    rbox(gold, (4.65, 0.4, 0.35), (3, 9.7, 15.75), bevel=0.1, bevel_segments=2)
-    lib.slab(gold, [(-0.9, 0.0), (0.9, 0.0), (0.6, 0.35), (0.0, 0.55), (-0.6, 0.35)], 0.2,
-             pos=R(3, 9.9, 15.7), rot=(90, 0, 0), bevel=0.04)
-    # (The door itself is separate in the game, so it can swing open)
+    # Rod for the "WE BUY GOLD" banner (the banner itself is a part) in the middle of the back wall
+    lib.rod(gold, R(-5.3, 16.45, 31.75), R(5.3, 16.45, 31.75), 0.06)
+    for x in (-5.4, 5.4):
+        lib.sphere(gold, 0.16, pos=R(x, 16.45, 31.75), segments=12, rings=8)
 
-    # Paintings above the shelves (one per side wall, facing into the room)
+    # Paintings above the front wall shelves (one per side wall, facing into the room)
     skies = (Look("SkyBlue", (120, 190, 240)), Look("SkyOrange", (240, 170, 110)))
     hills = Look("Hills", (95, 195, 85))
     for s, sky in zip(SIDES, skies):
@@ -136,9 +130,9 @@ def build(lib):
         lib.cylinder(Look("Sun", (255, 235, 130)), 0.4, 0.06, pos=R(x - s * 0.12, 14.1, -5.0), rot=(0, 90, 0),
                      verts=24, bevel=0)
 
-    # Stacked cardboard boxes in the back-left corner, with tape
-    for size, pos, turn in (((2.6, 2.2, 2.6), (-16.8, 2.1, 14.3), 0), ((2.0, 1.6, 2.0), (-16.6, 4.0, 14.2), 15),
-                            ((2.2, 1.8, 2.2), (-17.0, 1.9, 11.4), -10)):
+    # Stacked cardboard boxes in the back-right corner, with tape
+    for size, pos, turn in (((2.6, 2.2, 2.6), (16.8, 2.1, 30.3), 0), ((2.0, 1.6, 2.0), (16.6, 4.0, 30.2), 15),
+                            ((2.2, 1.8, 2.2), (17.0, 1.9, 27.4), -10)):
         sx, sy, sz = size
         x, y, z = pos
         lib.box(cardboard, (sx, sz, sy), pos=R(x, y, z), rot=lib.rturn(turn), bevel=0.06)

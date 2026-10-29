@@ -61,16 +61,16 @@ local function spotsIn(holder, toward: Vector3, back: boolean)
 end
 
 -- Every display spot in a shop, in the order they fill up:
--- shop floor (glass cases, then shelves), then the back room.
+-- front of the shop (glass cases, then shelves), then the back area.
 local function spotsFor(shop)
 	if spotsCache[shop] then
 		return spotsCache[shop]
 	end
 	local list = spotsIn(shop, shop.PrimaryPart.Position, false)
-	local room = shop:FindFirstChild("BackRoom")
-	if room then
-		local roomCenter = (shop.PrimaryPart.CFrame * CFrame.new(3, 0, 24)).Position
-		for _, spot in spotsIn(room, roomCenter, true) do
+	local area = shop:FindFirstChild("BackArea")
+	if area then
+		local areaCenter = (shop.PrimaryPart.CFrame * CFrame.new(0, 0, 24)).Position
+		for _, spot in spotsIn(area, areaCenter, true) do
 			table.insert(list, spot)
 		end
 	end
@@ -95,7 +95,7 @@ local function spotLimit(player): number
 end
 
 -- The spots this player may use: the first few on the shop floor (More shelves upgrade),
--- plus all of the back room once they have the Bigger shop upgrade.
+-- plus all of the back area once they have the Bigger shop upgrade.
 local function unlockedSpots(player, shop)
 	local list = {}
 	local floorLeft = spotLimit(player)

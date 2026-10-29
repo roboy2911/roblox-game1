@@ -16,9 +16,9 @@ local TownBuilder = {}
 
 local SIDES = { -1, 1 }
 local SIDEWALK_TOP = 0.7
-local SHOP_HALF_DEPTH = 17
-local SHOP_FRONT = Config.StreetToShop - SHOP_HALF_DEPTH -- distance from street middle to shop fronts
-local SHOP_BACK = Config.StreetToShop + SHOP_HALF_DEPTH
+-- Shops reach 17 studs in front of their center and 33 behind it (see ShopBuilder)
+local SHOP_FRONT = Config.StreetToShop - 17 -- distance from street middle to shop fronts
+local SHOP_BACK = Config.StreetToShop + 33
 
 -- Props, each built facing `cf.LookVector` --------------------------------
 
@@ -137,10 +137,9 @@ local function buildStreetProps(town, rowZs, spacing)
 	-- Hedge along the back of the shops, with a row of trees behind it
 	local half = (#rowZs * spacing + 24) / 2
 	for _, s in SIDES do
-		-- (behind the shops' back rooms, which reach 16 studs past the shop's back wall)
-		hedge(props, "BackHedge", V(s * (SHOP_BACK + 20), 0.2, -half), V(s * (SHOP_BACK + 20), 0.2, half), 2)
+		hedge(props, "BackHedge", V(s * (SHOP_BACK + 3), 0.2, -half), V(s * (SHOP_BACK + 3), 0.2, half), 2)
 		for z = -half + 8, half - 8, 30 do
-			tree(props, V(s * (SHOP_BACK + 30), 0.2, z))
+			tree(props, V(s * (SHOP_BACK + 14), 0.2, z))
 		end
 	end
 

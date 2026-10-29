@@ -1,5 +1,5 @@
 """Shop building: floor, walls, roof, storefront (windows, doors, pillars, awnings, sign frame).
-Written in the shop's own Roblox coordinates (see ShopBuilder.luau): X -20..20, Z -17 (front) .. 17,
+Written in the shop's own Roblox coordinates (see ShopBuilder.luau): X -20..20, Z -17 (front) .. 33,
 floor top at Y = 1. Origin: the shop's center at ground level.
 Parts named "Accent..." take each shop's own color. The sign text, OPEN sign, lanterns, pawn balls
 and bushes are separate (parts / other props)."""
@@ -26,32 +26,28 @@ def build(lib):
     accent_fabric = Look("AccentFabric", (140, 80, 220), "Fabric", roughness=0.9)
 
     # Floor with checkered tiles and a gold inlay line around the room
-    rbox(marble, (40, 1, 34), (0, 0.5, 0), bevel=0.04)
+    rbox(marble, (40, 1, 50), (0, 0.5, 8), bevel=0.04)
     for ix in range(10):
-        for iz in range(8):
+        for iz in range(12):
             if (ix + iz) % 2 == 0:
                 rbox(dark_marble, (3.9, 0.06, 3.9), (-18 + ix * 4, 1.02, -14 + iz * 4), bevel=0.02)
-    for z in (-15.9, 15.4):
+    for z in (-15.9, 31.4):
         rbox(gold, (38, 0.04, 0.15), (0, 1.03, z), bevel=0)
     for s in SIDES:
-        rbox(gold, (0.15, 0.04, 31.4), (s * 18.9, 1.03, -0.25), bevel=0)
+        rbox(gold, (0.15, 0.04, 47.4), (s * 18.9, 1.03, 7.75), bevel=0)
 
     # Walls, with a raised base, corner pilasters and a cornice along the top outside
-    # Back wall with a doorway (x 1..5) into the back room
-    rbox(cream, (21, 16, 1), (-9.5, 9, 16.5), bevel=0.05)
-    rbox(cream, (15, 16, 1), (12.5, 9, 16.5), bevel=0.05)
-    rbox(cream, (4, 7.5, 1), (3, 13.25, 16.5), bevel=0.05)
+    rbox(cream, (40, 16, 1), (0, 9, 32.5), bevel=0.05)
     for s in SIDES:
-        rbox(cream, (1, 16, 34), (s * 19.5, 9, 0), bevel=0.05)
-        rbox(accent, (0.3, 1.2, 34), (s * 20.15, 0.8, 0), bevel=0.06)
-        rbox(trim, (1.4, 16.4, 1.4), (s * 19.8, 9.2, 16.8), bevel=0.1)
-        rbox(gold, (1.2, 0.4, 34), (s * 19.6, 18.2, 0), bevel=0.12, bevel_segments=3)
-        rbox(trim, (0.5, 0.5, 34.6), (s * 20.15, 17.3, 0), bevel=0.15, bevel_segments=3)
-    # Colored base strip along the back, except where the back room attaches (x -8..14)
-    rbox(accent, (12.3, 1.2, 0.3), (-14.15, 0.8, 17.15), bevel=0.06)
-    rbox(accent, (6.3, 1.2, 0.3), (17.15, 0.8, 17.15), bevel=0.06)
-    rbox(gold, (40, 0.4, 1.2), (0, 18.2, 16.4), bevel=0.12, bevel_segments=3)
-    rbox(trim, (41, 0.5, 0.5), (0, 17.3, 17.15), bevel=0.15, bevel_segments=3)
+        rbox(cream, (1, 16, 50), (s * 19.5, 9, 8), bevel=0.05)
+        rbox(accent, (0.3, 1.2, 50), (s * 20.15, 0.8, 8), bevel=0.06)
+        rbox(trim, (1.4, 16.4, 1.4), (s * 19.8, 9.2, 32.8), bevel=0.1)
+        rbox(trim, (1.0, 16.4, 1.2), (s * 19.9, 9.2, 8), bevel=0.1)  # pilaster halfway down the side
+        rbox(gold, (1.2, 0.4, 50), (s * 19.6, 18.2, 8), bevel=0.12, bevel_segments=3)
+        rbox(trim, (0.5, 0.5, 50.6), (s * 20.15, 17.3, 8), bevel=0.15, bevel_segments=3)
+    rbox(accent, (40.6, 1.2, 0.3), (0, 0.8, 33.15), bevel=0.06)
+    rbox(gold, (40, 0.4, 1.2), (0, 18.2, 32.4), bevel=0.12, bevel_segments=3)
+    rbox(trim, (41, 0.5, 0.5), (0, 17.3, 33.15), bevel=0.15, bevel_segments=3)
 
     # Front wall: doorway in the middle, a big window on each side
     for s in SIDES:
@@ -135,8 +131,9 @@ def build(lib):
     rbox(accent_neon, (24, 0.3, 0.3), (0, 16.6, -17.15), bevel=0.08)
 
     # Ceiling and roof with a slight overhang and gold edge
-    rbox(cream, (38, 0.2, 32), (0, 16.9, 0), bevel=0.0)
-    rbox(roof, (40.4, 1, 34.4), (0, 17.5, 0), bevel=0.15, bevel_segments=2)
+    rbox(cream, (38, 0.2, 48), (0, 16.9, 8), bevel=0.0)
+    rbox(roof, (40.4, 1, 50.4), (0, 17.5, 8), bevel=0.15, bevel_segments=2)
     for x in (-10, 10):
-        rbox(roof, (3, 1.2, 2), (x, 18.6, 10), bevel=0.2, bevel_segments=2)  # roof vents
-        rbox(lib.STEEL, (2.4, 0.2, 1.4), (x, 19.25, 10), bevel=0.05)
+        for z in (12, 26):
+            rbox(roof, (3, 1.2, 2), (x, 18.6, z), bevel=0.2, bevel_segments=2)  # roof vents
+            rbox(lib.STEEL, (2.4, 0.2, 1.4), (x, 19.25, z), bevel=0.05)

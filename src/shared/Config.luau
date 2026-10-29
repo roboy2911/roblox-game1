@@ -2,7 +2,7 @@
 local Config = {}
 
 Config.GameName = "Pawn Shop Simulator"
-Config.Version = "0.10.0"
+Config.Version = "0.11.0"
 
 -- Shop plots
 Config.PlotCount = 6 -- one per player, so set Max Players to this
@@ -76,7 +76,7 @@ Config.Upgrades = {
 	{
 		Id = "BiggerShop",
 		Name = "Bigger shop",
-		Description = "Opens the back room behind the STAFF ONLY door: 18 more display spots, and buyers browse there too.",
+		Description = "Opens the roped-off back area behind the checkout: 18 more display spots, and buyers browse there too.",
 		Costs = { 10000 },
 	},
 }

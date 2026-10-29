@@ -1,9 +1,9 @@
 {
-  "Id": "PropCounterSection",
+  "Id": "PropCheckout",
   "Size": [
-    17.0,
-    4.0,
-    3.75
+    20.8,
+    5.25,
+    14.8
   ],
   "Parts": {
     "Marble": {
@@ -26,16 +26,6 @@
       "Transparency": 0.0,
       "Reflectance": 0.2
     },
-    "Accent": {
-      "Color": [
-        140,
-        80,
-        220
-      ],
-      "Material": "SmoothPlastic",
-      "Transparency": 0.0,
-      "Reflectance": 0.0
-    },
     "DarkMarble": {
       "Color": [
         45,
@@ -45,6 +35,16 @@
       "Material": "Marble",
       "Transparency": 0.0,
       "Reflectance": 0.05
+    },
+    "Accent": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
     },
     "DarkWood": {
       "Color": [
@@ -58,42 +58,42 @@
     }
   },
   "Triangles": {
-    "Marble": 540,
-    "Gold": 1512,
-    "Accent": 324,
-    "DarkMarble": 188,
+    "Marble": 1188,
+    "Gold": 4212,
+    "DarkMarble": 940,
+    "Accent": 972,
     "DarkWood": 540
   },
   "Centers": {
     "Marble": [
       -0.0,
-      -0.0118,
-      -0.0007
+      -0.006,
+      0.0
     ],
     "Gold": [
       -0.0,
-      -0.0103,
-      -0.0059
-    ],
-    "Accent": [
-      -0.0,
-      -0.0059,
-      -0.0897
+      0.0072,
+      0.0
     ],
     "DarkMarble": [
       -0.0,
-      0.1059,
-      0.0044
+      0.0709,
+      0.0
+    ],
+    "Accent": [
+      -0.0,
+      -0.0204,
+      0.0
     ],
     "DarkWood": [
       -0.0,
-      -0.0059,
-      0.064
+      -0.0685,
+      -0.1653
     ]
   },
   "Origin": [
     0.0,
-    0.0,
-    0.075
+    -0.7,
+    -10.0
   ]
 }

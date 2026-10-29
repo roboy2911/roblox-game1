@@ -1,8 +1,11 @@
 -- Builds one pawn shop out of parts: bright cartoony colors with fancy marble + gold.
 --
 -- Layout (relative to the shop's center, in studs):
---   X: -20 (left) .. 20 (right)    Z: -17 (front, door side) .. 17 (back)    Y: floor top is 1
--- The owner stands behind the counter (back half). Customers come in the front door.
+--   X: -20 .. 20    Z: -17 (front, door side) .. 33 (back)    Y: floor top is 1
+-- One big room. The checkout is a closed-in island of counters in the middle (x -10..10, z 3..17)
+-- with its gate on the back side; aisles down both sides lead to the back area (z 18..32), which
+-- is roped off until the owner buys the Bigger shop upgrade. Customers come in the front door
+-- and stand at the register on the front counter.
 
 local Build = require(script.Parent.Build)
 local Props = require(script.Parent.Props)
@@ -32,35 +35,29 @@ local EXTERIOR_PARTS = names({
 })
 local INTERIOR_PARTS = names({
 	"Wainscot", "Rail", "RugBorder", "Rug", "CeilingLight", "GuitarBoard", "Body", "UpperBody", "SoundHole",
-	"Neck", "Head", "OfficeDoorFrame", "PaintingFrame", "PaintingSky",
+	"Neck", "Head", "PaintingFrame", "PaintingSky",
 	"PaintingHills", "Box",
 })
-local COUNTER_PARTS = names({ "Body", "Panel", "Kick", "Top", "TopEdge" })
+local COUNTER_PARTS = names({ "Body", "Panel", "Kick", "Top", "TopEdge", "CounterPost" })
 local CASE_PARTS = names({ "Base", "Kick", "DisplaySurface", "Glass", "Post", "TopBar" })
 local SHELF_PARTS = names({ "Back", "Side", "Top", "Plinth", "Level1", "Level2", "Level3", "Lip" })
-local BACKROOM_PARTS = names({
-	"BackRoomFloor", "BackRoomWall", "BackRoomCeiling", "BackRoomRoof", "BackRoomLight",
-})
 
 -- Floor, walls, windows, roof ------------------------------------------------
 local function buildShell(b, m, accent)
-	b.part(m, "Floor", V(40, 1, 34), V(0, 0.5, 0), C.Marble, M.Marble)
+	b.part(m, "Floor", V(40, 1, 50), V(0, 0.5, 8), C.Marble, M.Marble)
 
 	-- Checkered marble tiles
 	for ix = 0, 9 do
-		for iz = 0, 7 do
+		for iz = 0, 11 do
 			if (ix + iz) % 2 == 0 then
 				b.part(m, "Tile", V(4, 0.05, 4), V(-18 + ix * 4, 1.025, -14 + iz * 4), C.DarkMarble, M.Marble)
 			end
 		end
 	end
 
-	-- Back wall, with a doorway (x 1..5) into the back room
-	b.part(m, "BackWall", V(21, 16, 1), V(-9.5, 9, 16.5), C.Cream)
-	b.part(m, "BackWall", V(15, 16, 1), V(12.5, 9, 16.5), C.Cream)
-	b.part(m, "BackWall", V(4, 7.5, 1), V(3, 13.25, 16.5), C.Cream)
-	b.part(m, "LeftWall", V(1, 16, 34), V(-19.5, 9, 0), C.Cream)
-	b.part(m, "RightWall", V(1, 16, 34), V(19.5, 9, 0), C.Cream)
+	b.part(m, "BackWall", V(40, 16, 1), V(0, 9, 32.5), C.Cream)
+	b.part(m, "LeftWall", V(1, 16, 50), V(-19.5, 9, 8), C.Cream)
+	b.part(m, "RightWall", V(1, 16, 50), V(19.5, 9, 8), C.Cream)
 
 	-- Front wall: doorway in the middle (x -4..4), a big window on each side (x 7..16)
 	for _, s in SIDES do
@@ -79,16 +76,16 @@ local function buildShell(b, m, accent)
 
 		-- Colored strip along the bottom of the outside walls
 		b.part(m, "BaseStrip", V(16, 1.2, 0.3), V(s * 12, 0.8, -17.15), accent)
-		b.part(m, "BaseStrip", V(0.3, 1.2, 34), V(s * 20.15, 0.8, 0), accent)
+		b.part(m, "BaseStrip", V(0.3, 1.2, 50), V(s * 20.15, 0.8, 8), accent)
 		-- Gold trim along the top of the side walls
-		b.part(m, "RoofTrim", V(1.2, 0.4, 34), V(s * 19.6, 18.2, 0), C.Gold, M.Metal)
+		b.part(m, "RoofTrim", V(1.2, 0.4, 50), V(s * 19.6, 18.2, 8), C.Gold, M.Metal)
 	end
-	b.part(m, "BaseStrip", V(40.6, 1.2, 0.3), V(0, 0.8, 17.15), accent)
-	b.part(m, "RoofTrim", V(40, 0.4, 1.2), V(0, 18.2, 16.4), C.Gold, M.Metal)
+	b.part(m, "BaseStrip", V(40.6, 1.2, 0.3), V(0, 0.8, 33.15), accent)
+	b.part(m, "RoofTrim", V(40, 0.4, 1.2), V(0, 18.2, 32.4), C.Gold, M.Metal)
 
 	b.part(m, "AboveDoor", V(8, 6, 1), V(0, 14, -16.5), C.Cream)
-	b.part(m, "Ceiling", V(38, 0.2, 32), V(0, 16.9, 0), C.Cream)
-	b.part(m, "Roof", V(40, 1, 34), V(0, 17.5, 0), C.Roof, M.Slate)
+	b.part(m, "Ceiling", V(38, 0.2, 48), V(0, 16.9, 8), C.Cream)
+	b.part(m, "Roof", V(40, 1, 50), V(0, 17.5, 8), C.Roof, M.Slate)
 end
 
 -- Storefront: sign, awnings, door, pillars, lamps, pawn balls -----------------
@@ -168,51 +165,66 @@ local function buildFacade(b, m, shop, accent)
 	end
 end
 
--- Counter: wall to wall, with a gate in the middle (the checkout area is behind it) ----
--- Sections run x -19..-2 and 2..19; the gate fills x -2..2.
+-- Checkout: a closed-in island of counters in the middle of the shop ------------
+-- Front counter x -10..10, z 3..6 (register, customers stand in front of it); side counters
+-- x +-(7..10), z 6..17; back counters x +-(2..10), z 14..17 with the gate between them.
 local function buildCounter(b, shop, accent)
 	local m = Build.model(shop, "Counter")
-	for _, s in SIDES do
-		local cx = s * 10.5
-		b.part(m, "Body", V(17, 3.6, 3), V(cx, 2.8, 4), C.Marble, M.Marble)
-		for _, dx in { -5.6, 0, 5.6 } do
-			b.part(m, "Panel", V(4.6, 2.4, 0.2), V(cx + dx, 2.9, 2.45), accent)
-		end
-		b.part(m, "Kick", V(17, 0.4, 3.2), V(cx, 1.2, 4), C.Gold, M.Metal)
-		b.part(m, "Top", V(17, 0.4, 3.6), V(cx, 4.8, 4), C.DarkMarble, M.Marble)
-		b.part(m, "TopEdge", V(17, 0.2, 0.2), V(cx, 4.55, 2.15), C.Gold, M.Metal)
-		if Props.Place(m, "CounterSection", b.cframe(V(cx, 1, 4)), { accent = accent, collide = false }) then
-			Props.Hide(m, COUNTER_PARTS)
-		end
+	local function counter(x0, x1, z0, z1)
+		local center = V((x0 + x1) / 2, 0, (z0 + z1) / 2)
+		local size = V(x1 - x0, 0, z1 - z0)
+		b.part(m, "Body", V(size.X, 3.6, size.Z), center + V(0, 2.8, 0), C.Marble, M.Marble)
+		b.part(m, "Kick", V(size.X + 0.1, 0.4, size.Z + 0.1), center + V(0, 1.2, 0), C.Gold, M.Metal)
+		b.part(m, "Top", V(size.X + 0.3, 0.4, size.Z + 0.3), center + V(0, 4.8, 0), C.DarkMarble, M.Marble)
+	end
+	counter(-10, 10, 3, 6)
+	counter(-10, -7, 6, 17)
+	counter(7, 10, 6, 17)
+	counter(-10, -2, 14, 17)
+	counter(2, 10, 14, 17)
+	for _, x in { -6, 0, 6 } do
+		b.part(m, "Panel", V(4.6, 2.4, 0.2), V(x, 2.9, 2.9), accent)
+	end
+	for _, pos in { V(-10, 0, 3), V(10, 0, 3), V(-10, 0, 17), V(10, 0, 17), V(-2, 0, 17), V(2, 0, 17) } do
+		b.part(m, "CounterPost", V(0.8, 4.4, 0.8), pos + V(0, 3.2, 0), C.Marble, M.Marble)
+	end
+	if Props.Place(m, "Checkout", b.cframe(V(0, 0, 0)), { accent = accent, collide = false }) then
+		Props.Hide(m, COUNTER_PARTS)
 	end
 
-	-- The gate: a swinging half-door, hinged on its left end (ShopDoors opens it)
+	-- The gate in the back side: a swinging half-door, hinged on its left end, opening inward.
+	-- Only the owner opens it (ShopDoors).
 	local gate = Build.model(m, "Gate")
-	b.part(gate, "GateDoor", V(3.9, 3.2, 0.3), V(0, 2.8, 4), accent, nil, { reflectance = 0.05 })
-	b.part(gate, "GateRail", V(3.9, 0.3, 0.45), V(0, 4.45, 4), C.Gold, M.Metal)
-	b.part(gate, "GatePanel", V(3.1, 2.0, 0.34), V(0, 2.8, 4), C.Gold, M.Metal)
-	b.part(gate, "GatePanelInner", V(2.8, 1.7, 0.38), V(0, 2.8, 4), accent)
-	gate:SetAttribute("Hinge", b.cframe(V(-1.95, 2.8, 4)))
-	for _, part in gate:GetChildren() do
-		-- Customers' pathfinding may walk through: the gate swings open for them
-		local modifier = Instance.new("PathfindingModifier")
-		modifier.PassThrough = true
-		modifier.Parent = part
-	end
+	b.part(gate, "GateDoor", V(3.9, 3.2, 0.3), V(0, 2.8, 15.5), accent, nil, { reflectance = 0.05 })
+	b.part(gate, "GateRail", V(3.9, 0.3, 0.45), V(0, 4.45, 15.5), C.Gold, M.Metal)
+	b.part(gate, "GatePanel", V(3.1, 2.0, 0.34), V(0, 2.8, 15.5), C.Gold, M.Metal)
+	b.part(gate, "GatePanelInner", V(2.8, 1.7, 0.38), V(0, 2.8, 15.5), accent)
+	gate:SetAttribute("Hinge", b.cframe(V(-1.95, 2.8, 15.5)))
 
-	-- Cash register
-	if not Props.Place(m, "CashRegister", b.cframe(V(5, 5.0, 4.4)), { accent = accent }) then
-		b.part(m, "Register", V(2.6, 1, 2), V(5, 5.5, 4.4), accent)
-		b.part(m, "RegisterKeys", V(2.2, 0.15, 0.9), V(5, 6.075, 4.9), C.DarkMetal)
-		b.part(m, "RegisterScreen", V(1.8, 1, 0.2), V(5, 6.6, 4.0), C.DarkMetal)
-		b.part(m, "RegisterDisplay", V(1.5, 0.7, 0.05), V(5, 6.6, 3.88), Color3.fromRGB(110, 255, 170), M.Neon)
+	-- Cash register on the front counter, facing customers
+	if not Props.Place(m, "CashRegister", b.cframe(V(5, 5.0, 4.9)), { accent = accent }) then
+		b.part(m, "Register", V(2.6, 1, 2), V(5, 5.5, 4.9), accent)
+		b.part(m, "RegisterKeys", V(2.2, 0.15, 0.9), V(5, 6.075, 5.4), C.DarkMetal)
+		b.part(m, "RegisterScreen", V(1.8, 1, 0.2), V(5, 6.6, 4.5), C.DarkMetal)
+		b.part(m, "RegisterDisplay", V(1.5, 0.7, 0.05), V(5, 6.6, 4.38), Color3.fromRGB(110, 255, 170), M.Neon)
 	end
 
 	-- Service bell
-	if not Props.Place(m, "ServiceBell", b.cframe(V(-6, 5.0, 3.4))) then
-		b.column(m, "BellBase", 1, 0.2, V(-6, 5.0, 3.4), C.DarkWood, M.Wood)
-		b.ball(m, "Bell", 0.9, V(-6, 5.35, 3.4), C.Gold, M.Metal, { reflectance = 0.2 })
-		b.ball(m, "BellButton", 0.25, V(-6, 5.85, 3.4), C.Gold, M.Metal)
+	if not Props.Place(m, "ServiceBell", b.cframe(V(-5, 5.0, 3.9))) then
+		b.column(m, "BellBase", 1, 0.2, V(-5, 5.0, 3.9), C.DarkWood, M.Wood)
+		b.ball(m, "Bell", 0.9, V(-5, 5.35, 3.9), C.Gold, M.Metal, { reflectance = 0.2 })
+		b.ball(m, "BellButton", 0.25, V(-5, 5.85, 3.9), C.Gold, M.Metal)
+	end
+
+	-- Inside the checkout: the safe and a retro TV
+	if not Props.Place(m, "Safe", b.cframe(V(4.5, 1, 12.1))) then
+		b.part(m, "Safe", V(4, 5, 3.5), V(4.5, 3.5, 12.1), C.DarkMetal, M.Metal)
+		b.disc(m, "SafeDial", 1.1, 0.3, V(4.5, 4.3, 10.3), C.Gold, M.Metal)
+	end
+	if not Props.Place(m, "RetroTV", b.cframe(V(-4.5, 1, 12.4))) then
+		b.part(m, "TVCabinet", V(4, 2.5, 2.5), V(-4.5, 2.25, 12.4), C.Wood, M.Wood)
+		b.part(m, "TV", V(3.4, 2.6, 2.2), V(-4.5, 4.8, 12.4), Color3.fromRGB(60, 55, 60))
+		b.part(m, "TVScreen", V(2.8, 2, 0.1), V(-4.5, 4.9, 11.25), Color3.fromRGB(35, 55, 75), M.Glass)
 	end
 end
 
@@ -278,58 +290,55 @@ local function buildShelves(b, shop, accent)
 	end
 end
 
--- Back room (Bigger shop upgrade), behind the STAFF ONLY door: x -8..14, z 17..33.
--- Two glass cases and a wall shelf; the door stays shut until the owner unlocks it.
-local function buildBackRoom(b, shop, accent)
-	local room = Build.model(shop, "BackRoom")
-	b.part(room, "BackRoomFloor", V(22, 1, 16), V(3, 0.5, 25), C.Marble, M.Marble)
-	b.part(room, "BackRoomWall", V(1, 16, 16), V(-7.5, 9, 25), C.Cream)
-	b.part(room, "BackRoomWall", V(1, 16, 16), V(13.5, 9, 25), C.Cream)
-	b.part(room, "BackRoomWall", V(22, 16, 1), V(3, 9, 32.5), C.Cream)
-	b.part(room, "BackRoomCeiling", V(20, 0.2, 15), V(3, 16.9, 24.5), C.Cream)
-	b.part(room, "BackRoomRoof", V(22.4, 1, 16.6), V(3, 17.5, 25.1), C.Roof, M.Slate)
-	local light = b.part(room, "BackRoomLight", V(4, 0.2, 4), V(3, 16.7, 24.5), C.WarmLight)
-	Build.light(light, 20, 0.5)
-	if Props.Place(room, "BackRoom", b.cframe(V(0, 0, 0)), { accent = accent, collide = false }) then
-		Props.Hide(room, BACKROOM_PARTS)
-	end
-
+-- Back area (z 18..32): two glass cases and a wall shelf on the back wall, roped off at the
+-- aisles until the owner buys the Bigger shop upgrade (ShopDoors hides the ropes).
+local function buildBackArea(b, shop, accent)
+	local area = Build.model(shop, "BackArea")
 	local cases = Instance.new("Folder")
 	cases.Name = "DisplayCases"
-	cases.Parent = room
-	buildCase(b, cases, "BackCase1", -3, 21.5, accent)
-	buildCase(b, cases, "BackCase2", 9, 21.5, accent)
+	cases.Parent = area
+	buildCase(b, cases, "BackCase1", -11, 23.5, accent)
+	buildCase(b, cases, "BackCase2", 11, 23.5, accent)
 	local shelves = Instance.new("Folder")
 	shelves.Name = "Shelves"
-	shelves.Parent = room
-	buildShelf(shelves, "BackShelf", b.cframe(V(3, 1, 30.3), 0), accent)
+	shelves.Parent = area
+	buildShelf(shelves, "BackShelf", b.cframe(V(0, 1, 30.3), 0), accent)
 
-	-- The door between the shop and the back room, hinged on its left side (ShopDoors opens it)
-	local door = Build.model(shop, "BackDoor")
-	b.part(door, "DoorSlab", V(4, 8.2, 0.3), V(3, 5.1, 15.5), C.DarkWood, M.Wood)
-	for _, y in { 3.0, 7.0 } do
-		for _, x in { 2.05, 3.95 } do
-			b.part(door, "DoorPanel", V(1.4, if y == 3.0 then 3.0 else 2.4, 0.12), V(x, y, 15.32), Color3.fromRGB(110, 72, 50), M.Wood)
+	-- Velvet ropes across both aisles, with a sign in the middle of each
+	local ropes = Build.model(shop, "BackRopes")
+	local velvet = Color3.fromRGB(170, 25, 45)
+	for _, s in SIDES do
+		local posts = { s * 10.6, s * 14.8, s * 18.8 }
+		for _, x in posts do
+			b.column(ropes, "RopePost", 0.35, 3.4, V(x, 1, 18.5), C.Gold, M.Metal, { collide = false })
+			b.column(ropes, "RopeBase", 1, 0.2, V(x, 1, 18.5), C.Gold, M.Metal, { collide = false })
+			b.ball(ropes, "RopeTop", 0.5, V(x, 4.5, 18.5), C.Gold, M.Metal, { collide = false })
 		end
+		for k = 1, 2 do
+			local x0, x1 = posts[k], posts[k + 1]
+			-- (a cylinder part lies along its X axis, which runs along the rope here)
+			b.part(ropes, "Rope", V(math.abs(x1 - x0), 0.22, 0.22), V((x0 + x1) / 2, 3.9, 18.5), velvet, M.Fabric,
+				{ shape = "Cylinder", collide = false })
+		end
+		local sign = b.part(ropes, "RopeSign", V(3.4, 1.1, 0.1), V(s * 14.8, 3.1, 18.4), C.DarkMarble, nil, { collide = false })
+		Build.text(sign, Enum.NormalId.Front, "🔒 Bigger shop", C.Gold)
 	end
-	b.ball(door, "DoorKnob", 0.4, V(4.5, 5, 15.3), C.Gold, M.Metal)
-	b.part(door, "KickPlate", V(3.6, 0.6, 0.06), V(3, 1.4, 15.33), C.Gold, M.Metal)
-	local lock = b.part(door, "LockSign", V(3, 1, 0.05), V(3, 5.9, 15.31), C.DarkMarble)
-	Build.text(lock, Enum.NormalId.Front, "🔒 Bigger shop upgrade", C.Gold)
-	door:SetAttribute("Hinge", b.cframe(V(1.05, 5.1, 15.5)))
+	for _, part in ropes:GetChildren() do
+		part.CanQuery = false
+	end
 end
 
 -- Inside details: wall panels, rug, lights, back wall, clutter --------------
 local function buildInterior(b, m, accent)
 	-- Dark wood panels along the lower walls with a gold rail
-	b.part(m, "Wainscot", V(38, 4, 0.2), V(0, 3, 15.9), C.DarkWood, M.Wood)
-	b.part(m, "Rail", V(38, 0.3, 0.4), V(0, 5.15, 15.8), C.Gold, M.Metal)
+	b.part(m, "Wainscot", V(38, 4, 0.2), V(0, 3, 31.9), C.DarkWood, M.Wood)
+	b.part(m, "Rail", V(38, 0.3, 0.4), V(0, 5.15, 31.8), C.Gold, M.Metal)
 	for _, s in SIDES do
-		b.part(m, "Wainscot", V(0.2, 4, 32), V(s * 18.9, 3, 0), C.DarkWood, M.Wood)
-		b.part(m, "Rail", V(0.4, 0.3, 32), V(s * 18.8, 5.15, 0), C.Gold, M.Metal)
+		b.part(m, "Wainscot", V(0.2, 4, 48), V(s * 18.9, 3, 8), C.DarkWood, M.Wood)
+		b.part(m, "Rail", V(0.4, 0.3, 48), V(s * 18.8, 5.15, 8), C.Gold, M.Metal)
 	end
 
-	-- Rug from the door to the counter
+	-- Rug from the door to the checkout
 	b.part(m, "RugBorder", V(10.8, 0.08, 14.8), V(0, 1.09, -7), C.Gold, M.Fabric)
 	b.part(m, "Rug", V(10, 0.1, 14), V(0, 1.1, -7), accent, M.Fabric)
 
@@ -347,60 +356,36 @@ local function buildInterior(b, m, accent)
 	local backLight = b.part(m, "CeilingLight", V(4, 0.2, 4), V(0, 16.7, 10), C.WarmLight)
 	Build.light(backLight, 20, 0.4)
 
-	-- Guitar wall behind the counter
-	b.part(m, "GuitarBoard", V(10, 6, 0.2), V(-10, 8, 15.7), C.LightWood, M.WoodPlanks)
-	local guitarColors = { Color3.fromRGB(220, 60, 60), Color3.fromRGB(60, 120, 230), Color3.fromRGB(240, 160, 50) }
-	for i, gx in { -13, -10, -7 } do
-		local g = Build.model(m, "Guitar")
-		b.part(g, "Body", V(2.4, 2.8, 0.5), V(gx, 6.6, 15.3), guitarColors[i])
-		b.part(g, "UpperBody", V(1.9, 1.6, 0.5), V(gx, 8.5, 15.3), guitarColors[i])
-		b.disc(g, "SoundHole", 0.8, 0.05, V(gx, 7.3, 15.03), C.DarkMetal)
-		b.part(g, "Neck", V(0.4, 3.2, 0.25), V(gx, 10.9, 15.35), C.DarkWood, M.Wood)
-		b.part(g, "Head", V(0.7, 1, 0.3), V(gx, 13, 15.35), C.DarkMetal)
+	-- A second chandelier over the back area
+	if not Props.Place(m, "Chandelier", b.cframe(V(0, 16.8, 24)), { light = { 26, 0.6 }, collide = false }) then
+		local crystal = b.ball(m, "ChandelierCrystal", 1, V(0, 14.2, 24), C.Glass, M.Glass, { transparency = 0.3 })
+		Build.light(crystal, 26, 0.6)
 	end
-	local banner = b.part(m, "Banner", V(10, 1.8, 0.1), V(-10, 15, 15.85), accent)
+
+	-- Guitar wall on the back wall (left, seen from the door: x -18..-9)
+	b.part(m, "GuitarBoard", V(9, 6, 0.2), V(-13.5, 8, 31.7), C.LightWood, M.WoodPlanks)
+	local guitarColors = { Color3.fromRGB(220, 60, 60), Color3.fromRGB(60, 120, 230), Color3.fromRGB(240, 160, 50) }
+	for i, gx in { -16.3, -13.5, -10.7 } do
+		local g = Build.model(m, "Guitar")
+		b.part(g, "Body", V(2.4, 2.8, 0.5), V(gx, 6.6, 31.3), guitarColors[i])
+		b.part(g, "UpperBody", V(1.9, 1.6, 0.5), V(gx, 8.5, 31.3), guitarColors[i])
+		b.disc(g, "SoundHole", 0.8, 0.05, V(gx, 7.3, 31.03), C.DarkMetal)
+		b.part(g, "Neck", V(0.4, 3.2, 0.25), V(gx, 10.9, 31.35), C.DarkWood, M.Wood)
+		b.part(g, "Head", V(0.7, 1, 0.3), V(gx, 13, 31.35), C.DarkMetal)
+	end
+	local banner = b.part(m, "Banner", V(10, 1.8, 0.1), V(0, 15.5, 31.85), accent)
 	Build.text(banner, Enum.NormalId.Front, "WE BUY GOLD", C.White)
 
-	-- Staff-only office door
-	-- Frame around the back room doorway (posts and a top bar, so the doorway stays open)
-	b.part(m, "OfficeDoorFrame", V(0.35, 8.8, 0.35), V(0.85, 5.4, 15.75), C.Gold, M.Metal)
-	b.part(m, "OfficeDoorFrame", V(0.35, 8.8, 0.35), V(5.15, 5.4, 15.75), C.Gold, M.Metal)
-	b.part(m, "OfficeDoorFrame", V(4.65, 0.4, 0.35), V(3, 9.7, 15.75), C.Gold, M.Metal)
-	local plate = b.part(m, "DoorSign", V(2.4, 0.7, 0.05), V(3, 11.1, 15.93), C.Marble)
-	Build.text(plate, Enum.NormalId.Front, "STAFF ONLY", C.DarkMarble)
-
-	-- Wall clock above the office door
-	if not Props.Place(m, "WallClock", b.cframe(V(3, 12.5, 16)), { collide = false }) then
-		b.disc(m, "ClockRim", 2.6, 0.2, V(3, 12.5, 15.8), C.Gold, M.Metal)
-		b.disc(m, "ClockFace", 2.2, 0.1, V(3, 12.5, 15.7), C.White)
-		b.part(m, "HourHand", V(0.2, 0.7, 0.05), V(3, 12.8, 15.63), C.DarkMetal)
-		b.part(m, "MinuteHand", V(0.15, 1, 0.05), V(3.43, 12.75, 15.62), C.DarkMetal, nil, { rot = V(0, 0, -60) })
+	-- Wall clock on the back wall, above the shelf
+	if not Props.Place(m, "WallClock", b.cframe(V(0, 12.6, 32)), { collide = false }) then
+		b.disc(m, "ClockRim", 2.6, 0.2, V(0, 12.6, 31.8), C.Gold, M.Metal)
+		b.disc(m, "ClockFace", 2.2, 0.1, V(0, 12.6, 31.7), C.White)
 	end
 
-	-- Big safe in the back corner, with gold bars on top
-	if not Props.Place(m, "Safe", b.cframe(V(14.5, 1, 13.8))) then
-		b.part(m, "Safe", V(4, 5, 3.5), V(14.5, 3.5, 13.8), C.DarkMetal, M.Metal)
-		b.part(m, "SafeDoor", V(3.3, 4.2, 0.15), V(14.5, 3.5, 12.0), Color3.fromRGB(75, 75, 90), M.Metal)
-		b.disc(m, "SafeDial", 1.1, 0.3, V(14.5, 4.3, 11.85), C.Gold, M.Metal)
-		b.part(m, "SafeHandle", V(0.25, 1.2, 0.25), V(13.3, 3.3, 11.8), C.Steel, M.Metal)
-		b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(14, 6.25, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
-		b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(15.2, 6.25, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
-		b.part(m, "GoldBar", V(1.2, 0.5, 0.6), V(14.6, 6.75, 13.5), C.Gold, M.Metal, { reflectance = 0.2 })
-	end
-
-	-- Retro TV on a cabinet
-	if not Props.Place(m, "RetroTV", b.cframe(V(15.5, 1, 8))) then
-		b.part(m, "TVCabinet", V(4, 2.5, 2.5), V(15.5, 2.25, 8), C.Wood, M.Wood)
-		b.part(m, "TV", V(3.4, 2.6, 2.2), V(15.5, 4.8, 8), Color3.fromRGB(60, 55, 60))
-		b.part(m, "TVScreen", V(2.8, 2, 0.1), V(15.5, 4.9, 6.85), Color3.fromRGB(35, 55, 75), M.Glass)
-		b.part(m, "Antenna", V(0.1, 1.6, 0.1), V(15.1, 6.8, 8), C.Steel, M.Metal, { rot = V(0, 0, 25) })
-		b.part(m, "Antenna", V(0.1, 1.6, 0.1), V(15.9, 6.8, 8), C.Steel, M.Metal, { rot = V(0, 0, -25) })
-	end
-
-	-- Stacked boxes in the back-left corner
-	b.part(m, "Box", V(2.6, 2.2, 2.6), V(-16.8, 2.1, 14.3), C.Cardboard, M.Cardboard)
-	b.part(m, "Box", V(2, 1.6, 2), V(-16.6, 4.0, 14.2), C.Cardboard, M.Cardboard, { rot = V(0, 15, 0) })
-	b.part(m, "Box", V(2.2, 1.8, 2.2), V(-17, 1.9, 11.4), C.Cardboard, M.Cardboard, { rot = V(0, -10, 0) })
+	-- Stacked boxes in the back-right corner
+	b.part(m, "Box", V(2.6, 2.2, 2.6), V(16.8, 2.1, 30.3), C.Cardboard, M.Cardboard)
+	b.part(m, "Box", V(2, 1.6, 2), V(16.6, 4.0, 30.2), C.Cardboard, M.Cardboard, { rot = V(0, 15, 0) })
+	b.part(m, "Box", V(2.2, 1.8, 2.2), V(17, 1.9, 27.4), C.Cardboard, M.Cardboard, { rot = V(0, -10, 0) })
 
 	-- Plants in the front corners
 	for _, s in SIDES do
@@ -442,20 +427,21 @@ function ShopBuilder.Build(origin: CFrame, name: string, accent: Color3): Model
 	buildCounter(b, shop, accent)
 	buildDisplayCases(b, shop, accent)
 	buildShelves(b, shop, accent)
-	buildBackRoom(b, shop, accent)
+	buildBackArea(b, shop, accent)
 
 	-- Spots for later steps
 	local markers = Instance.new("Folder")
 	markers.Name = "Markers"
 	markers.Parent = shop
-	b.marker(markers, "OwnerSpawn", V(0, 4, 8.5)) -- behind the counter
-	b.marker(markers, "CustomerSpot", V(6, 1.5, 0.5)) -- in front of the counter, at the register
-	b.marker(markers, "CounterItem", V(8.6, 5.0, 3.1)) -- where a seller puts their item down
-	b.marker(markers, "TestItem", V(12.5, 5.0, 3.4)) -- admin test items
+	b.marker(markers, "Origin", V(0, 0.5, 0)) -- the shop's own coordinates (its PrimaryPart)
+	b.marker(markers, "OwnerSpawn", V(0, 4, 9)) -- inside the checkout
+	b.marker(markers, "CustomerSpot", V(5.5, 1.5, 1.4)) -- in front of the register
+	b.marker(markers, "CounterItem", V(8, 5.0, 4.0)) -- where a seller puts their item down
+	b.marker(markers, "TestItem", V(-1.5, 5.0, 4.4)) -- admin test items
 	b.marker(markers, "Door", V(0, 1.5, -19)) -- just outside the door
 	b.marker(markers, "Street", V(0, 1, -27)) -- on the sidewalk, where customers come from
 
-	shop.PrimaryPart = exterior.Floor
+	shop.PrimaryPart = markers.Origin
 	return shop
 end
 

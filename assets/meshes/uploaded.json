@@ -63,10 +63,6 @@
     "assetId": 119815876905383,
     "sha256": "0ec1a68535d073140480e3f954779978175f638394091c8163a51422d25071a7"
   },
-  "PropBackRoom": {
-    "assetId": 91116177525140,
-    "sha256": "31a5520cbfdaf999d6f2d261be6e37fa30e89af4f07207d2f94849a491648b09"
-  },
   "PropBench": {
     "assetId": 80802570713773,
     "sha256": "e21f69707fa8c8aba7826ec0045643863cbc9cd7a8e805d1247a013ca8b6cd6e"
@@ -79,9 +75,9 @@
     "assetId": 140666662947210,
     "sha256": "362ff4e35a4dedd0ff40863341e41c23923d989a8f010b6b3c367f88cb6f9d89"
   },
-  "PropCounterSection": {
-    "assetId": 138683766903882,
-    "sha256": "25460cbb359b987c5aeb3cc55be8c236b83ec12a6a5b9c63b5282ac0c2df03e5"
+  "PropCheckout": {
+    "assetId": 71710854356303,
+    "sha256": "566032a272196faa6b5b45af4abb235f3d013e228410900ae2211ace6d2e5070"
   },
   "PropDisplayCase": {
     "assetId": 97867869229281,
@@ -133,11 +129,11 @@
   },
   "PropShopExterior": {
     "assetId": 129382971970953,
-    "sha256": "1bbd6c064cabb0e5f69cad57a6928cceebb84e6e69995b31eb9883884485a562"
+    "sha256": "062390d72d4084b281044310352a9837c2205266d4d40901ea63634cd9a31880"
   },
   "PropShopInterior": {
     "assetId": 125636777523407,
-    "sha256": "663c75a39abb4e8b79a8ca4c3a826f4df0b4ea67dd7469db2481043331095b17"
+    "sha256": "29a359d71ccd221cd5cd133dd7b406c6d00c2379075e5d9c6ec0bc7dff3d4e56"
   },
   "PropSidewalk": {
     "assetId": 109385629952301,
