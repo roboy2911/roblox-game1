@@ -79,8 +79,7 @@ local function spawnTestItem(player)
 		old:Destroy()
 	end
 	local rolled = Items.Roll()
-	local top = shop.Counter.Top
-	local cf = top.CFrame * CFrame.new(0, top.Size.Y / 2, 0.2) * CFrame.Angles(0, math.pi, 0)
+	local cf = shop.Markers.TestItem.CFrame * CFrame.Angles(0, math.pi, 0) -- facing the owner
 	local model = ItemModels.Build(rolled.Id, cf)
 	model.Name = "TestItem"
 	addLabel(model, rolled)

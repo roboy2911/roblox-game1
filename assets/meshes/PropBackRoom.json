@@ -1,0 +1,211 @@
+{
+  "Id": "PropBackRoom",
+  "Size": [
+    23.0,
+    18.4,
+    16.7
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        240,
+        240,
+        245
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "DarkMarble": {
+      "Color": [
+        45,
+        45,
+        60
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "RugGold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "AccentRug": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Wall": {
+      "Color": [
+        250,
+        240,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Trim": {
+      "Color": [
+        236,
+        224,
+        200
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Accent": {
+      "Color": [
+        140,
+        80,
+        220
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Roof": {
+      "Color": [
+        70,
+        65,
+        90
+      ],
+      "Material": "Slate",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Glow": {
+      "Color": [
+        255,
+        225,
+        160
+      ],
+      "Material": "Neon",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "DarkWood": {
+      "Color": [
+        85,
+        55,
+        40
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "PanelWood": {
+      "Color": [
+        110,
+        72,
+        50
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Marble": 108,
+    "DarkMarble": 1080,
+    "RugGold": 108,
+    "AccentRug": 108,
+    "Wall": 336,
+    "Trim": 968,
+    "Accent": 324,
+    "Gold": 1236,
+    "Roof": 108,
+    "Glow": 108,
+    "DarkWood": 324,
+    "PanelWood": 864
+  },
+  "Centers": {
+    "Marble": [
+      -0.0,
+      -0.3783,
+      -0.0065
+    ],
+    "DarkMarble": [
+      -0.0,
+      -0.3557,
+      -0.038
+    ],
+    "RugGold": [
+      -0.0,
+      -0.3526,
+      -0.0239
+    ],
+    "AccentRug": [
+      -0.0,
+      -0.3522,
+      -0.0239
+    ],
+    "Wall": [
+      -0.0,
+      -0.0087,
+      -0.0065
+    ],
+    "Trim": [
+      -0.0,
+      -0.0,
+      0.0043
+    ],
+    "Accent": [
+      -0.0,
+      -0.3652,
+      0.0
+    ],
+    "Gold": [
+      0.0,
+      0.1087,
+      -0.0065
+    ],
+    "Roof": [
+      -0.0,
+      0.3609,
+      -0.0022
+    ],
+    "Glow": [
+      -0.0,
+      0.3226,
+      -0.0283
+    ],
+    "DarkWood": [
+      -0.0,
+      -0.2696,
+      -0.0283
+    ],
+    "PanelWood": [
+      0.0,
+      -0.2652,
+      -0.038
+    ]
+  },
+  "Origin": [
+    -3.0,
+    0.0,
+    -25.15
+  ]
+}

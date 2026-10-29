@@ -37,14 +37,19 @@ def build(lib):
         rbox(gold, (0.15, 0.04, 31.4), (s * 18.9, 1.03, -0.25), bevel=0)
 
     # Walls, with a raised base, corner pilasters and a cornice along the top outside
-    rbox(cream, (40, 16, 1), (0, 9, 16.5), bevel=0.05)
+    # Back wall with a doorway (x 1..5) into the back room
+    rbox(cream, (21, 16, 1), (-9.5, 9, 16.5), bevel=0.05)
+    rbox(cream, (15, 16, 1), (12.5, 9, 16.5), bevel=0.05)
+    rbox(cream, (4, 7.5, 1), (3, 13.25, 16.5), bevel=0.05)
     for s in SIDES:
         rbox(cream, (1, 16, 34), (s * 19.5, 9, 0), bevel=0.05)
         rbox(accent, (0.3, 1.2, 34), (s * 20.15, 0.8, 0), bevel=0.06)
         rbox(trim, (1.4, 16.4, 1.4), (s * 19.8, 9.2, 16.8), bevel=0.1)
         rbox(gold, (1.2, 0.4, 34), (s * 19.6, 18.2, 0), bevel=0.12, bevel_segments=3)
         rbox(trim, (0.5, 0.5, 34.6), (s * 20.15, 17.3, 0), bevel=0.15, bevel_segments=3)
-    rbox(accent, (40.6, 1.2, 0.3), (0, 0.8, 17.15), bevel=0.06)
+    # Colored base strip along the back, except where the back room attaches (x -8..14)
+    rbox(accent, (12.3, 1.2, 0.3), (-14.15, 0.8, 17.15), bevel=0.06)
+    rbox(accent, (6.3, 1.2, 0.3), (17.15, 0.8, 17.15), bevel=0.06)
     rbox(gold, (40, 0.4, 1.2), (0, 18.2, 16.4), bevel=0.12, bevel_segments=3)
     rbox(trim, (41, 0.5, 0.5), (0, 17.3, 17.15), bevel=0.15, bevel_segments=3)
 

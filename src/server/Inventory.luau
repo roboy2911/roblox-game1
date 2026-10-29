@@ -26,35 +26,54 @@ local SHELF_FIT = Vector3.new(3.2, 2.1, 2.4)
 
 local spotsCache = {} -- [shop] = list of spots
 
--- Spots spread along the long side of a flat surface part, facing into the room.
-local function addSpots(list, shop, part: BasePart, prefix: string, count: number, spacing: number, fit: Vector3)
+-- Spots spread along the long side of a flat surface part, facing `toward` (a point in the room).
+local function addSpots(list, part: BasePart, toward: Vector3, prefix: string, count: number, spacing: number, fit: Vector3)
 	local top = part.CFrame * CFrame.new(0, part.Size.Y / 2, 0)
-	local toCenter = shop.PrimaryPart.Position - part.Position
-	local side = part.CFrame.XVector
-	local front = if toCenter:Dot(side) >= 0 then side else -side
+	-- The long side may be the part's X or Z; spots go along it and face across it
+	local alongX = part.Size.X > part.Size.Z
+	local side = if alongX then part.CFrame.ZVector else part.CFrame.XVector
+	local front = if (toward - part.Position):Dot(side) >= 0 then side else -side
 	for i = 1, count do
-		local position = (top * CFrame.new(0, 0, (i - (count + 1) / 2) * spacing)).Position
+		local offset = (i - (count + 1) / 2) * spacing
+		local position = (top * (if alongX then CFrame.new(offset, 0, 0) else CFrame.new(0, 0, offset))).Position
 		table.insert(list, { Id = `{prefix}-{i}`, CFrame = CFrame.lookAt(position, position + front), Fit = fit })
 	end
 end
 
--- Every display spot in a shop, in the order they fill up (glass cases first).
-local function spotsFor(shop)
-	if spotsCache[shop] then
-		return spotsCache[shop]
-	end
+-- Spots on the cases and shelves inside `holder` (the shop, or its back room), sorted by id.
+local function spotsIn(holder, toward: Vector3, back: boolean)
 	local list = {}
-	for _, case in shop.DisplayCases:GetChildren() do
-		addSpots(list, shop, case.DisplaySurface, case.Name, 3, 2.6, CASE_FIT)
+	for _, case in holder.DisplayCases:GetChildren() do
+		addSpots(list, case.DisplaySurface, toward, case.Name, 3, 2.6, CASE_FIT)
 	end
-	for _, shelf in shop.Shelves:GetChildren() do
+	for _, shelf in holder.Shelves:GetChildren() do
 		for level = 1, 3 do
-			addSpots(list, shop, shelf[`Level{level}`], `{shelf.Name}-L{level}`, 4, 3.5, SHELF_FIT)
+			addSpots(list, shelf[`Level{level}`], toward, `{shelf.Name}-L{level}`, 4, 3.5, SHELF_FIT)
 		end
 	end
 	table.sort(list, function(a, b)
 		return a.Id < b.Id -- "Case..." before "Shelf...", stable order
 	end)
+	for _, spot in list do
+		spot.Back = back
+	end
+	return list
+end
+
+-- Every display spot in a shop, in the order they fill up:
+-- shop floor (glass cases, then shelves), then the back room.
+local function spotsFor(shop)
+	if spotsCache[shop] then
+		return spotsCache[shop]
+	end
+	local list = spotsIn(shop, shop.PrimaryPart.Position, false)
+	local room = shop:FindFirstChild("BackRoom")
+	if room then
+		local roomCenter = (shop.PrimaryPart.CFrame * CFrame.new(3, 0, 24)).Position
+		for _, spot in spotsIn(room, roomCenter, true) do
+			table.insert(list, spot)
+		end
+	end
 	spotsCache[shop] = list
 	return list
 end
@@ -75,10 +94,23 @@ local function spotLimit(player): number
 	return Config.DisplaySpots[math.min(level + 1, #Config.DisplaySpots)]
 end
 
--- The spots this player may use: the first few, in fill order.
+-- The spots this player may use: the first few on the shop floor (More shelves upgrade),
+-- plus all of the back room once they have the Bigger shop upgrade.
 local function unlockedSpots(player, shop)
-	local all = spotsFor(shop)
-	return { table.unpack(all, 1, math.min(#all, spotLimit(player))) }
+	local list = {}
+	local floorLeft = spotLimit(player)
+	local backRoom = PlayerData.GetUpgrade(player, "BiggerShop") >= 1
+	for _, spot in spotsFor(shop) do
+		if spot.Back then
+			if backRoom then
+				table.insert(list, spot)
+			end
+		elseif floorLeft > 0 then
+			table.insert(list, spot)
+			floorLeft -= 1
+		end
+	end
+	return list
 end
 
 local function freeSpot(player, shop)
