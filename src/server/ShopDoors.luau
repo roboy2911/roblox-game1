@@ -8,7 +8,7 @@ local TweenService = game:GetService("TweenService")
 local ShopDoors = {}
 
 local GATE_ANGLE = 95 -- degrees; positive swings toward the front (into the checkout)
-local GATE_REACH = 7 -- studs from the gate's middle
+local GATE_REACH = 3.5 -- studs from the gate's middle
 
 local PlayerData, Plots -- set in Start
 local doors = {} -- [model] = { Hinge, Parts, Open }
