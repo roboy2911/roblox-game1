@@ -30,6 +30,6 @@
   Test: buy low, sell high, cash goes up.
 - [ ] **Step 8 – Appraisal:** True value is hidden; appraisal skill narrows the guess. Fakes and hidden treasures.
 - [ ] **Step 9 – Upgrades:** More shelves, faster customers, better appraisal, better haggling, bigger shop.
-- [x] **Step 10 – Rare items + events:** Legendary items, collection book, special visitors (shady seller, rich collector).
-- [x] **Step 11 – Rebirth + leaderboards:** Reset for a permanent bonus; top shops on the server.
-- [x] **Step 12 – Polish + publish:** Sounds, effects, tutorial, icon/thumbnails, publish. Optional gamepasses.
+- [ ] **Step 10 – Rare items + events:** Legendary items, collection book, special visitors (shady seller, rich collector).
+- [ ] **Step 11 – Rebirth + leaderboards:** Reset for a permanent bonus; top shops on the server.
+- [ ] **Step 12 – Polish + publish:** Sounds, effects, tutorial, icon/thumbnails, publish. Optional gamepasses.
