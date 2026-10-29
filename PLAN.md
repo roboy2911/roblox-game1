@@ -27,6 +27,7 @@
 - [ ] **Step 5 – Haggling (buying):** ⭐ Offer / Counter / Accept / Walk away. Customers have patience and mood.
   Test: hold E on a seller to haggle. Offer low, get countered, make a deal; cash goes down and the item is saved.
 - [ ] **Step 6 – Inventory + shelves:** Bought items go to inventory; place them on display shelves.
+  Test: buy an item, open 🎒 Inventory, press Display; it appears in a glass case. Rejoin and it's still there.
 - [ ] **Step 7 – Buyers + selling:** Buyer NPCs browse shelves; haggle to sell high.
   Test: buy low, sell high, cash goes up.
 - [ ] **Step 8 – Appraisal:** True value is hidden; appraisal skill narrows the guess. Fakes and hidden treasures.

@@ -20,12 +20,7 @@ local PlayerData -- set in Start
 
 -- One RemoteEvent for the haggle panel: the server sends the deal's state to the owner,
 -- the owner's screen sends back "Offer" (with an amount), "Accept", "WalkAway" or "Close".
-local remotes = ReplicatedStorage:FindFirstChild("Remotes") or Instance.new("Folder")
-remotes.Name = "Remotes"
-remotes.Parent = ReplicatedStorage
-local haggleRemote = Instance.new("RemoteEvent")
-haggleRemote.Name = "Haggle"
-haggleRemote.Parent = remotes
+local haggleRemote = require(script.Parent.Remotes).Event("Haggle")
 
 local LINES = {
 	Counter = { "How about {ask}?", "I could do {ask}.", "Meet me at {ask}?", "{ask}, and that's a good price!" },
