@@ -2,6 +2,8 @@
 -- Shared so both the server and players' screens know names, rarities and colors.
 -- The TRUE value of a specific item is rolled on the server and kept secret from players.
 
+local Config = require(script.Parent.Config)
+
 local Items = {}
 
 -- Rarities, from most to least common. Weight = how often customers bring one in.
@@ -75,7 +77,9 @@ local function pickWeighted(list, rng: Random)
 end
 
 -- Picks a random item and gives it a condition and a true value.
--- Returns { Id, Name, Rarity, Condition, TrueValue }.
+-- Returns { Id, Name, Rarity, Condition, TrueValue, ApparentValue, Fake?, Treasure? }.
+-- ApparentValue = what it looks like it's worth. It differs from TrueValue only for
+-- fakes (look valuable, worth little) and hidden treasures (look like junk, worth a lot).
 function Items.Roll(rng: Random?)
 	rng = rng or Random.new()
 
@@ -95,13 +99,24 @@ function Items.Roll(rng: Random?)
 	local condition = pickWeighted(Items.Conditions, rng)
 	local base = rng:NextInteger(item.Min, item.Max)
 
-	return {
+	local value = math.max(1, math.round(base * condition.Multiplier))
+	local rolled = {
 		Id = item.Id,
 		Name = item.Name,
 		Rarity = item.Rarity,
 		Condition = condition.Name,
-		TrueValue = math.max(1, math.round(base * condition.Multiplier)),
+		TrueValue = value,
+		ApparentValue = value,
 	}
+	local order = Items.Rarities[rarity].Order
+	if order >= Items.Rarities.Rare.Order and rng:NextNumber() < Config.FakeChance then
+		rolled.Fake = true
+		rolled.TrueValue = math.max(1, math.round(value * rng:NextNumber(Config.FakeValue.Min, Config.FakeValue.Max)))
+	elseif order <= Items.Rarities.Common.Order and rng:NextNumber() < Config.TreasureChance then
+		rolled.Treasure = true
+		rolled.TrueValue = math.round(value * rng:NextNumber(Config.TreasureValue.Min, Config.TreasureValue.Max))
+	end
+	return rolled
 end
 
 -- 1234567 -> "$1,234,567"

@@ -102,6 +102,9 @@ heading("Items")
 action("Spawn item on counter", BLUE, "SpawnItem")
 action("Clear counter item", GREY, "ClearItem")
 action("Give random item", BLUE, "GiveItem")
+heading("Appraisal level")
+action("Appraisal +1", GREEN, "Appraisal", 1)
+action("Appraisal -1", GREY, "Appraisal", -1)
 
 toggle.Activated:Connect(function()
 	panel.Visible = not panel.Visible

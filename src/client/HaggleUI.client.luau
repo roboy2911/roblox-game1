@@ -24,7 +24,7 @@ gui.Parent = player:WaitForChild("PlayerGui")
 local panel = Instance.new("Frame")
 panel.AnchorPoint = Vector2.new(0.5, 1)
 panel.Position = UDim2.new(0.5, 0, 1, -20)
-panel.Size = UDim2.fromOffset(440, 270)
+panel.Size = UDim2.fromOffset(440, 296)
 panel.BackgroundColor3 = Color3.fromRGB(255, 250, 240)
 panel.Parent = gui
 Instance.new("UICorner", panel).CornerRadius = UDim.new(0, 18)
@@ -32,7 +32,7 @@ local panelStroke = Instance.new("UIStroke", panel)
 panelStroke.Thickness = 3
 panelStroke.Color = DARK
 local sizeLimit = Instance.new("UISizeConstraint", panel)
-sizeLimit.MaxSize = Vector2.new(440, 270)
+sizeLimit.MaxSize = Vector2.new(440, 296)
 local scale = Instance.new("UIScale", panel)
 
 local function label(name, text, size, pos, textSize, color)
@@ -79,12 +79,14 @@ local message = label("Message", "", UDim2.new(1, -36, 0, 44), UDim2.fromOffset(
 local asking = label("Asking", "", UDim2.new(0.5, -18, 0, 26), UDim2.fromOffset(18, 114), 22)
 local cash = label("Cash", "", UDim2.new(0.5, -18, 0, 26), UDim2.new(0.5, 0, 0, 114), 18)
 cash.TextXAlignment = Enum.TextXAlignment.Right
-local debugLabel = label("Debug", "", UDim2.new(1, -36, 0, 18), UDim2.fromOffset(18, 140), 14,
+local estimate = label("Estimate", "", UDim2.new(1, -36, 0, 22), UDim2.fromOffset(18, 140), 17)
+estimate.TextScaled = true -- long estimates (with a fake/treasure note) shrink to fit
+local debugLabel = label("Debug", "", UDim2.new(1, -36, 0, 18), UDim2.fromOffset(18, 164), 14,
 	Color3.fromRGB(150, 150, 160))
 
 local input = Instance.new("TextBox")
 input.Size = UDim2.fromOffset(150, 42)
-input.Position = UDim2.fromOffset(18, 164)
+input.Position = UDim2.fromOffset(18, 190)
 input.BackgroundColor3 = Color3.new(1, 1, 1)
 input.Font = FONT
 input.TextSize = 22
@@ -96,11 +98,11 @@ input.Parent = panel
 Instance.new("UICorner", input).CornerRadius = UDim.new(0, 12)
 Instance.new("UIStroke", input).Color = DARK
 
-local offerButton = button("Offer", Color3.fromRGB(60, 120, 230), UDim2.fromOffset(110, 42), UDim2.fromOffset(176, 164))
-local acceptButton = button("Accept", Color3.fromRGB(60, 180, 100), UDim2.fromOffset(120, 42), UDim2.fromOffset(294, 164))
-local walkButton = button("Walk away", Color3.fromRGB(220, 70, 70), UDim2.fromOffset(150, 40), UDim2.fromOffset(18, 216))
-local closeButton = button("Close", Color3.fromRGB(130, 130, 145), UDim2.fromOffset(110, 40), UDim2.new(1, -128, 0, 216))
-local hint = label("Hint", "", UDim2.fromOffset(130, 40), UDim2.fromOffset(176, 216), 13, Color3.fromRGB(130, 130, 145))
+local offerButton = button("Offer", Color3.fromRGB(60, 120, 230), UDim2.fromOffset(110, 42), UDim2.fromOffset(176, 190))
+local acceptButton = button("Accept", Color3.fromRGB(60, 180, 100), UDim2.fromOffset(120, 42), UDim2.fromOffset(294, 190))
+local walkButton = button("Walk away", Color3.fromRGB(220, 70, 70), UDim2.fromOffset(150, 40), UDim2.fromOffset(18, 242))
+local closeButton = button("Close", Color3.fromRGB(130, 130, 145), UDim2.fromOffset(110, 40), UDim2.new(1, -128, 0, 242))
+local hint = label("Hint", "", UDim2.fromOffset(130, 40), UDim2.fromOffset(176, 242), 13, Color3.fromRGB(130, 130, 145))
 hint.TextXAlignment = Enum.TextXAlignment.Center
 hint.Text = "Close keeps the deal open; talk to them again to reopen."
 
@@ -162,6 +164,16 @@ local function show(state)
 	end
 	if state.DebugValue then
 		table.insert(extra, `(admin) true value: {Items.FormatMoney(state.DebugValue)}`)
+	end
+	local guess = state.Estimate
+	if guess then
+		local note = if guess.Note == "Fake" then "  ⚠️ <b>Looks fake!</b>"
+			elseif guess.Note == "Treasure" then "  ✨ <b>Something special about this...</b>"
+			else ""
+		estimate.Text = `You think it's worth <b>{Items.FormatMoney(guess.Low)} – {Items.FormatMoney(guess.High)}</b>`
+			.. ` (appraisal lv {state.AppraisalLevel or 1}){note}`
+	else
+		estimate.Text = ""
 	end
 	debugLabel.Text = table.concat(extra, "   •   ")
 	if input.Text == "" or not parseOffer() then

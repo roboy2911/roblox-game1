@@ -2,7 +2,7 @@
 local Config = {}
 
 Config.GameName = "Pawn Shop Simulator"
-Config.Version = "0.7.0"
+Config.Version = "0.8.0"
 
 -- Shop plots
 Config.PlotCount = 6 -- one per player, so set Max Players to this
@@ -21,6 +21,16 @@ Config.BuyerChance = 0.5 -- chance the next customer is a buyer, when something 
 Config.BuyerOffer = { Min = 0.6, Max = 1.0 } -- first offer, as a multiple of the item's true value
 Config.BuyerCeiling = { Min = 1.1, Max = 1.7 } -- the most they'll secretly pay, same way
 Config.BrowseSeconds = 3 -- how long they look at an item before going to the counter
+
+-- Appraisal: guessing what an item is really worth
+-- How wide your estimate is at each appraisal level (0.6 = the range spans about +-60% of the value)
+Config.AppraisalWidth = { 0.6, 0.45, 0.33, 0.24, 0.16, 0.1, 0.05 }
+-- Chance to spot a fake / hidden treasure at each level
+Config.AppraisalSpot = { 0.15, 0.3, 0.45, 0.6, 0.72, 0.85, 0.95 }
+Config.FakeChance = 0.12 -- chance a Rare, Epic or Legendary item is a fake
+Config.FakeValue = { Min = 0.05, Max = 0.15 } -- a fake is worth this much of what it looks like
+Config.TreasureChance = 0.05 -- chance a Junk or Common item is a hidden treasure
+Config.TreasureValue = { Min = 8, Max = 20 } -- a treasure is worth this many times what it looks like
 
 -- Haggling (buying from sellers, and selling to buyers)
 -- Each seller secretly won't go below this fraction of their first asking price
