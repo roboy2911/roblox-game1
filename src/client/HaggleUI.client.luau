@@ -1,5 +1,6 @@
--- The haggle panel: shows the seller's item, price and mood, and lets the owner
--- Offer / Accept / Walk away. The server decides everything; this only shows and sends.
+-- The haggle panel: shows the customer's item, price and mood.
+-- Buying from a seller: Offer / Accept / Walk away. Selling to a buyer: Ask / Sell / Refuse.
+-- The server decides everything; this only shows and sends.
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -133,22 +134,40 @@ local function parseOffer(): number?
 end
 
 local function show(state)
-	if not current or current.Seller ~= state.Seller or current.ItemName ~= state.ItemName then
-		input.Text = "" -- a new seller: start a fresh offer
+	if not current or current.Customer ~= state.Customer or current.ItemName ~= state.ItemName then
+		input.Text = "" -- a new customer: start a fresh bid
 	end
 	current = state
+	local selling = state.Mode == "Buyer"
 	local color = Items.Rarities[state.Rarity].Color:ToHex()
 	title.Text = `<font color="#{color}">{state.ItemName}</font>`
-	subtitle.Text = `{state.Rarity} • {state.Condition} • sold by {state.Seller}`
+	subtitle.Text = `{state.Rarity} • {state.Condition} • {if selling then "buyer" else "seller"}: {state.Customer}`
 	mood.Text = moodFace(state.Mood)
-	message.Text = `<b>{state.Seller}:</b> "{state.Message or ""}"`
-	asking.Text = `Asking: <b>{Items.FormatMoney(state.Ask)}</b>`
+	message.Text = `<b>{state.Customer}:</b> "{state.Message or ""}"`
 	cash.Text = `You have {Items.FormatMoney(state.Cash)}`
-	acceptButton.Text = `Accept {Items.FormatMoney(state.Ask)}`
-	debugLabel.Text = if state.DebugValue then `(Studio only) true value: {Items.FormatMoney(state.DebugValue)}` else ""
+	local extra = {}
+	if selling then
+		asking.Text = `Offering: <b>{Items.FormatMoney(state.Price)}</b>`
+		acceptButton.Text = `Sell {Items.FormatMoney(state.Price)}`
+		offerButton.Text = "Ask"
+		walkButton.Text = "Refuse"
+		input.PlaceholderText = "$ your price"
+		table.insert(extra, `You paid {Items.FormatMoney(state.Paid or 0)}`)
+	else
+		asking.Text = `Asking: <b>{Items.FormatMoney(state.Price)}</b>`
+		acceptButton.Text = `Accept {Items.FormatMoney(state.Price)}`
+		offerButton.Text = "Offer"
+		walkButton.Text = "Walk away"
+		input.PlaceholderText = "$ your offer"
+	end
+	if state.DebugValue then
+		table.insert(extra, `(Studio only) true value: {Items.FormatMoney(state.DebugValue)}`)
+	end
+	debugLabel.Text = table.concat(extra, "   •   ")
 	if input.Text == "" or not parseOffer() then
-		-- Start with a cheeky offer: 60% of what they ask
-		input.Text = tostring(math.max(1, math.floor(state.Ask * 0.6)))
+		-- Start with a cheeky bid: 60% of their price when buying, 160% when selling
+		local start = if selling then state.Price * 1.6 else state.Price * 0.6
+		input.Text = tostring(math.max(1, math.floor(start)))
 	end
 	gui.Enabled = true
 end

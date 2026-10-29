@@ -2,7 +2,7 @@
 local Config = {}
 
 Config.GameName = "Pawn Shop Simulator"
-Config.Version = "0.6.0"
+Config.Version = "0.7.0"
 
 -- Shop plots
 Config.PlotCount = 6 -- one per player, so set Max Players to this
@@ -16,15 +16,21 @@ Config.CustomerWalkSpeed = 12
 -- Sellers ask between these multiples of the item's secret true value (below 1 = a bargain)
 Config.AskMultiplier = { Min = 0.7, Max = 1.6 }
 
--- Haggling (buying from sellers)
+-- Buyers (people who come to buy what you have on display)
+Config.BuyerChance = 0.5 -- chance the next customer is a buyer, when something is on display
+Config.BuyerOffer = { Min = 0.6, Max = 1.0 } -- first offer, as a multiple of the item's true value
+Config.BuyerCeiling = { Min = 1.1, Max = 1.7 } -- the most they'll secretly pay, same way
+Config.BrowseSeconds = 3 -- how long they look at an item before going to the counter
+
+-- Haggling (buying from sellers, and selling to buyers)
 -- Each seller secretly won't go below this fraction of their first asking price
 Config.SellerFloor = { Min = 0.55, Max = 0.85 }
-Config.SellerMood = { Min = 55, Max = 90 } -- starting mood (0-100); at 0 they storm off
+Config.SellerMood = { Min = 55, Max = 90 } -- starting mood of sellers and buyers (0-100); at 0 they storm off
 Config.MoodLoss = {
 	Round = 6, -- every offer, a little
-	Lowball = 14, -- offer below their secret lowest price
-	Insult = 30, -- offer below half their secret lowest price
-	Backwards = 20, -- offering less than you already offered
+	Lowball = 14, -- offer past their secret limit (below a seller's lowest / above a buyer's highest)
+	Insult = 30, -- way past it (below half a seller's lowest / over double a buyer's highest)
+	Backwards = 20, -- going back on your last bid (offering less, or asking more)
 }
 
 -- Money
