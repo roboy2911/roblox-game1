@@ -3,4 +3,42 @@
 -- and the color/material for each part of the model.
 
 return {
+	AcousticGuitar = {
+		AssetId = 110323470761324,
+		Size = Vector3.new(1.664, 4.811, 0.511),
+		Parts = {
+			Binding = { Color = Color3.fromRGB(240, 230, 210), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Body = { Color = Color3.fromRGB(150, 85, 40), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
+			Dark = { Color = Color3.fromRGB(40, 40, 48), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Pickguard = { Color = Color3.fromRGB(90, 45, 25), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.0 },
+			Rosewood = { Color = Color3.fromRGB(55, 35, 28), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
+			Steel = { Color = Color3.fromRGB(190, 195, 205), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.0 },
+			Top = { Color = Color3.fromRGB(232, 180, 110), Material = Enum.Material.Wood, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
+	GoldTrophy = {
+		AssetId = 74467942019561,
+		Size = Vector3.new(1.884, 1.96, 1.24),
+		Parts = {
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Marble = { Color = Color3.fromRGB(40, 40, 52), Material = Enum.Material.Marble, Transparency = 0.0, Reflectance = 0.0 },
+			Plate = { Color = Color3.fromRGB(235, 225, 190), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.0 },
+			Ruby = { Color = Color3.fromRGB(220, 30, 60), Material = Enum.Material.Glass, Transparency = 0.0, Reflectance = 0.3 },
+		},
+	},
+	RoyalCrown = {
+		AssetId = 114928381156600,
+		Size = Vector3.new(1.57, 1.69, 1.57),
+		Parts = {
+			Cushion = { Color = Color3.fromRGB(110, 25, 120), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			Emerald = { Color = Color3.fromRGB(30, 190, 100), Material = Enum.Material.Glass, Transparency = 0.0, Reflectance = 0.3 },
+			Ermine = { Color = Color3.fromRGB(248, 246, 240), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			Gold = { Color = Color3.fromRGB(255, 196, 54), Material = Enum.Material.Metal, Transparency = 0.0, Reflectance = 0.2 },
+			Pearl = { Color = Color3.fromRGB(250, 245, 235), Material = Enum.Material.SmoothPlastic, Transparency = 0.0, Reflectance = 0.1 },
+			Ruby = { Color = Color3.fromRGB(220, 30, 60), Material = Enum.Material.Glass, Transparency = 0.0, Reflectance = 0.3 },
+			Sapphire = { Color = Color3.fromRGB(40, 90, 230), Material = Enum.Material.Glass, Transparency = 0.0, Reflectance = 0.3 },
+			Spots = { Color = Color3.fromRGB(25, 25, 30), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+			Velvet = { Color = Color3.fromRGB(160, 20, 45), Material = Enum.Material.Fabric, Transparency = 0.0, Reflectance = 0.0 },
+		},
+	},
 }

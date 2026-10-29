@@ -25,6 +25,7 @@ Uploading needs these environment variables (set in the cloud environment settin
 
 ## Status
 - [x] Samples built: AcousticGuitar, GoldTrophy, RoyalCrown (previews in `docs/previews/meshes/`)
-- [ ] Samples uploaded and checked in Studio (right way up, facing forward, right colors)
+- [x] Samples uploaded (asset IDs in `assets/meshes/uploaded.json`)
+- [ ] Samples checked in Studio (right way up, facing forward, right colors)
 - [ ] Remaining 18 items
 - [ ] Shop props (register, safe, chandelier, lamps, benches, fountain...)

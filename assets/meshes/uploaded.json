@@ -1,0 +1,14 @@
+{
+  "AcousticGuitar": {
+    "assetId": 110323470761324,
+    "sha256": "1e1dfeb9cae9fb999cb77eb9cdf62fe7612a4473fb052ad098f11c1205068402"
+  },
+  "GoldTrophy": {
+    "assetId": 74467942019561,
+    "sha256": "d9c3877aebf52290b38cbef63a52622608a1738049c98db29c2e27ce5853339b"
+  },
+  "RoyalCrown": {
+    "assetId": 114928381156600,
+    "sha256": "ef85f9a3dda240d4d0d65b31380b854f0baadf86d1af7716865349e061f309fc"
+  }
+}
