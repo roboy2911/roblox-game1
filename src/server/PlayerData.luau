@@ -13,6 +13,8 @@ local PlayerData = {}
 local function defaultData()
 	return {
 		Cash = Config.StartingCash,
+		-- Items bought from sellers: { Id, Name, Rarity, Condition, TrueValue, Paid }
+		Inventory = {},
 	}
 end
 
@@ -122,6 +124,22 @@ function PlayerData.AddCash(player, amount: number): boolean
 		leaderstats.Cash.Value = newCash
 	end
 	return true
+end
+
+-- Adds an item the player bought to their inventory (saved).
+function PlayerData.AddItem(player, item): boolean
+	local profile = profiles[player]
+	if not profile then
+		return false
+	end
+	table.insert(profile.data.Inventory, item)
+	return true
+end
+
+-- The player's inventory list (don't change it directly; use the functions above).
+function PlayerData.GetInventory(player)
+	local profile = profiles[player]
+	return if profile then profile.data.Inventory else {}
 end
 
 function PlayerData.Start()
