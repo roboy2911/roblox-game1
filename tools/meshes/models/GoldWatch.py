@@ -21,10 +21,10 @@ def build(lib):
     cy, cz, ry, rz = 0.05, 0.6, 0.29, 0.36
     for k in range(26):
         a = 2 * math.pi * k / 26
-        if abs(math.sin(a) + 1) < 0.25 and math.cos(a) < 0:
-            continue
-        y, z = cy + ry * math.cos(a + math.pi), cz + rz * math.sin(a)
-        tilt = math.degrees(math.atan2(rz * math.cos(a), -ry * math.sin(a + math.pi)))
+        if math.cos(a) > 0.8:
+            continue  # the watch itself sits here, at the front
+        y, z = cy - ry * math.cos(a), cz + rz * math.sin(a)
+        tilt = math.degrees(math.atan2(-ry * math.sin(a), rz * math.cos(a)))  # follow the curve
         lib.box(gold, (0.3, 0.04, 0.07), pos=(0, y, z), rot=(tilt, 0, 0), bevel=0.012)
 
     # Watch case on the front of the pillow

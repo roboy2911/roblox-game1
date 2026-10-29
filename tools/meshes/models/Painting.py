@@ -15,19 +15,19 @@ def build(lib):
     boat = Look("Boat", (40, 30, 40), roughness=0.9)
 
     # Easel: two front legs, one back leg, a ledge for the painting
-    lib.rod(wood, (-0.75, -0.25, 0.0), (-0.12, 0.3, 2.6), 0.05)
-    lib.rod(wood, (0.75, -0.25, 0.0), (0.12, 0.3, 2.6), 0.05)
-    lib.rod(wood, (0.0, 1.0, 0.0), (0.0, 0.32, 2.45), 0.045)
-    lib.box(wood, (1.9, 0.32, 0.08), pos=(0, -0.1, 0.62), bevel=0.02)
-    lib.box(wood, (1.9, 0.06, 0.1), pos=(0, -0.24, 0.68), bevel=0.02)
-    lib.box(wood, (0.3, 0.12, 0.1), pos=(0, 0.26, 2.12), bevel=0.02)
+    lib.rod(wood, (-0.75, 0.1, 0.0), (-0.12, 0.45, 2.6), 0.05)
+    lib.rod(wood, (0.75, 0.1, 0.0), (0.12, 0.45, 2.6), 0.05)
+    lib.rod(wood, (0.0, 1.1, 0.0), (0.0, 0.47, 2.45), 0.045)
+    lib.box(wood, (1.9, 0.32, 0.08), pos=(0, 0.02, 0.62), bevel=0.02)
+    lib.box(wood, (1.9, 0.06, 0.1), pos=(0, -0.16, 0.68), bevel=0.02)
+    lib.box(wood, (0.3, 0.12, 0.1), pos=(0, 0.4, 2.12), bevel=0.02)
 
     # Painting leans back a little, resting on the ledge
     tilt = 8
     t = math.radians(tilt)
 
     def at(x, z, d):  # point on the painting, z up from its bottom, d toward the viewer
-        return (x, 0.0 + z * math.sin(t) - d * math.cos(t), 0.68 + z * math.cos(t) + d * math.sin(t))
+        return (x, -0.06 + z * math.sin(t) - d * math.cos(t), 0.68 + z * math.cos(t) + d * math.sin(t))
 
     w, h = 1.7, 1.35
     # Ornate gold frame: four rounded bars plus corner knobs
