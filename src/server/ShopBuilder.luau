@@ -32,12 +32,15 @@ local EXTERIOR_PARTS = names({
 })
 local INTERIOR_PARTS = names({
 	"Wainscot", "Rail", "RugBorder", "Rug", "CeilingLight", "GuitarBoard", "Body", "UpperBody", "SoundHole",
-	"Neck", "Head", "OfficeDoorFrame", "OfficeDoor", "DoorKnob", "PaintingFrame", "PaintingSky",
+	"Neck", "Head", "OfficeDoorFrame", "PaintingFrame", "PaintingSky",
 	"PaintingHills", "Box",
 })
 local COUNTER_PARTS = names({ "Body", "Panel", "Kick", "Top", "TopEdge" })
 local CASE_PARTS = names({ "Base", "Kick", "DisplaySurface", "Glass", "Post", "TopBar" })
 local SHELF_PARTS = names({ "Back", "Side", "Top", "Plinth", "Level1", "Level2", "Level3", "Lip" })
+local BACKROOM_PARTS = names({
+	"BackRoomFloor", "BackRoomWall", "BackRoomCeiling", "BackRoomRoof", "BackRoomLight",
+})
 
 -- Floor, walls, windows, roof ------------------------------------------------
 local function buildShell(b, m, accent)
@@ -52,7 +55,10 @@ local function buildShell(b, m, accent)
 		end
 	end
 
-	b.part(m, "BackWall", V(40, 16, 1), V(0, 9, 16.5), C.Cream)
+	-- Back wall, with a doorway (x 1..5) into the back room
+	b.part(m, "BackWall", V(21, 16, 1), V(-9.5, 9, 16.5), C.Cream)
+	b.part(m, "BackWall", V(15, 16, 1), V(12.5, 9, 16.5), C.Cream)
+	b.part(m, "BackWall", V(4, 7.5, 1), V(3, 13.25, 16.5), C.Cream)
 	b.part(m, "LeftWall", V(1, 16, 34), V(-19.5, 9, 0), C.Cream)
 	b.part(m, "RightWall", V(1, 16, 34), V(19.5, 9, 0), C.Cream)
 
@@ -162,18 +168,36 @@ local function buildFacade(b, m, shop, accent)
 	end
 end
 
--- Counter with cash register and bell ---------------------------------------
+-- Counter: wall to wall, with a gate in the middle (the checkout area is behind it) ----
+-- Sections run x -19..-2 and 2..19; the gate fills x -2..2.
 local function buildCounter(b, shop, accent)
 	local m = Build.model(shop, "Counter")
-	b.part(m, "Body", V(18, 3.6, 3), V(0, 2.8, 4), C.Marble, M.Marble)
-	for _, x in { -6, 0, 6 } do
-		b.part(m, "Panel", V(5, 2.4, 0.2), V(x, 2.9, 2.45), accent)
+	for _, s in SIDES do
+		local cx = s * 10.5
+		b.part(m, "Body", V(17, 3.6, 3), V(cx, 2.8, 4), C.Marble, M.Marble)
+		for _, dx in { -5.6, 0, 5.6 } do
+			b.part(m, "Panel", V(4.6, 2.4, 0.2), V(cx + dx, 2.9, 2.45), accent)
+		end
+		b.part(m, "Kick", V(17, 0.4, 3.2), V(cx, 1.2, 4), C.Gold, M.Metal)
+		b.part(m, "Top", V(17, 0.4, 3.6), V(cx, 4.8, 4), C.DarkMarble, M.Marble)
+		b.part(m, "TopEdge", V(17, 0.2, 0.2), V(cx, 4.55, 2.15), C.Gold, M.Metal)
+		if Props.Place(m, "CounterSection", b.cframe(V(cx, 1, 4)), { accent = accent, collide = false }) then
+			Props.Hide(m, COUNTER_PARTS)
+		end
 	end
-	b.part(m, "Kick", V(18.2, 0.4, 3.2), V(0, 1.2, 4), C.Gold, M.Metal)
-	b.part(m, "Top", V(18.6, 0.4, 3.6), V(0, 4.8, 4), C.DarkMarble, M.Marble)
-	b.part(m, "TopEdge", V(18.6, 0.2, 0.2), V(0, 4.55, 2.15), C.Gold, M.Metal)
-	if Props.Place(m, "Counter", b.cframe(V(0, 1, 4)), { accent = accent, collide = false }) then
-		Props.Hide(m, COUNTER_PARTS)
+
+	-- The gate: a swinging half-door, hinged on its left end (ShopDoors opens it)
+	local gate = Build.model(m, "Gate")
+	b.part(gate, "GateDoor", V(3.9, 3.2, 0.3), V(0, 2.8, 4), accent, nil, { reflectance = 0.05 })
+	b.part(gate, "GateRail", V(3.9, 0.3, 0.45), V(0, 4.45, 4), C.Gold, M.Metal)
+	b.part(gate, "GatePanel", V(3.1, 2.0, 0.34), V(0, 2.8, 4), C.Gold, M.Metal)
+	b.part(gate, "GatePanelInner", V(2.8, 1.7, 0.38), V(0, 2.8, 4), accent)
+	gate:SetAttribute("Hinge", b.cframe(V(-1.95, 2.8, 4)))
+	for _, part in gate:GetChildren() do
+		-- Customers' pathfinding may walk through: the gate swings open for them
+		local modifier = Instance.new("PathfindingModifier")
+		modifier.PassThrough = true
+		modifier.Parent = part
 	end
 
 	-- Cash register
@@ -192,57 +216,107 @@ local function buildCounter(b, shop, accent)
 	end
 end
 
--- Glass display cases (items go here in a later step) -----------------------
+-- One glass display case at (cx, cz), long side running front to back. Items go on DisplaySurface.
+local function buildCase(b, parent, name, cx, cz, accent)
+	local m = Build.model(parent, name)
+	b.part(m, "Base", V(3, 2.6, 8), V(cx, 2.3, cz), C.Marble, M.Marble)
+	b.part(m, "Kick", V(3.2, 0.3, 8.2), V(cx, 1.15, cz), C.Gold, M.Metal)
+	b.part(m, "DisplaySurface", V(2.8, 0.1, 7.8), V(cx, 3.65, cz), accent, M.Fabric)
+	b.part(m, "Glass", V(3, 2.4, 8), V(cx, 4.9, cz), C.Glass, M.Glass, { transparency = 0.75 })
+	for _, dx in { -1.4, 1.4 } do
+		for _, dz in { -3.9, 3.9 } do
+			b.part(m, "Post", V(0.2, 2.4, 0.2), V(cx + dx, 4.9, cz + dz), C.Gold, M.Metal)
+		end
+		b.part(m, "TopBar", V(0.2, 0.2, 8), V(cx + dx, 6.1, cz), C.Gold, M.Metal)
+	end
+	for _, dz in { -3.9, 3.9 } do
+		b.part(m, "TopBar", V(3, 0.2, 0.2), V(cx, 6.1, cz + dz), C.Gold, M.Metal)
+	end
+	if Props.Place(m, "DisplayCase", b.cframe(V(cx, 1, cz)), { accent = accent, collide = false }) then
+		Props.Hide(m, CASE_PARTS)
+	end
+end
+
+-- One wall shelf unit, its back against a wall. `cf` = bottom center, facing into the room.
+-- Items go on Level1..3.
+local function buildShelf(parent, name, cf: CFrame, accent)
+	local m = Build.model(parent, name)
+	local b = Build.at(cf)
+	b.part(m, "Back", V(14, 9.4, 0.4), V(0, 4.7, 1.6), C.White)
+	b.part(m, "Side", V(0.4, 9.4, 3.2), V(-7.2, 4.7, 0), C.White)
+	b.part(m, "Side", V(0.4, 9.4, 3.2), V(7.2, 4.7, 0), C.White)
+	b.part(m, "Top", V(14.8, 0.4, 3.4), V(0, 9.6, 0), C.White)
+	b.part(m, "Plinth", V(14.4, 0.6, 3.2), V(0, 0.3, 0), accent)
+	for level = 1, 3 do
+		local y = level * 2.7
+		local plank = b.part(m, `Level{level}`, V(14, 0.3, 2.8), V(0, y, 0), C.White)
+		plank:SetAttribute("ShelfLevel", level)
+		b.part(m, "Lip", V(14, 0.35, 0.15), V(0, y + 0.1, -1.45), C.Gold, M.Metal)
+	end
+	if Props.Place(m, "WallShelf", cf, { accent = accent, collide = false }) then
+		Props.Hide(m, SHELF_PARTS)
+	end
+end
+
+-- Glass display cases on the shop floor
 local function buildDisplayCases(b, shop, accent)
 	local folder = Instance.new("Folder")
 	folder.Name = "DisplayCases"
 	folder.Parent = shop
 	for i, s in SIDES do
-		local m = Build.model(folder, `Case{i}`)
-		local cx, cz = s * 10, -6
-		b.part(m, "Base", V(3, 2.6, 8), V(cx, 2.3, cz), C.Marble, M.Marble)
-		b.part(m, "Kick", V(3.2, 0.3, 8.2), V(cx, 1.15, cz), C.Gold, M.Metal)
-		b.part(m, "DisplaySurface", V(2.8, 0.1, 7.8), V(cx, 3.65, cz), accent, M.Fabric)
-		b.part(m, "Glass", V(3, 2.4, 8), V(cx, 4.9, cz), C.Glass, M.Glass, { transparency = 0.75 })
-		for _, dx in { -1.4, 1.4 } do
-			for _, dz in { -3.9, 3.9 } do
-				b.part(m, "Post", V(0.2, 2.4, 0.2), V(cx + dx, 4.9, cz + dz), C.Gold, M.Metal)
-			end
-			b.part(m, "TopBar", V(0.2, 0.2, 8), V(cx + dx, 6.1, cz), C.Gold, M.Metal)
-		end
-		for _, dz in { -3.9, 3.9 } do
-			b.part(m, "TopBar", V(3, 0.2, 0.2), V(cx, 6.1, cz + dz), C.Gold, M.Metal)
-		end
-		if Props.Place(m, "DisplayCase", b.cframe(V(cx, 1, cz)), { accent = accent, collide = false }) then
-			Props.Hide(m, CASE_PARTS)
-		end
+		buildCase(b, folder, `Case{i}`, s * 10, -6, accent)
 	end
 end
 
--- Wall shelves (items go here in a later step) ------------------------------
+-- Wall shelves on the side walls, open fronts facing into the room
 local function buildShelves(b, shop, accent)
 	local folder = Instance.new("Folder")
 	folder.Name = "Shelves"
 	folder.Parent = shop
 	for i, s in SIDES do
-		local m = Build.model(folder, `Shelf{i}`)
-		local cz = -6
-		b.part(m, "Back", V(0.4, 9.4, 14), V(s * 18.8, 5.7, cz), C.White)
-		b.part(m, "Side", V(3.2, 9.4, 0.4), V(s * 17.2, 5.7, cz - 7.2), C.White)
-		b.part(m, "Side", V(3.2, 9.4, 0.4), V(s * 17.2, 5.7, cz + 7.2), C.White)
-		b.part(m, "Top", V(3.4, 0.4, 14.8), V(s * 17.2, 10.6, cz), C.White)
-		b.part(m, "Plinth", V(3.2, 0.6, 14.4), V(s * 17.2, 1.3, cz), accent)
-		for level = 1, 3 do
-			local y = 1 + level * 2.7
-			local plank = b.part(m, `Level{level}`, V(2.8, 0.3, 14), V(s * 17.2, y, cz), C.White)
-			plank:SetAttribute("ShelfLevel", level)
-			b.part(m, "Lip", V(0.15, 0.35, 14), V(s * 15.75, y + 0.1, cz), C.Gold, M.Metal)
-		end
-		-- The shelf's open front faces into the room
-		if Props.Place(m, "WallShelf", b.cframe(V(s * 17.2, 1, cz), s * 90), { accent = accent, collide = false }) then
-			Props.Hide(m, SHELF_PARTS)
+		buildShelf(folder, `Shelf{i}`, b.cframe(V(s * 17.2, 1, -6), s * 90), accent)
+	end
+end
+
+-- Back room (Bigger shop upgrade), behind the STAFF ONLY door: x -8..14, z 17..33.
+-- Two glass cases and a wall shelf; the door stays shut until the owner unlocks it.
+local function buildBackRoom(b, shop, accent)
+	local room = Build.model(shop, "BackRoom")
+	b.part(room, "BackRoomFloor", V(22, 1, 16), V(3, 0.5, 25), C.Marble, M.Marble)
+	b.part(room, "BackRoomWall", V(1, 16, 16), V(-7.5, 9, 25), C.Cream)
+	b.part(room, "BackRoomWall", V(1, 16, 16), V(13.5, 9, 25), C.Cream)
+	b.part(room, "BackRoomWall", V(22, 16, 1), V(3, 9, 32.5), C.Cream)
+	b.part(room, "BackRoomCeiling", V(20, 0.2, 15), V(3, 16.9, 24.5), C.Cream)
+	b.part(room, "BackRoomRoof", V(22.4, 1, 16.6), V(3, 17.5, 25.1), C.Roof, M.Slate)
+	local light = b.part(room, "BackRoomLight", V(4, 0.2, 4), V(3, 16.7, 24.5), C.WarmLight)
+	Build.light(light, 20, 0.5)
+	if Props.Place(room, "BackRoom", b.cframe(V(0, 0, 0)), { accent = accent, collide = false }) then
+		Props.Hide(room, BACKROOM_PARTS)
+	end
+
+	local cases = Instance.new("Folder")
+	cases.Name = "DisplayCases"
+	cases.Parent = room
+	buildCase(b, cases, "BackCase1", -3, 21.5, accent)
+	buildCase(b, cases, "BackCase2", 9, 21.5, accent)
+	local shelves = Instance.new("Folder")
+	shelves.Name = "Shelves"
+	shelves.Parent = room
+	buildShelf(shelves, "BackShelf", b.cframe(V(3, 1, 30.3), 0), accent)
+
+	-- The door between the shop and the back room, hinged on its left side (ShopDoors opens it)
+	local door = Build.model(shop, "BackDoor")
+	b.part(door, "DoorSlab", V(4, 8.2, 0.3), V(3, 5.1, 15.5), C.DarkWood, M.Wood)
+	for _, y in { 3.0, 7.0 } do
+		for _, x in { 2.05, 3.95 } do
+			b.part(door, "DoorPanel", V(1.4, if y == 3.0 then 3.0 else 2.4, 0.12), V(x, y, 15.32), Color3.fromRGB(110, 72, 50), M.Wood)
 		end
 	end
+	b.ball(door, "DoorKnob", 0.4, V(4.5, 5, 15.3), C.Gold, M.Metal)
+	b.part(door, "KickPlate", V(3.6, 0.6, 0.06), V(3, 1.4, 15.33), C.Gold, M.Metal)
+	local lock = b.part(door, "LockSign", V(3, 1, 0.05), V(3, 5.9, 15.31), C.DarkMarble)
+	Build.text(lock, Enum.NormalId.Front, "🔒 Bigger shop upgrade", C.Gold)
+	door:SetAttribute("Hinge", b.cframe(V(1.05, 5.1, 15.5)))
 end
 
 -- Inside details: wall panels, rug, lights, back wall, clutter --------------
@@ -288,10 +362,11 @@ local function buildInterior(b, m, accent)
 	Build.text(banner, Enum.NormalId.Front, "WE BUY GOLD", C.White)
 
 	-- Staff-only office door
-	b.part(m, "OfficeDoorFrame", V(4.6, 8.8, 0.2), V(3, 5.4, 15.7), C.Gold, M.Metal)
-	b.part(m, "OfficeDoor", V(4, 8.2, 0.3), V(3, 5.1, 15.5), C.DarkWood, M.Wood)
-	b.ball(m, "DoorKnob", 0.4, V(4.5, 5, 15.3), C.Gold, M.Metal)
-	local plate = b.part(m, "DoorSign", V(2.4, 0.7, 0.05), V(3, 7.6, 15.33), C.Marble)
+	-- Frame around the back room doorway (posts and a top bar, so the doorway stays open)
+	b.part(m, "OfficeDoorFrame", V(0.35, 8.8, 0.35), V(0.85, 5.4, 15.75), C.Gold, M.Metal)
+	b.part(m, "OfficeDoorFrame", V(0.35, 8.8, 0.35), V(5.15, 5.4, 15.75), C.Gold, M.Metal)
+	b.part(m, "OfficeDoorFrame", V(4.65, 0.4, 0.35), V(3, 9.7, 15.75), C.Gold, M.Metal)
+	local plate = b.part(m, "DoorSign", V(2.4, 0.7, 0.05), V(3, 11.1, 15.93), C.Marble)
 	Build.text(plate, Enum.NormalId.Front, "STAFF ONLY", C.DarkMarble)
 
 	-- Wall clock above the office door
@@ -367,13 +442,16 @@ function ShopBuilder.Build(origin: CFrame, name: string, accent: Color3): Model
 	buildCounter(b, shop, accent)
 	buildDisplayCases(b, shop, accent)
 	buildShelves(b, shop, accent)
+	buildBackRoom(b, shop, accent)
 
 	-- Spots for later steps
 	local markers = Instance.new("Folder")
 	markers.Name = "Markers"
 	markers.Parent = shop
 	b.marker(markers, "OwnerSpawn", V(0, 4, 8.5)) -- behind the counter
-	b.marker(markers, "CustomerSpot", V(0, 1.5, 0.5)) -- in front of the counter
+	b.marker(markers, "CustomerSpot", V(6, 1.5, 0.5)) -- in front of the counter, at the register
+	b.marker(markers, "CounterItem", V(8.6, 5.0, 3.1)) -- where a seller puts their item down
+	b.marker(markers, "TestItem", V(12.5, 5.0, 3.4)) -- admin test items
 	b.marker(markers, "Door", V(0, 1.5, -19)) -- just outside the door
 	b.marker(markers, "Street", V(0, 1, -27)) -- on the sidewalk, where customers come from
 

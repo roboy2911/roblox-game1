@@ -356,11 +356,11 @@ local function spawnCustomer(state): boolean
 	return true
 end
 
--- Turns to face the counter.
+-- Turns to face the counter (toward the back of the shop).
 local function faceCounter(state)
-	local top = state.Shop.Counter.Top
 	local here = state.Root.Position
-	state.Npc:PivotTo(CFrame.lookAt(here, Vector3.new(top.Position.X, here.Y, top.Position.Z)))
+	local back = -state.Shop.PrimaryPart.CFrame.LookVector
+	state.Npc:PivotTo(CFrame.lookAt(here, here + back))
 end
 
 -- Waits at the counter until patience runs out (or they're sent away / the owner leaves).
@@ -426,8 +426,7 @@ local function visitSeller(shop)
 
 	-- Put the item down on the counter
 	faceCounter(state)
-	local top = shop.Counter.Top
-	local itemCf = top.CFrame * CFrame.new(-2.5, top.Size.Y / 2, -0.6) * CFrame.Angles(0, math.pi, 0)
+	local itemCf = shop.Markers.CounterItem.CFrame * CFrame.Angles(0, math.pi, 0) -- facing the owner
 	local model = ItemModels.Build(rolled.Id, itemCf)
 	if state.Leaving then
 		model:Destroy() -- sent away while the item was loading
@@ -468,11 +467,21 @@ local function walkToItem(state, model: Model)
 	local floor = shop.PrimaryPart.CFrame
 	local look = model:GetPivot()
 	local localStand = floor:PointToObjectSpace(look.Position + look.LookVector * 2.5)
+	local inside = shopPoint(shop, 0, -11) -- inside, past the open glass doors
+	if localStand.Z > 16 then
+		-- In the back room: through the counter gate and the back door (pathfinding finds the way)
+		walkTo(state, inside, true)
+		walkTo(state, shopPoint(shop, localStand.X, localStand.Z), true)
+		if not state.Leaving then
+			state.Npc:PivotTo(CFrame.lookAt(state.Root.Position, Vector3.new(look.Position.X, state.Root.Position.Y, look.Position.Z)))
+		end
+		state.BackToCounter = nil
+		return
+	end
 	local s = if localStand.X >= 0 then 1 else -1
 	-- Glass cases sit at x = +-10 (z -10 .. -2); the aisle toward the wall shelves is at x = +-13
 	local onShelf = math.abs(localStand.X) > 12
 	local laneX = if onShelf then s * 13 else localStand.X
-	local inside = shopPoint(shop, 0, -11) -- inside, past the open glass doors
 	local lane = shopPoint(shop, laneX, -12)
 	state.ExitPath = { lane, inside }
 	walkTo(state, inside, true)

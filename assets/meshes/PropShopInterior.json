@@ -238,9 +238,9 @@
     }
   },
   "Triangles": {
-    "DarkWood": 1188,
-    "Gold": 3664,
-    "PanelWood": 2700,
+    "DarkWood": 1296,
+    "Gold": 3348,
+    "PanelWood": 1944,
     "Trim": 752,
     "RugGold": 144,
     "RugCream": 288,
@@ -275,7 +275,7 @@
     ],
     "PanelWood": [
       -0.0,
-      -0.1072,
+      -0.1532,
       0.0022
     ],
     "Trim": [

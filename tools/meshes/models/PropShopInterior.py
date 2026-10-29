@@ -55,10 +55,14 @@ def build(lib):
             a = -length / 2 + (k + 0.5) * length / n
             yield a, length / n, place
 
-    rbox(wood, (38, 4, 0.2), (0, 3, 15.9), bevel=0.02)
-    rbox(gold, (38, 0.3, 0.4), (0, 5.15, 15.8), bevel=0.12, bevel_segments=3)
-    rbox(wood, (38, 0.5, 0.35), (0, 1.25, 15.82), bevel=0.08)
+    # Back wall panels, with a gap for the back room doorway (x 1..5)
+    for width, x in ((20, -9), (14, 12)):
+        rbox(wood, (width, 4, 0.2), (x, 3, 15.9), bevel=0.02)
+        rbox(gold, (width, 0.3, 0.4), (x, 5.15, 15.8), bevel=0.12, bevel_segments=3)
+        rbox(wood, (width, 0.5, 0.35), (x, 1.25, 15.82), bevel=0.08)
     for a, w, _ in wainscot_run(38, None):
+        if a + w / 2 > 0.8 and a - w / 2 < 5.2:
+            continue  # doorway
         rbox(wood_light, (w - 0.7, 2.4, 0.12), (a, 3.1, 15.76), bevel=0.06, bevel_segments=2)
     for s in SIDES:
         rbox(wood, (0.2, 4, 32), (s * 18.9, 3, 0), bevel=0.02)
@@ -109,19 +113,13 @@ def build(lib):
     for x in (-15.4, -4.6):
         lib.sphere(gold, 0.16, pos=R(x, 16.0, 15.75), segments=12, rings=8)
 
-    # Staff-only office door: gold frame with molding, paneled wood door, knob and kick plate
+    # Staff-only door frame with molding (the door to the back room)
     for x in (0.85, 5.15):
         rbox(gold, (0.35, 8.8, 0.35), (x, 5.4, 15.75), bevel=0.1, bevel_segments=2)
     rbox(gold, (4.65, 0.4, 0.35), (3, 9.7, 15.75), bevel=0.1, bevel_segments=2)
     lib.slab(gold, [(-0.9, 0.0), (0.9, 0.0), (0.6, 0.35), (0.0, 0.55), (-0.6, 0.35)], 0.2,
              pos=R(3, 9.9, 15.7), rot=(90, 0, 0), bevel=0.04)
-    rbox(wood, (4, 8.2, 0.3), (3, 5.1, 15.5), bevel=0.05)
-    for y in (3.0, 7.0):
-        for x in (2.05, 3.95):
-            rbox(wood_light, (1.4, 3.0 if y == 3.0 else 2.4, 0.12), (x, y, 15.32), bevel=0.06, bevel_segments=2)
-    lib.sphere(gold, 0.2, pos=R(4.5, 5.0, 15.25), segments=16, rings=10)
-    rbox(gold, (0.25, 0.6, 0.06), (4.5, 5.0, 15.33), bevel=0.03)
-    rbox(gold, (3.6, 0.6, 0.06), (3, 1.4, 15.33), bevel=0.02)
+    # (The door itself is separate in the game, so it can swing open)
 
     # Paintings above the shelves (one per side wall, facing into the room)
     skies = (Look("SkyBlue", (120, 190, 240)), Look("SkyOrange", (240, 170, 110)))
