@@ -9,6 +9,7 @@ local Config = require(ReplicatedStorage.Shared.Config)
 local Items = require(ReplicatedStorage.Shared.Items)
 local ItemModels = require(script.Parent.ItemModels)
 local Remotes = require(script.Parent.Remotes)
+local Appraisal = require(script.Parent.Appraisal)
 
 local Admin = {}
 
@@ -46,7 +47,12 @@ local function addLabel(model, rolled)
 	local lines = {
 		{ rolled.Name, rarityColor, 32 },
 		{ `{rolled.Rarity} • {rolled.Condition}`, rarityColor, 22 },
-		{ `True value: {Items.FormatMoney(rolled.TrueValue)} (admin)`, Color3.new(1, 1, 1), 22 },
+		{
+			`True value: {Items.FormatMoney(rolled.TrueValue)}`
+				.. (if rolled.Fake then " (FAKE)" elseif rolled.Treasure then " (TREASURE)" else ""),
+			Color3.new(1, 1, 1),
+			22,
+		},
 	}
 	for i, line in lines do
 		local label = Instance.new("TextLabel")
@@ -123,6 +129,10 @@ function Admin.Start(playerData, plots)
 			clearTestItem(player)
 		elseif action == "GiveItem" then
 			giveItem(player)
+		elseif action == "Appraisal" and (value == 1 or value == -1) then
+			local level = math.clamp(PlayerData.GetAppraisal(player) + value, 1, Appraisal.MaxLevel())
+			PlayerData.SetAppraisal(player, level)
+			print(`[Admin] {player.Name} appraisal level is now {level}`)
 		end
 	end)
 end

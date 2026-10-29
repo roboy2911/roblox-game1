@@ -17,7 +17,9 @@ PlayerData.InventoryChanged = Instance.new("BindableEvent")
 local function defaultData()
 	return {
 		Cash = Config.StartingCash,
-		-- Items bought from sellers: { Uid, Id, Name, Rarity, Condition, TrueValue, Paid, Slot }
+		Appraisal = 1, -- appraisal level: how well you guess what items are worth
+		-- Items bought from sellers: { Uid, Id, Name, Rarity, Condition, TrueValue, ApparentValue,
+		--   Fake, Treasure, Estimate = { Low, High, Note }, Paid, Slot }
 		-- Uid = unique id for this copy; Slot = where it's on display in the shop (nil = in the bag)
 		Inventory = {},
 	}
@@ -176,6 +178,19 @@ function PlayerData.RemoveItem(player, uid: string)
 		end
 	end
 	return nil
+end
+
+function PlayerData.GetAppraisal(player): number
+	local profile = profiles[player]
+	return if profile then profile.data.Appraisal else 1
+end
+
+function PlayerData.SetAppraisal(player, level: number)
+	local profile = profiles[player]
+	if profile then
+		profile.data.Appraisal = level
+		PlayerData.InventoryChanged:Fire(player)
+	end
 end
 
 -- True once the player's saved data has loaded.

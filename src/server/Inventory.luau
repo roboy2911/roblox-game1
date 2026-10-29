@@ -6,6 +6,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local ItemModels = require(script.Parent.ItemModels)
+local Appraisal = require(script.Parent.Appraisal)
 local Remotes = require(script.Parent.Remotes)
 
 local Inventory = {}
@@ -141,6 +142,8 @@ local function sendUpdate(player)
 	end
 	local list = {}
 	for _, item in PlayerData.GetInventory(player) do
+		-- Items from before appraisal existed (or admin gifts) get an estimate the first time
+		item.Estimate = item.Estimate or Appraisal.Estimate(item, PlayerData.GetAppraisal(player))
 		table.insert(list, {
 			Uid = item.Uid,
 			Id = item.Id,
@@ -148,6 +151,7 @@ local function sendUpdate(player)
 			Rarity = item.Rarity,
 			Condition = item.Condition,
 			Paid = item.Paid,
+			Estimate = item.Estimate,
 			Displayed = item.Slot ~= nil,
 		})
 	end
@@ -157,7 +161,12 @@ local function sendUpdate(player)
 	for _ in usedSpots(player) do
 		used += 1
 	end
-	updateRemote:FireClient(player, { Items = list, SpotsUsed = used, SpotsTotal = total })
+	updateRemote:FireClient(player, {
+		Items = list,
+		SpotsUsed = used,
+		SpotsTotal = total,
+		AppraisalLevel = PlayerData.GetAppraisal(player),
+	})
 end
 
 local function display(player, uid)

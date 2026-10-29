@@ -7,12 +7,14 @@
 -- and a mood. Bids past the limit get a counter-offer (or a yes); bids way off, and going
 -- backwards, hurt their mood; at 0 they storm off.
 
+local PathfindingService = game:GetService("PathfindingService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Config = require(ReplicatedStorage.Shared.Config)
 local Items = require(ReplicatedStorage.Shared.Items)
 local ItemModels = require(script.Parent.ItemModels)
+local Appraisal = require(script.Parent.Appraisal)
 
 local Customers = {}
 
@@ -185,26 +187,50 @@ local function makeBubble(npc: Model)
 	return text, barBack, bar
 end
 
--- Walks toward `target`; gives up after a while and hops there, so a customer never gets stuck.
--- On the way in (`arriving`), it stops as soon as the customer is told to leave.
-local function walkTo(state, target: Vector3, arriving: boolean?)
+-- Walks straight toward `target` until close (or `deadline`). Returns true if it got there.
+local function walkStraight(state, target: Vector3, deadline: number, arriving: boolean?): boolean
 	local humanoid, root = state.Humanoid, state.Root
-	local deadline = os.clock() + 12
 	local lastOrder = 0
 	while state.Npc.Parent and not (arriving and state.Leaving) do
-		local offset = (target - root.Position) * Vector3.new(1, 0, 1)
-		if offset.Magnitude < 1.5 then
-			return
+		if ((target - root.Position) * Vector3.new(1, 0, 1)).Magnitude < 1.5 then
+			return true
 		end
 		if os.clock() > deadline then
-			state.Npc:PivotTo(CFrame.new(target + Vector3.new(0, 3, 0)) * root.CFrame.Rotation)
-			return
+			return false
 		end
-		if os.clock() - lastOrder > 3 then
+		if os.clock() - lastOrder > 2 then
 			humanoid:MoveTo(target)
 			lastOrder = os.clock()
 		end
-		task.wait(0.2)
+		task.wait(0.1)
+	end
+	return false
+end
+
+-- Walks to `target`, finding a way around counters, cases, doors and walls (Roblox pathfinding).
+-- If no path is found it walks straight, and if it's still stuck it hops there, so a customer
+-- never gets stuck for good. On the way in (`arriving`), it stops as soon as they're told to leave.
+local function walkTo(state, target: Vector3, arriving: boolean?)
+	local root = state.Root
+	local deadline = os.clock() + 15
+	local path = PathfindingService:CreatePath({ AgentRadius = 1.6, AgentHeight = 5, AgentCanJump = false })
+	local ok = pcall(function()
+		path:ComputeAsync(root.Position, target)
+	end)
+	if ok and path.Status == Enum.PathStatus.Success then
+		for _, waypoint in path:GetWaypoints() do
+			if not state.Npc.Parent or (arriving and state.Leaving) then
+				return
+			end
+			if not walkStraight(state, waypoint.Position, math.min(deadline, os.clock() + 4), arriving) then
+				break -- blocked (a player in the way?); finish below
+			end
+		end
+	end
+	if state.Npc.Parent and not (arriving and state.Leaving) then
+		if not walkStraight(state, target, deadline, arriving) and state.Npc.Parent then
+			state.Npc:PivotTo(CFrame.new(target + Vector3.new(0, 3, 0)) * root.CFrame.Rotation)
+		end
 	end
 end
 
@@ -234,6 +260,8 @@ local function sendPanel(state, open: boolean)
 		return
 	end
 	local item = state.Item
+	-- Your guess of its value (made once per customer; items you own keep theirs)
+	state.Estimate = state.Estimate or item.Estimate or Appraisal.Estimate(item, PlayerData.GetAppraisal(player))
 	haggleRemote:FireClient(player, {
 		Open = true,
 		Mode = state.Kind, -- "Seller" (you buy) or "Buyer" (you sell)
@@ -243,6 +271,8 @@ local function sendPanel(state, open: boolean)
 		Condition = item.Condition,
 		Price = state.Price,
 		Paid = item.Paid, -- what you paid, when selling
+		Estimate = state.Estimate,
+		AppraisalLevel = PlayerData.GetAppraisal(player),
 		Mood = state.Mood,
 		Message = state.LastLine,
 		Cash = PlayerData.GetCash(player),
@@ -363,7 +393,9 @@ end
 
 local function visitSeller(shop)
 	local rolled = Items.Roll(rng)
-	local ask = math.max(1, math.round(rolled.TrueValue * rng:NextNumber(Config.AskMultiplier.Min, Config.AskMultiplier.Max)))
+	-- Sellers price by how it looks (a fake's seller asks a lot; a treasure's seller doesn't know)
+	local looks = rolled.ApparentValue or rolled.TrueValue
+	local ask = math.max(1, math.round(looks * rng:NextNumber(Config.AskMultiplier.Min, Config.AskMultiplier.Max)))
 	local state = newState(shop, "Seller")
 	state.Item = rolled -- includes the secret TrueValue (server only)
 	state.FirstPrice = ask
@@ -395,7 +427,8 @@ local function visitSeller(shop)
 	state.ItemModel = model
 
 	say(state, `I'm selling this {rarityText(rolled)} ({rolled.Condition}).\nI want <b>{Items.FormatMoney(ask)}</b>!`)
-	print(`[Customers] {state.Name} brought {rolled.Name} ({rolled.Rarity}, {rolled.Condition}), true value {Items.FormatMoney(rolled.TrueValue)}, asking {Items.FormatMoney(ask)}`)
+	local special = if rolled.Fake then " FAKE" elseif rolled.Treasure then " TREASURE" else ""
+	print(`[Customers] {state.Name} brought {rolled.Name} ({rolled.Rarity}, {rolled.Condition}){special}, true value {Items.FormatMoney(rolled.TrueValue)}, asking {Items.FormatMoney(ask)}`)
 	waitAtCounter(state)
 end
 
@@ -428,7 +461,7 @@ local function walkToItem(state, model: Model)
 	-- Glass cases sit at x = +-10 (z -10 .. -2); the aisle toward the wall shelves is at x = +-13
 	local onShelf = math.abs(localStand.X) > 12
 	local laneX = if onShelf then s * 13 else localStand.X
-	local inside = shopPoint(shop, 0, -13) -- just inside the door
+	local inside = shopPoint(shop, 0, -11) -- inside, past the open glass doors
 	local lane = shopPoint(shop, laneX, -12)
 	state.ExitPath = { lane, inside }
 	walkTo(state, inside, true)
@@ -537,6 +570,10 @@ local function deal(state, player, price: number)
 			Rarity = item.Rarity,
 			Condition = item.Condition,
 			TrueValue = item.TrueValue,
+			ApparentValue = item.ApparentValue,
+			Fake = item.Fake,
+			Treasure = item.Treasure,
+			Estimate = state.Estimate or Appraisal.Estimate(item, PlayerData.GetAppraisal(player)),
 			Paid = price,
 		})
 		print(`[Customers] {player.Name} bought {item.Name} for {Items.FormatMoney(price)} (true value {Items.FormatMoney(item.TrueValue)})`)

@@ -139,7 +139,7 @@ local empty = text("TextLabel", {
 local function row(item, order)
 	local frame = Instance.new("Frame")
 	frame.LayoutOrder = order
-	frame.Size = UDim2.new(1, -12, 0, 62)
+	frame.Size = UDim2.new(1, -12, 0, 84)
 	frame.BackgroundColor3 = Color3.new(1, 1, 1)
 	corner(frame, 12)
 	local stroke = outline(frame, 2)
@@ -165,6 +165,21 @@ local function row(item, order)
 			.. (if item.Displayed then " • <b>on display</b>" else ""),
 		Parent = frame,
 	})
+	local guess = item.Estimate
+	if guess then
+		local note = if guess.Note == "Fake" then " ⚠️ looks fake!"
+			elseif guess.Note == "Treasure" then " ✨ something special!"
+			else ""
+		text("TextLabel", {
+			Position = UDim2.fromOffset(12, 54),
+			Size = UDim2.new(1, -140, 0, 22),
+			TextSize = 15,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			Text = `worth ~{Items.FormatMoney(guess.Low)} – {Items.FormatMoney(guess.High)}{note}`,
+			Parent = frame,
+		})
+	end
 	local button = text("TextButton", {
 		AnchorPoint = Vector2.new(1, 0.5),
 		Position = UDim2.new(1, -10, 0.5, 0),
@@ -203,7 +218,7 @@ local function render(data)
 	end)
 	header.Text = `Inventory ({#itemsList})`
 	toggle.Text = `🎒 Inventory ({#itemsList})`
-	spotsLabel.Text = `Shop display spots: {data.SpotsUsed}/{data.SpotsTotal} used`
+	spotsLabel.Text = `Display spots: {data.SpotsUsed}/{data.SpotsTotal} used • Appraisal lv {data.AppraisalLevel or 1}`
 	if #itemsList == 0 then
 		empty.Parent = list
 	end
