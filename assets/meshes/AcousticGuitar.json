@@ -1,0 +1,89 @@
+{
+  "Id": "AcousticGuitar",
+  "Size": [
+    1.664,
+    4.811,
+    0.511
+  ],
+  "Parts": {
+    "Body": {
+      "Color": [
+        150,
+        85,
+        40
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Top": {
+      "Color": [
+        232,
+        180,
+        110
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Binding": {
+      "Color": [
+        240,
+        230,
+        210
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Dark": {
+      "Color": [
+        40,
+        40,
+        48
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Rosewood": {
+      "Color": [
+        55,
+        35,
+        28
+      ],
+      "Material": "Wood",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Pickguard": {
+      "Color": [
+        90,
+        45,
+        25
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Steel": {
+      "Color": [
+        190,
+        195,
+        205
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    }
+  },
+  "Triangles": {
+    "Body": 2696,
+    "Top": 2396,
+    "Binding": 5872,
+    "Dark": 476,
+    "Rosewood": 2172,
+    "Pickguard": 716,
+    "Steel": 1968
+  }
+}

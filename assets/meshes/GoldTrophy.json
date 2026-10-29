@@ -1,0 +1,56 @@
+{
+  "Id": "GoldTrophy",
+  "Size": [
+    1.884,
+    1.96,
+    1.24
+  ],
+  "Parts": {
+    "Marble": {
+      "Color": [
+        40,
+        40,
+        52
+      ],
+      "Material": "Marble",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Plate": {
+      "Color": [
+        235,
+        225,
+        190
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Ruby": {
+      "Color": [
+        220,
+        30,
+        60
+      ],
+      "Material": "Glass",
+      "Transparency": 0.0,
+      "Reflectance": 0.3
+    }
+  },
+  "Triangles": {
+    "Marble": 376,
+    "Gold": 7234,
+    "Plate": 108,
+    "Ruby": 30
+  }
+}

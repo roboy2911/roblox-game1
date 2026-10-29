@@ -6,8 +6,10 @@ local Config = require(ReplicatedStorage.Shared.Config)
 local PlayerData = require(script.Parent.PlayerData)
 local Plots = require(script.Parent.Plots)
 local LightingSetup = require(script.Parent.LightingSetup)
+local MeshLoader = require(script.Parent.MeshLoader)
 
 LightingSetup.Start()
+MeshLoader.Preload()
 Plots.Start()
 PlayerData.Start()
 

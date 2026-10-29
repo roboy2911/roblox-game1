@@ -1,0 +1,111 @@
+{
+  "Id": "RoyalCrown",
+  "Size": [
+    1.57,
+    1.69,
+    1.57
+  ],
+  "Parts": {
+    "Cushion": {
+      "Color": [
+        110,
+        25,
+        120
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Gold": {
+      "Color": [
+        255,
+        196,
+        54
+      ],
+      "Material": "Metal",
+      "Transparency": 0.0,
+      "Reflectance": 0.2
+    },
+    "Ermine": {
+      "Color": [
+        248,
+        246,
+        240
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Spots": {
+      "Color": [
+        25,
+        25,
+        30
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Velvet": {
+      "Color": [
+        160,
+        20,
+        45
+      ],
+      "Material": "Fabric",
+      "Transparency": 0.0,
+      "Reflectance": 0.0
+    },
+    "Pearl": {
+      "Color": [
+        250,
+        245,
+        235
+      ],
+      "Material": "SmoothPlastic",
+      "Transparency": 0.0,
+      "Reflectance": 0.1
+    },
+    "Ruby": {
+      "Color": [
+        220,
+        30,
+        60
+      ],
+      "Material": "Glass",
+      "Transparency": 0.0,
+      "Reflectance": 0.3
+    },
+    "Sapphire": {
+      "Color": [
+        40,
+        90,
+        230
+      ],
+      "Material": "Glass",
+      "Transparency": 0.0,
+      "Reflectance": 0.3
+    },
+    "Emerald": {
+      "Color": [
+        30,
+        190,
+        100
+      ],
+      "Material": "Glass",
+      "Transparency": 0.0,
+      "Reflectance": 0.3
+    }
+  },
+  "Triangles": {
+    "Cushion": 428,
+    "Gold": 11432,
+    "Ermine": 1152,
+    "Spots": 960,
+    "Velvet": 960,
+    "Pearl": 2544,
+    "Ruby": 90,
+    "Sapphire": 90,
+    "Emerald": 60
+  }
+}

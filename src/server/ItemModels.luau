@@ -1,7 +1,10 @@
--- 3D models for every item, built from parts.
+-- 3D models for every item.
+-- Uses the detailed mesh version when one has been uploaded (see MeshLoader),
+-- otherwise builds the item out of parts.
 -- Each model sits with its bottom at y = 0, centered, with its front facing -Z.
 
 local Build = require(script.Parent.Build)
+local MeshLoader = require(script.Parent.MeshLoader)
 
 local C = Build.Colors
 local M = Enum.Material
@@ -295,6 +298,11 @@ end
 
 -- Builds the model for `id` at `cf` (cf = where the bottom-center of the item goes).
 function ItemModels.Build(id: string, cf: CFrame): Model
+	local detailed = MeshLoader.Clone(id, cf)
+	if detailed then
+		return detailed
+	end
+
 	local model = Instance.new("Model")
 	model.Name = id
 	local builder = builders[id]
@@ -313,7 +321,7 @@ function ItemModels.Build(id: string, cf: CFrame): Model
 end
 
 function ItemModels.Has(id: string): boolean
-	return builders[id] ~= nil
+	return builders[id] ~= nil or MeshLoader.Has(id)
 end
 
 return ItemModels
