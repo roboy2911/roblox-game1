@@ -307,7 +307,11 @@ local function leave(state, message: string)
 	walkTo(state, state.ExitPosition)
 	state.Npc:Destroy()
 	active[state.Shop] = nil
-	nextArrival[state.Shop] = os.clock() + rng:NextNumber(Config.CustomerDelay.Min, Config.CustomerDelay.Max)
+	-- Faster customers upgrade shortens the wait for the next one
+	local owner = ownerOf(state.Shop)
+	local speed = if owner then PlayerData.GetUpgrade(owner, "Speed") else 0
+	local scale = Config.CustomerDelayScale[math.min(speed + 1, #Config.CustomerDelayScale)]
+	nextArrival[state.Shop] = os.clock() + rng:NextNumber(Config.CustomerDelay.Min, Config.CustomerDelay.Max) * scale
 end
 
 -- Makes the customer's character on the sidewalk, with a bubble and a Haggle prompt.
@@ -377,6 +381,12 @@ local function waitAtCounter(state)
 	leave(state, "I don't have all day... bye!")
 end
 
+-- Silver tongue upgrade level of the shop's owner.
+local function hagglingLevel(shop): number
+	local owner = ownerOf(shop)
+	return if owner then PlayerData.GetUpgrade(owner, "Haggling") else 0
+end
+
 local function newState(shop, kind: string)
 	return {
 		Kind = kind,
@@ -400,7 +410,8 @@ local function visitSeller(shop)
 	state.Item = rolled -- includes the secret TrueValue (server only)
 	state.FirstPrice = ask
 	state.Price = ask -- their current asking price (goes down while haggling)
-	state.Limit = math.max(1, math.round(ask * rng:NextNumber(Config.SellerFloor.Min, Config.SellerFloor.Max)))
+	local floor = rng:NextNumber(Config.SellerFloor.Min, Config.SellerFloor.Max) - Config.HagglingBonus * hagglingLevel(shop)
+	state.Limit = math.max(1, math.round(ask * math.max(0.3, floor)))
 	if not spawnCustomer(state) then
 		return
 	end
@@ -488,7 +499,8 @@ local function visitBuyer(shop, owner)
 	state.Owner = owner
 	state.FirstPrice = offer
 	state.Price = offer -- their current offer (goes up while haggling)
-	state.Limit = math.max(offer, math.round(item.TrueValue * rng:NextNumber(Config.BuyerCeiling.Min, Config.BuyerCeiling.Max)))
+	local ceiling = rng:NextNumber(Config.BuyerCeiling.Min, Config.BuyerCeiling.Max) + Config.HagglingBonus * hagglingLevel(shop)
+	state.Limit = math.max(offer, math.round(item.TrueValue * ceiling))
 	if not spawnCustomer(state) then
 		return
 	end
@@ -600,7 +612,12 @@ local function bid(state, player, amount: number)
 		deal(state, player, state.Price)
 		return
 	end
-	local loss = Config.MoodLoss
+	-- Mood losses, softened by the owner's Silver tongue upgrade
+	local save = math.max(0, 1 - Config.HagglingMoodSave * hagglingLevel(state.Shop))
+	local loss = {}
+	for kind, amount in Config.MoodLoss do
+		loss[kind] = amount * save
+	end
 	-- "past the limit" = within what the customer would accept
 	local withinLimit = if selling then amount <= state.Limit else amount >= state.Limit
 	local wayOff = if selling then amount > state.Limit * 2 else amount < state.Limit * 0.5

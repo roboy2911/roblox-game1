@@ -131,7 +131,7 @@ function Admin.Start(playerData, plots)
 			giveItem(player)
 		elseif action == "Appraisal" and (value == 1 or value == -1) then
 			local level = math.clamp(PlayerData.GetAppraisal(player) + value, 1, Appraisal.MaxLevel())
-			PlayerData.SetAppraisal(player, level)
+			PlayerData.SetUpgrade(player, "Appraisal", level)
 			print(`[Admin] {player.Name} appraisal level is now {level}`)
 		end
 	end)
